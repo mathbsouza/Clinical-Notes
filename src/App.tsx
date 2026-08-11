@@ -161,7 +161,7 @@ export default function App() {
     return (
       <main className="page-enter min-h-screen bg-neutral-950 text-neutral-100">
         <header className="border-b border-orange-300/10 bg-neutral-950/95 backdrop-blur">
-          <div className="mx-auto flex max-w-3xl items-center justify-between px-5 py-4">
+          <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4">
             <button
               className="inline-flex items-center gap-2 text-sm text-neutral-400 transition hover:text-orange-200"
               onClick={() => setView('home')}
@@ -171,7 +171,7 @@ export default function App() {
               Voltar
             </button>
             <button
-              className="hidden font-serif text-lg font-medium text-neutral-200 transition hover:text-orange-200 sm:block"
+              className="hidden font-serif text-lg font-medium tracking-normal text-neutral-200 transition hover:text-orange-200 sm:block"
               onClick={returnHome}
               type="button"
             >
@@ -183,11 +183,11 @@ export default function App() {
           </div>
         </header>
 
-        <article className="mx-auto max-w-3xl px-5 py-8">
+        <article className="mx-auto max-w-4xl px-5 py-8 sm:py-10">
           {activeNote ? (
             <>
-              <div className="border-b border-orange-300/10 pb-6">
-                <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400">
+              <div className="border-b border-orange-300/10 pb-7">
+                <div className="flex flex-wrap items-center gap-3 text-[0.82rem] font-medium text-neutral-500">
                   <span>{activeNote.category}</span>
                   <span className="inline-flex items-center gap-1">
                     <CalendarDays size={15} aria-hidden="true" />
@@ -198,10 +198,10 @@ export default function App() {
                     {activeNote.tags.join(', ') || 'Sem tags'}
                   </span>
                 </div>
-                <h1 className="mt-4 font-serif text-4xl font-medium leading-tight tracking-normal text-neutral-50 sm:text-5xl">
+                <h1 className="mt-4 max-w-3xl font-serif text-4xl font-medium leading-[1.03] tracking-normal text-neutral-50 sm:text-5xl">
                   {activeNote.title}
                 </h1>
-                <p className="mt-3 max-w-2xl leading-7 text-neutral-400">{activeNote.summary}</p>
+                <p className="mt-4 max-w-2xl text-[1.03rem] leading-7 text-neutral-400">{activeNote.summary}</p>
               </div>
 
               <div className="pt-7">
