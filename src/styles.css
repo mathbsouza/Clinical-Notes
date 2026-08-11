@@ -1,0 +1,388 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  background: #0a0a0a;
+}
+
+.column-heading {
+  user-select: none;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.column-heading:hover {
+  background: rgb(23 23 23 / 0.9);
+  border-color: rgb(251 146 60 / 0.22);
+}
+
+.page-enter {
+  animation: page-in 300ms ease both;
+}
+
+.search-shell::after {
+  background: #fb923c;
+  bottom: 0;
+  content: '';
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0.35;
+  transition: transform 180ms ease;
+  width: 100%;
+}
+
+.search-shell:focus-within::after {
+  transform: scaleX(1);
+}
+
+.image-panel {
+  animation: image-reveal 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.panel-enter {
+  animation: panel-in 240ms ease both;
+}
+
+.cascade-grid {
+  transition:
+    grid-template-columns 220ms ease,
+    width 220ms ease;
+}
+
+.menu-option {
+  animation: option-in 240ms ease both;
+  position: relative;
+  transition: color 160ms ease;
+}
+
+.menu-option::before {
+  background: #fb923c;
+  content: '';
+  bottom: -1px;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+  width: 100%;
+  z-index: 0;
+}
+
+.menu-option > * {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-option:hover,
+.menu-option.is-active {
+  color: #fed7aa;
+}
+
+.menu-option:hover::before,
+.menu-option.is-active::before {
+  transform: scaleX(1);
+}
+
+.menu-option:hover p,
+.menu-option:hover span,
+.menu-option:hover svg,
+.menu-option.is-active p,
+.menu-option.is-active span,
+.menu-option.is-active svg {
+  color: rgb(253 186 116 / 0.72);
+}
+
+.article-row {
+  animation: row-in 240ms ease both;
+}
+
+.article-row::before {
+  background: #fb923c;
+  content: '';
+  bottom: -1px;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+  width: 100%;
+  z-index: 0;
+}
+
+.article-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+.article-row:hover::before,
+.article-row:focus-visible::before {
+  transform: scaleX(1);
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes image-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+  }
+}
+
+@keyframes panel-in {
+  from {
+    opacity: 0;
+    transform: translateX(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes option-in {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes row-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-row,
+  .image-panel,
+  .menu-option,
+  .panel-enter,
+  .page-enter {
+    animation: none;
+  }
+
+  .article-row::before,
+  .menu-option::before,
+  .search-shell::after {
+    transition: none;
+  }
+}
+
+.prose-notes {
+  color: #e5e5e5;
+  font-size: 1rem;
+  max-width: 72ch;
+}
+
+.prose-notes h1,
+.prose-notes h2,
+.prose-notes h3 {
+  font-family: Fraunces, Georgia, serif;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  scroll-margin-top: 5rem;
+}
+
+.prose-notes h1,
+.prose-notes h2 {
+  color: #fafafa;
+  font-weight: 500;
+}
+
+.prose-notes h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.prose-notes h2 {
+  font-size: 1.55rem;
+  margin-top: 2.6rem;
+}
+
+.prose-notes h3 {
+  color: #f5f5f5;
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin-top: 2rem;
+}
+
+.prose-notes p {
+  color: #d4d4d4;
+  font-size: 1.03rem;
+  line-height: 1.85;
+  margin: 0;
+}
+
+.prose-notes p + p {
+  margin-top: 1.15rem;
+}
+
+.prose-notes li {
+  color: #d4d4d4;
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.prose-notes ul {
+  list-style: disc;
+  margin: 1rem 0 1.35rem;
+  padding-left: 1.35rem;
+}
+
+.prose-notes ol {
+  list-style: decimal;
+  margin: 1rem 0 1.35rem;
+  padding-left: 1.35rem;
+}
+
+.prose-notes li {
+  margin-top: 0.35rem;
+  padding-left: 0.25rem;
+}
+
+.prose-notes a {
+  color: #fdba74;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-notes blockquote {
+  border-left: 2px solid #fb923c;
+  background: rgb(251 146 60 / 0.055);
+  margin: 1.55rem 0 1.25rem;
+  padding: 0.85rem 1rem;
+  color: #a3a3a3;
+}
+
+.prose-notes blockquote p {
+  color: #d6d3d1;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.prose-notes .table-scroll {
+  margin: 1.35rem 0 1.7rem;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding-bottom: 0.2rem;
+  scrollbar-color: rgb(251 146 60 / 0.42) rgb(38 38 38 / 0.7);
+  scrollbar-width: thin;
+}
+
+.prose-notes .table-scroll::-webkit-scrollbar {
+  height: 0.45rem;
+}
+
+.prose-notes .table-scroll::-webkit-scrollbar-track {
+  background: rgb(38 38 38 / 0.7);
+}
+
+.prose-notes .table-scroll::-webkit-scrollbar-thumb {
+  background: rgb(251 146 60 / 0.42);
+  border-radius: 999px;
+}
+
+.prose-notes table {
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  min-width: max-content;
+  width: 100%;
+}
+
+.prose-notes th,
+.prose-notes td {
+  border: 1px solid rgb(251 146 60 / 0.18);
+  padding: 0.75rem 0.85rem;
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.prose-notes td:first-child,
+.prose-notes th:first-child {
+  white-space: normal;
+  min-width: 12rem;
+}
+
+.prose-notes th {
+  background: rgb(251 146 60 / 0.08);
+  color: #fed7aa;
+  font-weight: 500;
+}
+
+.prose-notes sup a {
+  color: #fdba74;
+  font-weight: 600;
+  padding: 0 0.12rem;
+  text-decoration: none;
+}
+
+.prose-notes .footnotes {
+  border-top: 1px solid rgb(251 146 60 / 0.18);
+  color: #a3a3a3;
+  margin-top: 2.6rem;
+  padding-top: 1.15rem;
+}
+
+.prose-notes .footnotes ol {
+  list-style: decimal;
+  margin: 0;
+  padding-left: 1.35rem;
+}
+
+.prose-notes .footnotes li,
+.prose-notes .footnotes p {
+  color: #a3a3a3;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.prose-notes .footnotes li::marker {
+  color: #fdba74;
+  font-weight: 600;
+}
