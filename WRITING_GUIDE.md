@@ -21,17 +21,28 @@ tags: tag1, tag2
 ---
 ```
 
-Ordem sugerida:
+Ordem sugerida para doenças:
 
-- Visão Geral
-- Quando Suspeitar ou Manifestações Clínicas
-- Classificação ou Fenótipos
-- Diagnóstico
-- Tratamento
-- Seguimento ou Prognóstico
+- Definição
+- Epidemiologia, com dados quantitativos quando disponíveis
+- Etiologia, com proporções quando disponíveis
+- Manifestações Clínicas, com Sn, Sp, LR e PIRD quando houver evidência
+- Diagnóstico, com critérios, Sn, Sp, LR e PIRD quando aplicável
+- Tratamento, com dose/posologia, PICO, ensaios primários e sínteses
+- Prognóstico, com estudos de desfechos
 - Footnotes
 
 Nem toda nota precisa ter todas as seções, mas a ausência deve fazer sentido para a entidade.
+
+Evite seções genéricas ou artificiais como:
+
+- “Números Essenciais”
+- “Pegadinhas”
+- “Resumo de prova”
+- “Não Fazer”
+- “Pontos-chave”
+
+Se um número é importante, ele deve aparecer dentro da seção clínica correspondente: dose em Tratamento, meta pressórica em Tratamento, recorrência em Prognóstico.
 
 ## Tom e Redação
 
@@ -54,6 +65,8 @@ Preferir:
 - “O maior ganho ocorre quando...”
 
 O texto principal deve ser sintético, interpretativo e útil. Detalhes extensos de desenho de estudo, percentuais, HR, IC95% e população podem ir para footnotes quando não forem necessários na frase principal.
+
+O artigo deve parecer uma explicação clínica natural, não um checklist de cursinho. Use transições curtas para manter fluxo: definição leva a epidemiologia; epidemiologia leva a etiologia; etiologia explica manifestações; manifestações orientam diagnóstico; diagnóstico seleciona tratamento; tratamento muda prognóstico.
 
 ## Uso de Citações Diretas
 
@@ -220,6 +233,8 @@ Bom uso:
 - checklist de seguimento.
 
 Evite listas longas quando um parágrafo curto resolver melhor.
+
+Evite fragmentação excessiva. Muitos subtítulos curtos fazem a nota parecer uma colagem de cartões. Prefira seções maiores, com parágrafos breves e bullets somente para decisões, critérios, doses, contraindicações ou listas realmente escaneáveis.
 
 ## Tabelas
 
