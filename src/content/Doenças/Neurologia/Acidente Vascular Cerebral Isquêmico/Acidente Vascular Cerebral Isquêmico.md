@@ -29,11 +29,12 @@ Proporções variam conforme população e intensidade da investigação. Em uma
 
 | Etiologia | Pistas clínicas/imagem | Conduta que muda |
 | --- | --- | --- |
-| Aterosclerose de grandes artérias | estenose/oclusão no território, infarto cortical ou embólico | antiagregante, estatina intensiva, revascularização carotídea quando indicada |
-| Cardioembolismo | FA, múltiplos territórios, trombo intracardíaco, valvopatia | anticoagulação quando segura |
-| Pequenos vasos | síndrome lacunar, lesão profunda pequena | controle de PA, diabetes, lipídios e antiagregante |
+| Aterosclerose de grandes artérias | estenose/oclusão no território, infarto cortical ou embólico | AAS 75-100 mg/dia ou clopidogrel 75 mg/dia; atorvastatina 80 mg/dia; revascularização carotídea quando indicada |
+| Cardioembolismo | FA, múltiplos territórios, trombo intracardíaco, valvopatia | anticoagulação oral quando segura; DOAC em FA não valvar ou varfarina em FA valvar/prótese mecânica |
+| Pequenos vasos | síndrome lacunar, lesão profunda pequena | AAS 75-100 mg/dia ou clopidogrel 75 mg/dia; controle de PA, diabetes e lipídios |
 | Dissecção, vasculite, SAF, Moyamoya | jovem, dor cervical, arteriopatia, contexto sistêmico | tratamento dirigido |
 | Indeterminada/ESUS | infarto não lacunar sem fonte definida | investigar fonte; não anticoagular empiricamente |
+| Legenda: DOAC = anticoagulante oral direto; ESUS = embolic stroke of undetermined source; FA = fibrilação atrial; SAF = síndrome antifosfolípide. |  |  |
 
 ## Manifestações Clínicas
 
@@ -57,6 +58,7 @@ Escalas de triagem ajudam, mas não encerram o diagnóstico. ROSIER é útil com
 | HINTS central | síndrome vestibular aguda | 95,5% | 71,2% | 3,3 | 0,06 |
 | CPSS ≥2 | rastreio de LVO | 82% | 62% | 2,2 | 0,29 |
 | CPSS ≥1 | rastreio de LVO | 97% | 17% | 1,2 | 0,18 |
+| Legenda: Sn = sensibilidade; Sp = especificidade; LR = razão de verossimilhança; LVO = oclusão de grande vaso. |  |  |  |  |  |
 
 Mimetizadores devem ser procurados sem atrasar reperfusão quando o quadro é compatível: hipoglicemia, crise com paralisia de Todd, enxaqueca com aura, encefalopatia metabólica, transtorno funcional, tumor, abscesso e labirintopatia periférica. Crise no início não exclui AVC se o déficit focal persiste.
 
@@ -74,6 +76,7 @@ A glicemia capilar deve ser conhecida antes da trombólise. TC sem contraste ou 
 | CTA/angio-RM | identificar LVO, dissecção, estenose e anatomia para EVT |
 | Perfusão/RM | estimar core, penumbra e mismatch em janela estendida |
 | ECG/telemetria | detectar FA ou arritmia emboligênica |
+| Legenda: ASPECTS = Alberta Stroke Program Early CT Score; CTA = angio-TC; EVT = terapia endovascular; LVO = oclusão de grande vaso; NIHSS = National Institutes of Health Stroke Scale. |  |
 
 NIHSS baixo não significa déficit não incapacitante. Afasia, hemianopsia, déficit de mão dominante, negligência ou incapacidade de marcha podem justificar reperfusão mesmo com poucos pontos. ASPECTS baixo sugere core maior, mas não exclui trombectomia em todos os pacientes selecionados por diretrizes recentes.
 
@@ -87,6 +90,7 @@ O tratamento agudo começa antes da etiologia estar completa: estabilizar, exclu
 | Tenecteplase IV | até 4,5 h | 0,25 mg/kg IV em bolus, máximo 25 mg | alternativa à alteplase; especialmente operacional em LVO |
 | Trombectomia mecânica | até 6 h | procedimento endovascular | ICA intracraniana/M1 ou LVO anterior proximal, imagem favorável |
 | Trombectomia tardia | 6-24 h | procedimento endovascular | LVO com mismatch clínico-core, perfusão favorável ou critérios expandidos |
+| Legenda: ICA = artéria carótida interna; IV = intravenoso; LVO = oclusão de grande vaso. |  |  |  |
 
 Em paciente elegível para trombólise e trombectomia, o trombolítico não deve atrasar a EVT, e a EVT não deve esperar resposta ao trombolítico. A dose alta de tenecteplase não deve ser usada rotineiramente.[^tenecteplase]
 
@@ -98,6 +102,7 @@ Pressão arterial é tratada conforme reperfusão:
 | Após trombólise | <180/105 mmHg por 24 h | monitorar e tratar elevações |
 | Sem reperfusão | tratar se >220/120 mmHg | reduzir cerca de 15% nas primeiras 24 h |
 | Hipotensão/hipovolemia | evitar | corrigir para preservar perfusão |
+| Legenda: metas aplicam-se ao manejo agudo; exceções clínicas, como dissecção aórtica ou edema agudo de pulmão, podem exigir alvo próprio. |  |  |
 
 Quando for necessário reduzir PA, prefira agentes IV tituláveis. Protocolos usam labetalol, nicardipina ou clevidipina conforme disponibilidade e perfil hemodinâmico.[^bp-acute]
 
@@ -106,6 +111,7 @@ Quando for necessário reduzir PA, prefira agentes IV tituláveis. Protocolos us
 | Labetalol | 10-20 mg IV em 1-2 min; pode repetir 1 vez |
 | Nicardipina | 5 mg/h; titular 2,5 mg/h a cada 5-15 min; máximo 15 mg/h |
 | Clevidipina | 1-2 mg/h; dobrar a cada 2-5 min até alvo |
+| Legenda: escolha conforme disponibilidade, frequência cardíaca, função ventricular e contexto hemodinâmico. |  |
 
 Antitrombóticos dependem do cenário. A escolha muda com trombólise, gravidade, risco hemorrágico e mecanismo provável. Em AVC menor não cardioembólico ou TIA de alto risco, DAPT reduz recorrência precoce, mas deve voltar para monoterapia depois.[^aspirin][^dapt]
 
@@ -115,6 +121,23 @@ Antitrombóticos dependem do cenário. A escolha muda com trombólise, gravidade
 | AVC menor/TIA alto risco | AAS + clopidogrel por 21 dias; clopidogrel 300-600 mg de ataque, depois 75 mg/dia |
 | Estenose intracraniana grave sintomática | DAPT até 90 dias em selecionados, dentro de manejo médico intensivo |
 | FA/cardioembolismo | anticoagulação oral quando risco hemorrágico permitir |
+| Legenda: AAS = ácido acetilsalicílico; DAPT = dupla antiagregação; TIA = ataque isquêmico transitório; VO/VR = via oral/via retal. |  |
+
+| Anticoagulante em FA não valvar | Posologia usual |
+| --- | --- |
+| Apixabana | 5 mg 2x/dia; reduzir para 2,5 mg 2x/dia se critérios de idade, peso e creatinina forem preenchidos |
+| Rivaroxabana | 20 mg 1x/dia com alimento; reduzir conforme função renal |
+| Dabigatrana | 150 mg 2x/dia; reduzir conforme função renal e risco hemorrágico |
+| Edoxabana | 60 mg 1x/dia; reduzir conforme função renal, peso ou interações |
+| Varfarina | dose titulada por INR; alvo usual 2,0-3,0 em FA não valvar |
+| Legenda: doses de DOAC exigem ajuste por função renal, idade, peso, interações e bula local; prótese valvar mecânica e estenose mitral reumática moderada/grave favorecem varfarina. |  |
+
+| Prevenção vascular | Posologia/meta |
+| --- | --- |
+| Atorvastatina | 80 mg/dia; meta LDL <70 mg/dL em doença aterosclerótica |
+| Ezetimiba | 10 mg/dia se LDL acima da meta apesar de estatina máxima tolerada |
+| Pressão arterial | alvo usual <130/80 mmHg se tolerado |
+| Legenda: individualizar metas por fragilidade, doença renal, hipotensão, estenoses críticas e tolerância. |  |
 
 Na prevenção secundária, o tratamento deve seguir o mecanismo. Em AVC não cardioembólico, usar antiagregante; em FA, anticoagulação; em doença aterosclerótica, estatina de alta intensidade e alvo de LDL <70 mg/dL; em hipertensão, meta usual <130/80 mmHg se tolerada. DAPT crônica e anticoagulação empírica para ESUS não são recomendadas.[^secondary-prevention][^statin]
 

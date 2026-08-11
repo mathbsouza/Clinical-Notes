@@ -393,6 +393,15 @@ body {
   background: rgb(23 23 23 / 0.38);
 }
 
+.prose-notes .table-note-row td {
+  background: rgb(251 146 60 / 0.055);
+  color: #a8a29e;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  padding: 0.65rem 0.78rem;
+  white-space: normal;
+}
+
 .prose-notes sup a {
   color: #fdba74;
   font-weight: 600;

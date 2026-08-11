@@ -253,6 +253,17 @@ Boas tabelas:
 
 Toda tabela com conteúdo clínico deve ter footnote ou referências nas células/linhas relevantes.
 
+Quando uma tabela tiver abreviações, unidade, ressalva de dose ou nota operacional, coloque a legenda como última linha da própria tabela:
+
+```markdown
+| Fármaco | Dose |
+| --- | --- |
+| Exemplo | 10 mg 1x/dia |
+| Legenda: ajustar por função renal quando aplicável. |  |
+```
+
+A linha deve começar com `Legenda:`, `Nota:` ou `Abreviações:`. O frontend renderiza essa linha como uma nota que ocupa toda a largura da tabela.
+
 ## Páginas e Fontes
 
 Quando a página exata estiver confirmada, inclua página:
