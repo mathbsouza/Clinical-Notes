@@ -44,6 +44,8 @@ Evite seções genéricas ou artificiais como:
 
 Se um número é importante, ele deve aparecer dentro da seção clínica correspondente: dose em Tratamento, meta pressórica em Tratamento, recorrência em Prognóstico.
 
+Evite redundância entre texto e tabela. Se a tabela já contém dose, janela, Sn, Sp, LR, porcentagem ou ponto de corte, o parágrafo deve interpretar o dado, não repeti-lo.
+
 ## Tom e Redação
 
 Escreva como artigo clínico direto. Evite metatexto.
@@ -223,6 +225,8 @@ Para tratamento, prefira evidência nesta ordem:
 ## Uso de Listas
 
 Use `-` estrategicamente para escaneabilidade, não para transformar o artigo inteiro em tópicos.
+
+Quando usar listas, use somente `-` como marcador. Não use `*`, `+` ou listas numeradas, exceto se o usuário pedir explicitamente uma sequência numerada.
 
 Bom uso:
 

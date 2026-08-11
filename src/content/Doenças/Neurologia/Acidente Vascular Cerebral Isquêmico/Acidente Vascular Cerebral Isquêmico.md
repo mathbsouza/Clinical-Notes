@@ -49,7 +49,7 @@ Circulação posterior exige cautela: ataxia, diplopia, disfagia, vertigem cont�
 | Vertebrobasilar | diplopia, disfagia, disartria, ataxia, vertigem central, consciência alterada |
 | Lacunar | motor puro, sensitivo puro, sensorimotor, hemiparesia atáxica, disartria-mão desajeitada |
 
-Escalas de triagem ajudam, mas não encerram o diagnóstico. Em suspeita de AVC/TIA, ROSIER ≥1 tem Sn 89%, Sp 76%, LR+ 3,6 e LR- 0,14. Em síndrome vestibular aguda contínua, HINTS central tem Sn 95,5%, Sp 71,2%, LR+ calculado 3,3 e LR- 0,06. Para rastrear oclusão de grande vaso, CPSS ≥2 tem Sn 82%, Sp 62%, LR+ 2,2 e LR- 0,29.[^diagnostic-scales]
+Escalas de triagem ajudam, mas não encerram o diagnóstico. ROSIER é útil como triagem geral, HINTS só deve ser aplicado em síndrome vestibular aguda contínua, e CPSS ajuda a priorizar investigação de oclusão de grande vaso.[^diagnostic-scales]
 
 | Instrumento | Cenário | Sn | Sp | LR+ | LR- |
 | --- | --- | ---: | ---: | ---: | ---: |
@@ -88,7 +88,7 @@ O tratamento agudo começa antes da etiologia estar completa: estabilizar, exclu
 | Trombectomia mecânica | até 6 h | procedimento endovascular | ICA intracraniana/M1 ou LVO anterior proximal, imagem favorável |
 | Trombectomia tardia | 6-24 h | procedimento endovascular | LVO com mismatch clínico-core, perfusão favorável ou critérios expandidos |
 
-Tenecteplase 0,40 mg/kg não deve ser usada como dose rotineira para AVC. Em paciente elegível para trombólise e trombectomia, o trombolítico não deve atrasar a EVT, e a EVT não deve esperar resposta ao trombolítico.[^tenecteplase]
+Em paciente elegível para trombólise e trombectomia, o trombolítico não deve atrasar a EVT, e a EVT não deve esperar resposta ao trombolítico. A dose alta de tenecteplase não deve ser usada rotineiramente.[^tenecteplase]
 
 Pressão arterial é tratada conforme reperfusão:
 
@@ -99,9 +99,15 @@ Pressão arterial é tratada conforme reperfusão:
 | Sem reperfusão | tratar se >220/120 mmHg | reduzir cerca de 15% nas primeiras 24 h |
 | Hipotensão/hipovolemia | evitar | corrigir para preservar perfusão |
 
-Opções IV usuais incluem labetalol 10-20 mg IV em 1-2 min, nicardipina 5 mg/h titulada em 2,5 mg/h a cada 5-15 min até 15 mg/h, ou clevidipina 1-2 mg/h titulada a cada 2-5 min.[^bp-acute]
+Quando for necessário reduzir PA, prefira agentes IV tituláveis. Protocolos usam labetalol, nicardipina ou clevidipina conforme disponibilidade e perfil hemodinâmico.[^bp-acute]
 
-Antitrombóticos dependem do cenário. Sem trombólise, AAS 160-300 mg deve ser iniciado nas primeiras 24-48 h após excluir hemorragia. Após trombólise, antitrombótico é evitado por 24 h e iniciado após imagem de controle. Em AVC menor não cardioembólico ou TIA de alto risco, AAS + clopidogrel por 21 dias reduz recorrência precoce, com monoterapia depois.[^aspirin][^dapt]
+| Fármaco IV | Posologia usual |
+| --- | --- |
+| Labetalol | 10-20 mg IV em 1-2 min; pode repetir 1 vez |
+| Nicardipina | 5 mg/h; titular 2,5 mg/h a cada 5-15 min; máximo 15 mg/h |
+| Clevidipina | 1-2 mg/h; dobrar a cada 2-5 min até alvo |
+
+Antitrombóticos dependem do cenário. A escolha muda com trombólise, gravidade, risco hemorrágico e mecanismo provável. Em AVC menor não cardioembólico ou TIA de alto risco, DAPT reduz recorrência precoce, mas deve voltar para monoterapia depois.[^aspirin][^dapt]
 
 | Situação | Esquema |
 | --- | --- |
