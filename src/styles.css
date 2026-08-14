@@ -74,45 +74,49 @@ body {
 .menu-option {
   animation: option-in 240ms ease both;
   position: relative;
-  transition: color 160ms ease;
+  transition: background 150ms ease, box-shadow 150ms ease;
 }
 
-.menu-option::before {
-  background: #fb923c;
-  content: '';
-  bottom: -1px;
-  height: 1px;
-  left: 0;
-  position: absolute;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 180ms ease;
-  width: 100%;
-  z-index: 0;
+.menu-option:hover {
+  background: rgb(38 38 38 / 0.72);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.035);
 }
 
-.menu-option > * {
-  position: relative;
-  z-index: 1;
+.menu-option:hover .menu-option-icon {
+  background: rgb(251 146 60 / 0.08);
+  border-color: rgb(251 146 60 / 0.14);
+  color: rgb(253 186 116 / 0.8);
 }
 
-.menu-option:hover,
-.menu-option.is-active {
-  color: #fed7aa;
+.menu-option:hover h3 {
+  color: #f5f5f5;
 }
 
-.menu-option:hover::before,
-.menu-option.is-active::before {
-  transform: scaleX(1);
+.desktop-note-link {
+  border-left: 2px solid transparent;
+  transition: background 160ms ease, border-color 160ms ease;
 }
 
-.menu-option:hover p,
-.menu-option:hover span,
-.menu-option:hover svg,
-.menu-option.is-active p,
-.menu-option.is-active span,
-.menu-option.is-active svg {
-  color: rgb(253 186 116 / 0.72);
+.desktop-note-link:hover {
+  background: rgb(251 146 60 / 0.055);
+}
+
+.desktop-note-link.is-active {
+  background: rgb(251 146 60 / 0.09);
+  border-left-color: rgb(251 146 60 / 0.75);
+}
+
+.desktop-note-link.is-active span:last-child {
+  color: #ffedd5;
+}
+
+.sidebar-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  display: none;
 }
 
 .article-row {
@@ -221,26 +225,29 @@ body {
 
 .prose-notes {
   color: #e5e5e5;
-  font-size: 1.02rem;
-  max-width: 76ch;
+  font-size: 1rem;
+  max-width: none;
+  width: 100%;
 }
 
 .prose-notes h1,
 .prose-notes h2,
 .prose-notes h3 {
   font-family:
-    Newsreader,
-    Georgia,
-    serif;
+    'Instrument Sans',
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
   line-height: 1.15;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.4rem;
   scroll-margin-top: 5rem;
 }
 
 .prose-notes h1,
 .prose-notes h2 {
   color: #fafafa;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .prose-notes h1 {
@@ -249,11 +256,13 @@ body {
 }
 
 .prose-notes h2 {
-  border-top: 1px solid rgb(251 146 60 / 0.1);
-  font-size: 1.62rem;
-  letter-spacing: 0;
-  margin-top: 3rem;
-  padding-top: 1.15rem;
+  font-size: 1.72rem;
+  letter-spacing: -0.015em;
+  margin-top: 1.65rem;
+}
+
+.prose-notes > h2:first-child {
+  margin-top: 0;
 }
 
 .prose-notes h3 {
@@ -263,44 +272,43 @@ body {
     ui-sans-serif,
     system-ui,
     sans-serif;
-  font-size: 0.92rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  margin-top: 2.1rem;
-  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-top: 1.3rem;
 }
 
 .prose-notes p {
-  color: #d6d3d1;
-  font-size: 1.02rem;
-  line-height: 1.78;
+  color: #d4d4d4;
+  font-size: 1rem;
+  line-height: 1.58;
   margin: 0;
 }
 
 .prose-notes p + p {
-  margin-top: 1rem;
+  margin-top: 0.55rem;
 }
 
 .prose-notes li {
   color: #d6d3d1;
   font-size: 1rem;
-  line-height: 1.68;
+  line-height: 1.48;
 }
 
 .prose-notes ul {
   list-style: disc;
-  margin: 0.75rem 0 1.35rem;
+  margin: 0.4rem 0 0.75rem;
   padding-left: 1.15rem;
 }
 
 .prose-notes ol {
   list-style: decimal;
-  margin: 0.75rem 0 1.35rem;
+  margin: 0.4rem 0 0.75rem;
   padding-left: 1.25rem;
 }
 
 .prose-notes li {
-  margin-top: 0.42rem;
+  margin-top: 0.2rem;
   padding-left: 0.2rem;
 }
 
@@ -325,10 +333,7 @@ body {
 
 .prose-notes blockquote p {
   color: #e7e5e4;
-  font-family:
-    Newsreader,
-    Georgia,
-    serif;
+  font-family: inherit;
   font-size: 1.04rem;
   line-height: 1.62;
 }
@@ -412,8 +417,12 @@ body {
 .prose-notes .footnotes {
   border-top: 1px solid rgb(251 146 60 / 0.18);
   color: #a3a3a3;
-  margin-top: 3rem;
-  padding-top: 1.25rem;
+  margin-top: 1.5rem;
+  padding-top: 0.75rem;
+}
+
+.prose-notes .footnotes h2 {
+  margin: 0 0 0.45rem;
 }
 
 .prose-notes .footnotes ol {

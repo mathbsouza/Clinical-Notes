@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, CalendarDays, FileText, Folder, Search, Tags } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { ArrowLeft, ArrowRight, CalendarDays, FileText, Folder, Menu, Search, Tags } from 'lucide-react';
 import MarkdownNote from './components/MarkdownNote';
 import { type Note, notes } from './lib/notes';
 
@@ -105,6 +105,7 @@ export default function App() {
   const [selectedPath, setSelectedPath] = useState<string[]>([]);
   const [activeSlug, setActiveSlug] = useState(notes[0]?.slug ?? '');
   const [view, setView] = useState<'home' | 'article'>('home');
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 768px)').matches);
   const hasQuery = query.trim().length > 0;
 
   const tree = useMemo(() => buildTree(notes), []);
@@ -133,6 +134,14 @@ export default function App() {
   const activeNote = notes.find((note) => note.slug === activeSlug);
   const mobileStep = Math.max(visibleColumns.length - 1, 0);
 
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 768px)');
+    const updateViewport = () => setIsDesktop(media.matches);
+
+    media.addEventListener('change', updateViewport);
+    return () => media.removeEventListener('change', updateViewport);
+  }, []);
+
   function selectNode(node: NavNode) {
     if (node.note) {
       openArticle(node.note.slug);
@@ -157,6 +166,21 @@ export default function App() {
     setQuery('');
   }
 
+  if (isDesktop) {
+    return (
+      <DesktopReader
+        activeNote={activeNote}
+        menuColumns={visibleColumns}
+        onOpenArticle={openArticle}
+        onRetract={retractTo}
+        onSelectNode={selectNode}
+        query={query}
+        searchResults={hasQuery ? searchResults : notes}
+        setQuery={setQuery}
+      />
+    );
+  }
+
   if (view === 'article') {
     return (
       <main className="page-enter min-h-screen bg-neutral-950 text-neutral-100">
@@ -171,7 +195,7 @@ export default function App() {
               Voltar
             </button>
             <button
-              className="hidden font-serif text-lg font-medium tracking-normal text-neutral-200 transition hover:text-orange-200 sm:block"
+              className="hidden text-lg font-semibold tracking-tight text-neutral-200 transition hover:text-orange-200 sm:block"
               onClick={returnHome}
               type="button"
             >
@@ -186,7 +210,7 @@ export default function App() {
         <article className="mx-auto max-w-4xl px-5 py-8 sm:py-10">
           {activeNote ? (
             <>
-              <div className="border-b border-orange-300/10 pb-7">
+              <div className="border-b border-orange-300/10 pb-5">
                 <div className="flex flex-wrap items-center gap-3 text-[0.82rem] font-medium text-neutral-500">
                   <span>{activeNote.category}</span>
                   <span className="inline-flex items-center gap-1">
@@ -198,13 +222,13 @@ export default function App() {
                     {activeNote.tags.join(', ') || 'Sem tags'}
                   </span>
                 </div>
-                <h1 className="mt-4 max-w-3xl font-serif text-4xl font-medium leading-[1.03] tracking-normal text-neutral-50 sm:text-5xl">
+                <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.025em] text-neutral-50 sm:text-5xl">
                   {activeNote.title}
                 </h1>
                 <p className="mt-4 max-w-2xl text-[1.03rem] leading-7 text-neutral-400">{activeNote.summary}</p>
               </div>
 
-              <div className="pt-7">
+              <div className="pt-4">
                 <MarkdownNote body={activeNote.body} />
               </div>
             </>
@@ -221,7 +245,7 @@ export default function App() {
       <section className="page-enter mx-auto flex min-h-screen max-w-5xl flex-col px-5 py-7">
         <header className="pb-6">
           <button
-            className="font-serif text-4xl font-medium leading-none tracking-normal text-neutral-50 transition hover:text-orange-200"
+            className="text-4xl font-semibold leading-none tracking-[-0.025em] text-neutral-50 transition hover:text-orange-200"
             onClick={returnHome}
             type="button"
           >
@@ -288,6 +312,145 @@ export default function App() {
   );
 }
 
+type DesktopReaderProps = {
+  activeNote?: Note;
+  menuColumns: NavNode[];
+  query: string;
+  searchResults: Note[];
+  setQuery: (query: string) => void;
+  onOpenArticle: (slug: string) => void;
+  onRetract: (index: number) => void;
+  onSelectNode: (node: NavNode) => void;
+};
+
+function DesktopReader({
+  activeNote,
+  menuColumns,
+  query,
+  searchResults,
+  setQuery,
+  onOpenArticle,
+  onRetract,
+  onSelectNode,
+}: DesktopReaderProps) {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const menuStep = Math.max(menuColumns.length - 1, 0);
+
+  return (
+    <main className="flex h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100">
+      <header className="relative z-10 grid h-16 shrink-0 grid-cols-[1fr_minmax(22rem,38rem)_1fr] items-center border-b border-orange-300/10 bg-neutral-950/95 px-4 backdrop-blur">
+        <div className="flex items-center gap-3">
+          <button
+            aria-label={sidebarOpen ? 'Fechar menu de artigos' : 'Abrir menu de artigos'}
+            aria-expanded={sidebarOpen}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-md text-neutral-400 transition hover:bg-orange-300/10 hover:text-orange-200"
+            onClick={() => setSidebarOpen((open) => !open)}
+            type="button"
+          >
+            <Menu size={21} aria-hidden="true" />
+          </button>
+          <span className="text-xl font-semibold tracking-tight text-neutral-100">Clinical Notes</span>
+        </div>
+
+        <label className="search-shell group relative block w-full">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 transition group-focus-within:text-orange-300" size={17} />
+          <input
+            aria-label="Pesquisar artigos"
+            className="h-10 w-full rounded-md border border-orange-300/10 bg-neutral-900/65 pl-10 pr-3 text-sm text-neutral-100 outline-none transition placeholder:text-neutral-600 focus:border-orange-300/35"
+            placeholder="Pesquisar artigos"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </label>
+        <div />
+      </header>
+
+      <div className={`grid min-h-0 flex-1 transition-[grid-template-columns] duration-200 ${sidebarOpen ? 'grid-cols-[19rem_minmax(0,1fr)]' : 'grid-cols-[0_minmax(0,1fr)]'}`}>
+      <aside className="flex min-h-0 min-w-0 flex-col overflow-hidden border-r border-orange-300/10 bg-neutral-950">
+        <nav aria-label="Artigos" className="relative min-h-0 flex-1 overflow-hidden">
+          {query.trim() ? (
+            <div className="sidebar-scroll h-full overflow-y-auto px-2 py-3">
+              {searchResults.map((note) => {
+                const isActive = note.slug === activeNote?.slug;
+
+                return (
+                  <button
+                    className={`desktop-note-link w-full rounded-md px-3 py-2.5 text-left ${isActive ? 'is-active' : ''}`}
+                    key={note.slug}
+                    onClick={() => onOpenArticle(note.slug)}
+                    type="button"
+                  >
+                    <span className="block truncate text-[0.68rem] uppercase tracking-[0.12em] text-neutral-600">
+                      {note.pathSegments.slice(0, -1).join(' / ')}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[0.9rem] font-medium text-neutral-300">{note.title}</span>
+                  </button>
+                );
+              })}
+
+              {searchResults.length === 0 ? (
+                <p className="px-3 py-4 text-sm text-neutral-500">Nenhum artigo encontrado.</p>
+              ) : null}
+            </div>
+          ) : (
+            <div
+              className="flex h-full transition-transform duration-300 ease-out"
+              style={{ transform: `translateX(-${menuStep * 100}%)` }}
+            >
+              {menuColumns.map((node, index) => (
+                <div className="sidebar-scroll h-full w-full shrink-0 overflow-y-auto bg-neutral-950 px-3 py-3" key={node.path.join('/') || 'root'}>
+                  <NavColumn
+                    node={node}
+                    onRetract={index > 0 ? () => onRetract(index - 1) : undefined}
+                    onReturn={() => onRetract(index)}
+                    onSelect={onSelectNode}
+                    query=""
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </nav>
+      </aside>
+
+      <section className="min-w-0 overflow-y-auto">
+        {activeNote ? (
+          <article className="mx-auto max-w-[50rem] px-10 py-12 xl:px-12">
+            <header className="border-b border-white/[0.07] pb-4">
+              <p className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-neutral-600">
+                {activeNote.pathSegments.slice(0, -1).join(' / ')}
+              </p>
+              <h1 className="mt-3 text-5xl font-semibold leading-[1.06] tracking-[-0.035em] text-neutral-50">
+                {activeNote.title}
+              </h1>
+              {activeNote.summary ? (
+                <p className="mt-3 text-[1.04rem] leading-6 text-neutral-400">{activeNote.summary}</p>
+              ) : null}
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.75rem] text-neutral-600">
+                <span>{activeNote.category}</span>
+                <span aria-hidden="true">·</span>
+                <span>{activeNote.updated || 'Sem data'}</span>
+                {activeNote.tags.length ? (
+                  <>
+                    <span aria-hidden="true">·</span>
+                    <span>{activeNote.tags.slice(0, 3).join(', ')}</span>
+                  </>
+                ) : null}
+              </div>
+            </header>
+            <div className="pt-3">
+              <MarkdownNote body={activeNote.body} />
+            </div>
+          </article>
+        ) : (
+          <div className="grid min-h-screen place-items-center text-neutral-500">Selecione um artigo.</div>
+        )}
+      </section>
+      </div>
+    </main>
+  );
+}
+
 type SearchResultsProps = {
   results: Note[];
   onOpenArticle: (slug: string) => void;
@@ -315,7 +478,7 @@ function SearchResults({ results, onOpenArticle }: SearchResultsProps) {
             <div className="flex items-start justify-between gap-4">
               <div className="min-w-0">
                 <p className="truncate text-xs text-orange-200/40">{note.pathSegments.slice(0, -1).join(' / ')}</p>
-                <h3 className="mt-1 font-serif text-xl font-medium leading-tight tracking-normal text-neutral-100 transition group-hover:translate-x-0.5 group-hover:text-orange-100">
+                <h3 className="mt-1 text-xl font-semibold leading-tight tracking-[-0.02em] text-neutral-100 transition group-hover:translate-x-0.5 group-hover:text-orange-100">
                   {note.title}
                 </h3>
                 {note.summary ? (
@@ -349,32 +512,33 @@ function NavColumn({ node, query, onReturn, onRetract, onSelect }: NavColumnProp
 
   return (
     <section className="panel-enter flex h-full flex-col">
-      <div className="column-heading mb-2 rounded-md border border-orange-300/10 bg-neutral-900/70 px-3 py-2 shadow-sm shadow-black/30">
-        <div className="flex items-center justify-between gap-3">
-          <button
-            className="min-w-0 flex-1 text-left transition hover:text-orange-200"
-            onClick={onReturn}
-            type="button"
-          >
-            <p className="text-[0.68rem] uppercase tracking-[0.18em] text-orange-200/35">
-              {node.path.length === 0 ? 'Início' : node.note ? 'Artigo' : 'Pasta'}
-            </p>
-            <h2 className="mt-0.5 truncate text-sm font-medium tracking-normal text-neutral-300">{title}</h2>
-          </button>
+      <div className="mb-3 px-2 pb-2 pt-1">
+        <div className="flex items-center gap-2">
           {onRetract ? (
             <button
-              aria-label="Retrair menu"
-              className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-neutral-500 transition hover:bg-orange-300/10 hover:text-orange-200"
+              aria-label="Voltar ao nível anterior"
+              className="-ml-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-500 transition hover:bg-neutral-800 hover:text-orange-200"
               onClick={onRetract}
               type="button"
             >
               <ArrowLeft size={16} aria-hidden="true" />
             </button>
-          ) : null}
+          ) : (
+            <span className="h-2 w-2 shrink-0 rounded-full bg-orange-400/80 shadow-[0_0_10px_rgb(251_146_60/0.35)]" />
+          )}
+          <button className="min-w-0 flex-1 text-left" onClick={onReturn} type="button">
+            <p className="text-[0.65rem] font-medium uppercase tracking-[0.16em] text-neutral-600">
+              {node.path.length === 0 ? 'Biblioteca' : node.path.slice(0, -1).at(-1) ?? 'Conteúdo'}
+            </p>
+            <h2 className="mt-0.5 truncate text-[0.95rem] font-semibold tracking-tight text-neutral-200">{title}</h2>
+          </button>
+          <span className="rounded-full bg-neutral-900 px-2 py-0.5 text-[0.68rem] tabular-nums text-neutral-500 ring-1 ring-inset ring-white/[0.06]">
+            {visibleChildren.length}
+          </span>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto">
+      <div className="sidebar-scroll flex-1 overflow-y-auto">
         {visibleChildren.map((child, index) => {
           const isArticle = Boolean(child.note);
           const Icon = isArticle ? FileText : Folder;
@@ -382,26 +546,27 @@ function NavColumn({ node, query, onReturn, onRetract, onSelect }: NavColumnProp
 
           return (
             <button
-              className="menu-option group w-full border-b border-orange-300/10 py-4 text-left"
+              className="menu-option group mb-1 w-full rounded-lg px-2.5 py-2.5 text-left"
               key={child.path.join('/')}
               onClick={() => onSelect(child)}
               style={{ animationDelay: `${Math.min(index * 45, 360)}ms` }}
               type="button"
             >
-              <div className="flex items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="mb-1 flex items-center gap-2 text-neutral-500">
-                    <Icon size={15} aria-hidden="true" />
-                    <span className="text-xs">{isArticle ? child.note?.category : count}</span>
-                  </div>
-                  <h3 className="truncate font-serif text-xl font-medium leading-tight tracking-normal text-neutral-200">
+              <div className="flex items-center gap-3">
+                <span className="menu-option-icon inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/[0.05] bg-neutral-900 text-neutral-500 shadow-sm shadow-black/20">
+                  <Icon size={15} strokeWidth={1.7} aria-hidden="true" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <h3 className="truncate text-[0.88rem] font-medium leading-5 tracking-[-0.01em] text-neutral-300">
                     {isArticle ? child.note?.title : child.name}
                   </h3>
-                  {isArticle && child.note?.summary ? (
-                    <p className="mt-1 line-clamp-2 text-sm leading-6 text-neutral-500">{child.note.summary}</p>
-                  ) : null}
+                  <div className="mt-0.5 flex items-center gap-1.5 text-[0.68rem] leading-4 text-neutral-600">
+                    <span className="truncate">{isArticle ? child.note?.category : `${count} ${count === 1 ? 'item' : 'itens'}`}</span>
+                  </div>
                 </div>
-                <ArrowRight className="shrink-0 text-neutral-600 transition group-hover:translate-x-0.5 group-hover:text-orange-300" size={16} />
+                {!isArticle ? (
+                  <ArrowRight className="shrink-0 text-neutral-700 transition group-hover:translate-x-0.5 group-hover:text-neutral-400" size={14} />
+                ) : null}
               </div>
             </button>
           );
