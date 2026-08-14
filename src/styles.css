@@ -442,3 +442,167 @@ body {
   color: #fdba74;
   font-weight: 600;
 }
+
+.etiology-flowchart {
+  margin: 1.35rem 0 1.75rem;
+  overflow: hidden;
+  padding: 1.25rem 0.2rem 0;
+}
+
+.flowchart-root {
+  background: linear-gradient(135deg, #fb923c, #ea580c);
+  border: 1px solid rgb(255 237 213 / 0.32);
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgb(234 88 12 / 0.18), inset 0 1px rgb(255 255 255 / 0.2);
+  color: #fff7ed;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  margin: 0 auto;
+  max-width: 12rem;
+  padding: 0.72rem 1.2rem;
+  text-align: center;
+}
+
+.flowchart-trunk {
+  background: linear-gradient(#fb923c, rgb(251 146 60 / 0.28));
+  height: 2rem;
+  margin: 0 auto;
+  position: relative;
+  width: 2px;
+}
+
+.flowchart-trunk::after {
+  background: #fb923c;
+  border-radius: 50%;
+  bottom: -0.2rem;
+  box-shadow: 0 0 0 4px rgb(251 146 60 / 0.12);
+  content: '';
+  height: 0.45rem;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 0.45rem;
+}
+
+.flowchart-branches {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  position: relative;
+}
+
+.flowchart-branches::before {
+  background: rgb(251 146 60 / 0.34);
+  content: '';
+  height: 1px;
+  left: 16.666%;
+  position: absolute;
+  right: 16.666%;
+  top: 0;
+}
+
+.flowchart-branch {
+  min-width: 0;
+  padding-top: 1.3rem;
+  position: relative;
+}
+
+.flowchart-connector {
+  background: rgb(251 146 60 / 0.34);
+  height: 1.3rem;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  width: 1px;
+}
+
+.flowchart-card {
+  background: linear-gradient(145deg, rgb(38 38 38 / 0.92), rgb(23 23 23 / 0.78));
+  border: 1px solid rgb(251 146 60 / 0.16);
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.2);
+  height: 100%;
+  overflow: hidden;
+  padding: 0.95rem;
+  position: relative;
+}
+
+.flowchart-card::before {
+  background: linear-gradient(90deg, #fb923c, transparent);
+  content: '';
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.prose-notes .flowchart-card h3 {
+  color: #ffedd5;
+  font-size: 0.88rem;
+  margin: 0 0 0.65rem;
+}
+
+.prose-notes .flowchart-card ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.prose-notes .flowchart-card li {
+  border-top: 1px solid rgb(255 255 255 / 0.055);
+  color: #bdb8b4;
+  font-size: 0.79rem;
+  line-height: 1.38;
+  margin: 0;
+  padding: 0.48rem 0 0.48rem 0.8rem;
+  position: relative;
+}
+
+.prose-notes .flowchart-card li::before {
+  background: #fb923c;
+  border-radius: 50%;
+  content: '';
+  height: 0.28rem;
+  left: 0;
+  opacity: 0.72;
+  position: absolute;
+  top: 0.92rem;
+  width: 0.28rem;
+}
+
+.etiology-flowchart figcaption {
+  color: #737373;
+  font-size: 0.72rem;
+  margin-top: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .flowchart-branches {
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  .flowchart-branches::before {
+    bottom: 1.5rem;
+    height: auto;
+    left: 0.35rem;
+    right: auto;
+    top: 0;
+    width: 1px;
+  }
+
+  .flowchart-branch {
+    padding-left: 1.2rem;
+    padding-top: 0;
+  }
+
+  .flowchart-connector {
+    height: 1px;
+    left: 0.35rem;
+    top: 1.35rem;
+    width: 0.85rem;
+  }
+}

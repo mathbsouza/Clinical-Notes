@@ -7,11 +7,45 @@ type MarkdownNoteProps = {
   body: string;
 };
 
+type FlowchartBranch = {
+  title: string;
+  items: string[];
+};
+
 function getNodeText(node: ReactNode): string {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
   if (Array.isArray(node)) return node.map(getNodeText).join('');
   if (isValidElement<{ children?: ReactNode }>(node)) return getNodeText(node.props.children);
   return '';
+}
+
+function EtiologyFlowchart({ source }: { source: string }) {
+  const [root = 'Etiologia', ...branchLines] = source.trim().split(/\r?\n/).filter(Boolean);
+  const branches: FlowchartBranch[] = branchLines.map((line) => {
+    const [title, ...items] = line.split('|').map((part) => part.trim());
+    return { title, items };
+  });
+
+  return (
+    <figure className="etiology-flowchart" aria-label={`Fluxograma: ${root}`}>
+      <div className="flowchart-root">{root}</div>
+      <div className="flowchart-trunk" aria-hidden="true" />
+      <div className="flowchart-branches">
+        {branches.map((branch, index) => (
+          <div className="flowchart-branch" key={`${branch.title}-${index}`}>
+            <div className="flowchart-connector" aria-hidden="true" />
+            <section className="flowchart-card">
+              <h3>{branch.title}</h3>
+              <ul>
+                {branch.items.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </section>
+          </div>
+        ))}
+      </div>
+      <figcaption>Principais grupos etiológicos da síncope</figcaption>
+    </figure>
+  );
 }
 
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
@@ -26,6 +60,14 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
               <table>{children}</table>
             </div>
           ),
+          pre: ({ children }) => {
+            const child = Children.toArray(children)[0];
+            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-etiology-flowchart') {
+              return <EtiologyFlowchart source={getNodeText(child.props.children)} />;
+            }
+
+            return <pre>{children}</pre>;
+          },
           tr: ({ children }) => {
             const cells = Children.toArray(children);
             const firstCell = cells[0];
