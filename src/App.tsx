@@ -103,7 +103,7 @@ function scoreNote(note: Note, query: string) {
 export default function App() {
   const [query, setQuery] = useState('');
   const [selectedPath, setSelectedPath] = useState<string[]>([]);
-  const [activeSlug, setActiveSlug] = useState(notes[0]?.slug ?? '');
+  const [activeSlug, setActiveSlug] = useState('');
   const [view, setView] = useState<'home' | 'article'>('home');
   const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 768px)').matches);
   const hasQuery = query.trim().length > 0;
@@ -443,7 +443,39 @@ function DesktopReader({
             </div>
           </article>
         ) : (
-          <div className="grid min-h-screen place-items-center text-neutral-500">Selecione um artigo.</div>
+          <section className="mx-auto flex min-h-full max-w-[50rem] items-center px-10 py-12 xl:px-12">
+            <div className="w-full max-w-2xl">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-orange-300/10 bg-orange-400/[0.06] text-orange-200/70">
+                <FileText size={19} strokeWidth={1.7} aria-hidden="true" />
+              </span>
+              <p className="mt-6 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-orange-200/45">
+                Biblioteca clínica
+              </p>
+              <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-[-0.035em] text-neutral-100">
+                Bem-vindo ao Clinical Notes
+              </h1>
+              <p className="mt-4 max-w-xl text-base leading-7 text-neutral-500">
+                Um espaço para consultar notas clínicas organizadas por entidade e especialidade, com conteúdo direto e referências rastreáveis.
+              </p>
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-lg border border-white/[0.06] bg-neutral-900/35 p-4">
+                  <p className="text-sm font-medium text-neutral-300">Explore o conteúdo</p>
+                  <p className="mt-1 text-sm leading-6 text-neutral-600">
+                    Use o menu à esquerda para navegar entre categorias e artigos.
+                  </p>
+                </div>
+                <div className="rounded-lg border border-white/[0.06] bg-neutral-900/35 p-4">
+                  <p className="text-sm font-medium text-neutral-300">Encontre rapidamente</p>
+                  <p className="mt-1 text-sm leading-6 text-neutral-600">
+                    Pesquise títulos, especialidades, tags ou termos do conteúdo.
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs text-neutral-700">{notes.length} notas disponíveis</p>
+            </div>
+          </section>
         )}
       </section>
       </div>
