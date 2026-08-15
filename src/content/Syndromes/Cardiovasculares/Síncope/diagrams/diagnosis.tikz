@@ -1,239 +1,86 @@
 \begin{tikzpicture}[
-    font=\sffamily\small,
-    line/.style={draw=black, -{Stealth[scale=1.0]}, line width=0.8pt},
-    box/.style={
-        draw,
-        fill=white,
-        rectangle,
-        rounded corners=0.5mm,
-        align=center,
-        minimum height=8mm,
-        text width=#1,
-        inner sep=4mm
-    },
-    box/.default=38mm,
-    smallbox/.style={
-        draw,
-        rectangle,
-        rounded corners=0.5mm,
-        align=center,
-        minimum height=7mm,
-        text width=#1,
-        inner sep=3mm
-    },
-    smallbox/.default=30mm,
-    titlebox/.style={
-        draw,
-        fill=white,
-        rectangle,
-        line width=0.9pt,
-        align=center,
-        minimum height=10mm,
-        text width=110mm,
-        inner sep=4mm,
-        font=\bfseries\Large
-    },
-    headbox/.style={
-        draw,
-        rectangle,
-        fill=white,
-        align=center,
-        minimum height=12mm,
-        text width=68mm,
-        inner sep=4mm
-    },
-    prob/.style={font=\bfseries\large},
-    sectiontitle/.style={font=\bfseries\large},
-    note/.style={font=\small},
-    tinytext/.style={font=\footnotesize},
+  font=\sffamily\footnotesize,
+  terminal/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
+    align=center, text width=10cm, minimum height=10mm, inner sep=3mm,
+    font=\sffamily\bfseries\large},
+  process/.style={draw=black, fill=white, line width=.6pt, rectangle,
+    align=center, text width=4.2cm, minimum height=10mm, inner sep=3mm},
+  processwide/.style={process, text width=5.6cm},
+  decision/.style={draw=black, fill=white, line width=.6pt, diamond,
+    aspect=2.2, align=center, text width=3.4cm, inner sep=1.5mm},
+  note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm,
+    align=center, text width=4.2cm, inner sep=2.5mm},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
+    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}},
+  label/.style={fill=white, inner sep=1pt, font=\sffamily\scriptsize\bfseries}
 ]
+  % Grade rígida: 10 linhas x 7 colunas (coluna central = 4).
+  % Todos os nós são declarados antes de qualquer conexão.
+  \matrix (grid) [
+    matrix of nodes,
+    row sep=13mm,
+    column sep=8mm,
+    nodes in empty cells
+  ] {
+    & & & |[terminal] (title)| {TRANSIENT LOSS OF CONSCIOUSNESS} & & & \\
+    & & & |[processwide] (characterize)| {\textbf{CHARACTERIZE THE EVENT}\\[1mm]
+      position/trigger + prodrome + witness account\\ movements + recovery/confusion} & & & \\
+    & & & |[decision] (estimate)| {Estimate the clinical probability} & & & \\
+    & |[process] (syncopeTop)| {\textbf{SYNCOPE}\\[1mm] Prolonged sitting or standing, especially with presyncope, favors syncope.}
+      & & |[process] (seizureTop)| {\textbf{EPILEPTIC SEIZURE}\\[1mm] Lateral tongue injury, head turning, or abnormal posturing favors seizure.}
+      & & |[process] (ddxTop)| {\textbf{DIFFERENTIAL DIAGNOSES}\\[1mm] Functional event; metabolic disturbance; intoxication; cerebrovascular disease.} & \\
+    & & & |[process] (reassess)| {Reassess the probability} & & & \\
+    & |[process] (probSyncope)| {\textbf{PROBABLE SYNCOPE}}
+      & & & & |[process] (probSeizure)| {\textbf{PROBABLE EPILEPTIC SEIZURE}} & \\
+    & |[processwide] (exam)| {\textbf{CARDIAC EXAMINATION + ECG}\\
+      \textbf{BP AND HR IN THE STANDING POSITION}\\[1mm]
+      after 5 min supine $\rightarrow$ at 1 and 3 min standing}
+      & & & & |[processwide] (acuteCause)| {\textbf{SEARCH FOR AN ACUTE PROVOKING CAUSE}\\[1mm]
+      Glucose; sodium; calcium; magnesium; renal and liver function; toxicology if suspected; CSF if CNS infection is suspected.} & \\
+    |[process] (reflex)| {\textbf{REFLEX}\\[1mm] Typical trigger and autonomic prodrome: pain/procedure, heat, prolonged standing, nausea or sweating.}
+      & |[process] (ortho)| {\textbf{ORTHOSTATIC}\\[1mm] Symptoms on standing with concordant BP drop: SBP $\geq 20$ or DBP $\geq 10$ mmHg within 3 min.}
+      & |[process] (cardiac)| {\textbf{CARDIAC}\\[1mm] AF/flutter, cyanosis, structural disease, ECG abnormality, chest pain or dyspnea.}
+      & & & |[note] (noCause)| {If no clear acute provoking cause} & \\
+    |[note] (reflexResult)| {Typical pattern $\rightarrow$ clinical diagnosis}
+      & |[note] (orthoResult)| {Evaluate hypovolemia, bleeding, medications or dysautonomia; extend testing if symptoms occur later.}
+      & |[note] (echo)| {Structural suspicion $\rightarrow$ echocardiography}
+      & |[note] (monitor)| {Arrhythmic suspicion $\rightarrow$ ambulatory ECG monitoring according to event frequency}
+      & & |[processwide] (eeg)| {\textbf{ELECTROENCEPHALOGRAPHY + STRUCTURAL NEUROIMAGING}\\[1mm]
+      MRI preferred; CT for acute intracranial evaluation.} & \\
+    & & & & & |[note] (eegNote)| {Normal electroencephalography does not exclude epileptic seizure.} & \\
+  };
 
-% TOP
-\node[titlebox] (title) {TRANSIENT LOSS OF CONSCIOUSNESS};
+  % Fluxo central superior.
+  \draw[arrow] (title.south) -- (characterize.north);
+  \draw[arrow] (characterize.south) -- (estimate.north);
 
-\node[headbox, below=7mm of title] (char) {%
-    {\bfseries\Large CHARACTERIZE THE EVENT}\\[1mm]
-    \normalsize
-    position/trigger + prodrome + witness account\\
-    + movements + recovery/confusion
-};
+  % Primeira ramificação: cada seta nasce no nó de decisão.
+  \draw[arrow] (estimate.west) -- ++(-8mm,0) |- node[label,near start,above] {$\approx 75\%$} (syncopeTop.north);
+  \draw[arrow] (estimate.south) -- node[label,left] {$\approx 18\%$} (seizureTop.north);
+  \draw[arrow] (estimate.east) -- ++(8mm,0) |- node[label,near start,above] {$\approx 7\%$} (ddxTop.north);
 
-\node[below=5mm of char, font=\large] (estimate) {estimate the clinical probability};
+  % Convergência em nó explícito de reavaliação.
+  \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) |- (reassess.west);
+  \draw[arrow] (seizureTop.south) -- (reassess.north);
+  \draw[arrow] (ddxTop.south) -- ++(0,-6mm) |- (reassess.east);
 
-% FIRST ROW
-\node[box=39mm, below left=17mm and 42mm of estimate] (syncopeTop) {%
-    {\bfseries\Large SYNCOPE}\\[2mm]
-    \normalsize
-    Prolonged sitting or standing,\\
-    especially with presyncope,\\
-    favors syncope.
-};
+  % Segunda ramificação simétrica.
+  \draw[arrow] (reassess.west) -- ++(-8mm,0) |- (probSyncope.north);
+  \draw[arrow] (reassess.east) -- ++(8mm,0) |- (probSeizure.north);
+  \draw[arrow] (probSyncope.south) -- (exam.north);
+  \draw[arrow] (probSeizure.south) -- (acuteCause.north);
 
-\node[box=39mm, below=17mm of estimate] (seizureTop) {%
-    {\bfseries\Large EPILEPTIC SEIZURE}\\[2mm]
-    \normalsize
-    Lateral tongue bite/laceration,\\
-    head turning, or\\
-    abnormal body posturing\\
-    favor epileptic seizure.
-};
+  % Classificação da síncope em colunas fixas.
+  \draw[arrow] (exam.west) -- ++(-8mm,0) |- (reflex.north);
+  \draw[arrow] (exam.south) -- (ortho.north);
+  \draw[arrow] (exam.east) -- ++(8mm,0) |- (cardiac.north);
+  \draw[arrow] (reflex.south) -- (reflexResult.north);
+  \draw[arrow] (ortho.south) -- (orthoResult.north);
+  \draw[arrow] (cardiac.south) -- (echo.north);
+  \draw[arrow] (cardiac.east) -- ++(8mm,0) |- (monitor.north);
 
-\node[box=39mm, below right=17mm and 42mm of estimate] (ddxTop) {%
-    {\bfseries\Large DIFFERENTIAL DIAGNOSES}\\[2mm]
-    \normalsize
-    Functional/dissociative seizure\\[1mm]
-    Metabolic disturbance\\[1mm]
-    Intoxication\\[1mm]
-    Cerebrovascular/hemorrhagic disease
-};
-
-\node[prob, above=4mm of syncopeTop] {$\approx 75\%$};
-\node[prob, above=4mm of seizureTop] {$\approx 18\%$};
-\node[prob, above=4mm of ddxTop] {$\approx 7\%$};
-
-\draw[line] (title.south) -- (char.north);
-\draw[line] (char.south) -- (estimate.north);
-
-\coordinate (branchTop) at ($(estimate.south)+(0,-5mm)$);
-\draw[line] (estimate.south) -- (branchTop);
-
-\draw[line] (branchTop) -| (syncopeTop.north);
-\draw[line] (branchTop) -- (seizureTop.north);
-\draw[line] (branchTop) -| (ddxTop.north);
-
-% REASSESS BAR
-\coordinate (leftReassess)  at ($(syncopeTop.south)+(0,-12mm)$);
-\coordinate (midReassess)   at ($(seizureTop.south)+(0,-12mm)$);
-\coordinate (rightReassess) at ($(ddxTop.south)+(0,-12mm)$);
-
-\draw[line] (syncopeTop.south) -- (leftReassess);
-\draw[line] (seizureTop.south) -- (midReassess);
-\draw[line] (ddxTop.south) -- (rightReassess);
-
-\draw[line] (leftReassess) -- (rightReassess);
-\node[fill=white, inner sep=1.2mm, font=\large] at ($(leftReassess)!0.5!(rightReassess)$) {reassess the probability};
-
-% SECOND ROW LABELS
-\node[box=46mm, below=12mm of leftReassess] (probSyncope) {%
-    {\bfseries\Large PROBABLE SYNCOPE}
-};
-
-\node[box=46mm, below=12mm of rightReassess] (probSeizure) {%
-    {\bfseries\Large PROBABLE EPILEPTIC SEIZURE}
-};
-
-\draw[line] ($(leftReassess)!0.25!(rightReassess)$) |- (probSyncope.north);
-\draw[line] ($(leftReassess)!0.75!(rightReassess)$) |- (probSeizure.north);
-
-% SYNCOPE PATHWAY
-\node[box=58mm, below=7mm of probSyncope] (exam) {%
-    {\bfseries CARDIAC EXAMINATION + ECG}\\
-    {\bfseries + BP AND HR IN THE STANDING POSITION}\\[1mm]
-    after 5 min supine\\
-    $\rightarrow$ at 1 and 3 min standing
-};
-
-\draw[line] (probSyncope.south) -- (exam.north);
-
-\node[box=28mm, below left=12mm and 32mm of exam] (reflex) {%
-    {\bfseries\Large REFLEX}\\[1mm]
-    \normalsize
-    Typical trigger + autonomic\\
-    prodrome\\[1mm]
-    pain/procedure, heat, or\\
-    prolonged standing\\
-    + nausea, sweating, or\\
-    abdominal discomfort
-};
-
-\node[box=28mm, below=12mm of exam] (ortho) {%
-    {\bfseries\Large ORTHOSTATIC}\\[1mm]
-    \normalsize
-    Symptoms on standing\\
-    + concordant BP drop\\[1mm]
-    SBP drop $\geq$20 or DBP $\geq$10 mmHg\\
-    within 3 min
-};
-
-\node[box=31mm, below right=12mm and 32mm of exam] (cardiac) {%
-    {\bfseries\Large CARDIAC}\\[1mm]
-    {\bfseries HIGHEST DISCRIMINATIVE VALUE}\\
-    AF/flutter, witnessed cyanosis\\[1mm]
-    {\bfseries LOWER ISOLATED VALUE}\\
-    structural heart disease/HF,\\
-    relevant ECG abnormality*,\\
-    chest pain,\\
-    dyspnea\\[1mm]
-    {\bfseries REDUCES THE PROBABILITY}\\
-    no known heart disease\\
-    + normal ECG
-};
-
-\coordinate (splitSyn) at ($(exam.south)+(0,-9mm)$);
-\draw[line] (exam.south) -- (splitSyn);
-\draw[line] (splitSyn) -| (reflex.north);
-\draw[line] (splitSyn) -- (ortho.north);
-\draw[line] (splitSyn) -| (cardiac.north);
-
-\node[smallbox=28mm, below=6mm of reflex] (reflexBottom) {%
-    typical pattern $\rightarrow$\\
-    clinical diagnosis
-};
-
-\node[smallbox=29mm, below=6mm of ortho] (orthoBottom) {%
-    $\rightarrow$ evaluate hypovolemia/\\
-    bleeding, medications,\\
-    or dysautonomia\\[1mm]
-    extend testing if\\
-    symptoms occur later
-};
-
-\node[smallbox=22mm, below left=6mm and 6mm of cardiac] (cardiacLeft) {%
-    structural suspicion\\[1mm]
-    $\rightarrow$ echocardiography
-};
-
-\node[smallbox=31mm, below right=6mm and 6mm of cardiac] (cardiacRight) {%
-    arrhythmic suspicion\\[1mm]
-    $\rightarrow$ ambulatory ECG monitoring\\
-    according to event frequency\\
-    Holter/external monitor or\\
-    implantable loop recorder
-};
-
-\draw[line] (reflex.south) -- (reflexBottom.north);
-\draw[line] (ortho.south) -- (orthoBottom.north);
-
-\coordinate (cardSplit) at ($(cardiac.south)+(0,-5mm)$);
-\draw[line] (cardiac.south) -- (cardSplit);
-\draw[line] (cardSplit) -| (cardiacLeft.north);
-\draw[line] (cardSplit) -| (cardiacRight.north);
-
-% SEIZURE PATHWAY
-\node[box=58mm, below=7mm of probSeizure] (acuteCause) {%
-    {\bfseries SEARCH FOR AN ACUTE PROVOKING CAUSE}\\[1mm]
-    glucose (hypo- or marked hyperglycemia)\\
-    sodium, calcium, and magnesium\\
-    renal and liver function\\
-    toxicology, if suspected\\
-    CSF, if CNS infection is suspected
-};
-
-\draw[line] (probSeizure.south) -- (acuteCause.north);
-
-\node[note, below=5mm of acuteCause] (ifnocause) {if no clear acute provoking cause};
-
-\node[box=58mm, below=5mm of ifnocause] (eeg) {%
-    {\bfseries ELECTROENCEPHALOGRAPHY}\\
-    {\bfseries + STRUCTURAL NEUROIMAGING}\\[1mm]
-    MRI preferred\\
-    CT if acute intracranial\\
-    evaluation is needed
-};
-
-\node[note, below=5mm of eeg] (eegnote) {Normal electroencephalography does not exclude epileptic seizure.};
-
-\draw[line] (acuteCause.south) -- (ifnocause.north);
-\draw[line] (ifnocause.south) -- (eeg.north);
-
+  % Investigação de provável crise epiléptica.
+  \draw[arrow] (acuteCause.south) -- (noCause.north);
+  \draw[arrow] (noCause.south) -- (eeg.north);
+  \draw[arrow] (eeg.south) -- (eegNote.north);
 \end{tikzpicture}

@@ -1,22 +1,31 @@
 \begin{tikzpicture}[
-  font=\sffamily,
-  >={Stealth[length=2.6mm]},
-  flow/.style={draw=black, line width=.6pt, rounded corners=3pt,
-    fill=white, text=black, align=left, text width=4.5cm, inner sep=9pt},
-  title/.style={flow, text width=3cm, align=center, font=\sffamily\bfseries},
-  arrow/.style={-{Stealth[scale=1.0]}, draw=black, line width=.8pt, rounded corners=2pt}
+  font=\sffamily\small,
+  flow/.style={draw=black, fill=white, line width=.6pt, rounded corners=1mm,
+    align=left, text width=4.5cm, inner sep=3mm},
+  terminal/.style={flow, align=center, text width=3cm, font=\sffamily\bfseries},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
+    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
 ]
-  \node[title] (syncope) {S\'incope};
-  \node[flow, below left=18mm and 31mm of syncope] (reflex) {\textbf{Reflexa / neuromediada}\\[3pt]
-    $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, mic\c{c}\~ao, defeca\c{c}\~ao ou degluti\c{c}\~ao\\
-    $\bullet$ S\'indrome do seio carot\'ideo\\ $\bullet$ Formas at\'ipicas};
-  \node[flow, below=18mm of syncope] (orthostatic) {\textbf{Hipotens\~ao ortost\'atica}\\[3pt]
-    $\bullet$ Disfun\c{c}\~ao auton\^omica prim\'aria\\ $\bullet$ Disfun\c{c}\~ao auton\^omica secund\'aria\\
-    $\bullet$ Induzida por f\'armacos\\ $\bullet$ Hipovolemia};
-  \node[flow, below right=18mm and 31mm of syncope] (cardiac) {\textbf{Card\'iaca}\\[3pt]
-    $\bullet$ Arritmias: bradi ou taquiarritmias\\ $\bullet$ Doen\c{c}a estrutural card\'iaca\\
-    $\bullet$ Doen\c{c}a cardiopulmonar: TEP ou hipertens\~ao pulmonar\\ $\bullet$ Isquemia mioc\'ardica};
+  % Grade: 2 linhas x 3 colunas. A matriz define toda a geometria.
+  \matrix (grid) [
+    matrix of nodes,
+    row sep=18mm,
+    column sep=12mm,
+    nodes in empty cells
+  ] {
+    & |[terminal] (syncope)| {S\'incope} & \\
+    |[flow] (reflex)| {\textbf{Reflexa / neuromediada}\\[2mm]
+      $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, mic\c{c}\~ao, defeca\c{c}\~ao ou degluti\c{c}\~ao\\
+      $\bullet$ S\'indrome do seio carot\'ideo\\ $\bullet$ Formas at\'ipicas}
+    & |[flow] (orthostatic)| {\textbf{Hipotens\~ao ortost\'atica}\\[2mm]
+      $\bullet$ Disfun\c{c}\~ao auton\^omica prim\'aria\\ $\bullet$ Disfun\c{c}\~ao auton\^omica secund\'aria\\
+      $\bullet$ Induzida por f\'armacos\\ $\bullet$ Hipovolemia}
+    & |[flow] (cardiac)| {\textbf{Card\'iaca}\\[2mm]
+      $\bullet$ Arritmias: bradi ou taquiarritmias\\ $\bullet$ Doen\c{c}a estrutural card\'iaca\\
+      $\bullet$ Doen\c{c}a cardiopulmonar: TEP ou hipertens\~ao pulmonar\\ $\bullet$ Isquemia mioc\'ardica} \\
+  };
 
+  % Conexões somente após a matriz; âncoras e cotovelos explícitos.
   \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (reflex.north);
   \draw[arrow] (syncope.south) -- (orthostatic.north);
   \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (cardiac.north);
