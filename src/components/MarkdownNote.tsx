@@ -57,7 +57,7 @@ function TikzFrame({ source, label, expanded }: { source: string; label: string;
     return () => window.removeEventListener('message', resize);
   }, [frameId]);
 
-  return <iframe ref={frameRef} className={`tikz-frame${expanded ? ' is-expanded' : ''}`} title={label} srcDoc={srcDoc} sandbox="allow-scripts" />;
+  return <iframe ref={frameRef} className={`tikz-frame${expanded ? ' is-expanded' : ''}`} title={label} srcDoc={srcDoc} sandbox="allow-scripts allow-same-origin" />;
 }
 
 function TikzFlowchart({ source }: { source: string }) {

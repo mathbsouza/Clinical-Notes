@@ -26,14 +26,14 @@ Síncope é uma **perda transitória da consciência causada por hipoperfusão c
 ]
   \node[title] (syncope) {Síncope};
   \node[flow, below left=18mm and 31mm of syncope] (reflex) {\textbf{Reflexa / neuromediada}\\[3pt]
-    • Vasovagal\\ • Situacional: tosse, micção, defecação ou deglutição\\
-    • Síndrome do seio carotídeo\\ • Formas atípicas};
+    Vasovagal\\ Situacional: tosse, micção, defecação ou deglutição\\
+    Síndrome do seio carotídeo\\ Formas atípicas};
   \node[flow, below=18mm of syncope] (orthostatic) {\textbf{Hipotensão ortostática}\\[3pt]
-    • Disfunção autonômica primária\\ • Disfunção autonômica secundária\\
-    • Induzida por fármacos\\ • Hipovolemia};
+    Disfunção autonômica primária\\ Disfunção autonômica secundária\\
+    Induzida por fármacos\\ Hipovolemia};
   \node[flow, below right=18mm and 31mm of syncope] (cardiac) {\textbf{Cardíaca}\\[3pt]
-    • Arritmias: bradi ou taquiarritmias\\ • Doença estrutural cardíaca\\
-    • Doença cardiopulmonar: TEP ou hipertensão pulmonar\\ • Isquemia miocárdica};
+    Arritmias: bradi ou taquiarritmias\\ Doença estrutural cardíaca\\
+    Doença cardiopulmonar: TEP ou hipertensão pulmonar\\ Isquemia miocárdica};
 
   \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (reflex.north);
   \draw[arrow] (syncope.south) -- (orthostatic.north);
