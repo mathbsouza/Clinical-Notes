@@ -13,8 +13,8 @@
   % Grade: o fork também ocupa uma célula invisível da matriz.
   \matrix (grid) [
     matrix of nodes,
-    row sep=7mm,
-    column sep=12mm,
+    row sep=6mm,
+    column sep=9mm,
     nodes in empty cells
   ] {
     & |[terminal] (syncope)| {S{\'i}ncope} & \\

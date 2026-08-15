@@ -1,8 +1,8 @@
 \begin{tikzpicture}[
-  font=\sffamily\footnotesize,
+  font=\sffamily\small,
   terminal/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
     align=center, text width=10cm, minimum height=10mm, inner sep=3mm,
-    font=\sffamily\bfseries\large},
+    font=\sffamily\bfseries\normalsize},
   process/.style={draw=black, fill=white, line width=.6pt, rectangle,
     align=center, text width=4.2cm, minimum height=10mm, inner sep=3mm},
   processwide/.style={process, text width=5.6cm},
@@ -22,40 +22,40 @@
   % Todos os nós são declarados antes de qualquer conexão.
   \matrix (grid) [
     matrix of nodes,
-    row sep=8mm,
-    column sep=8mm,
+    row sep=6mm,
+    column sep=6mm,
     nodes in empty cells
   ] {
-    & & & |[terminal] (title)| {TRANSIENT LOSS OF CONSCIOUSNESS} & & & \\
-    & & & |[processwide] (characterize)| {\textbf{CHARACTERIZE THE EVENT}\\[1mm]
-      position/trigger + prodrome + witness account\\ movements + recovery/confusion} & & & \\
-    & & & |[decision] (estimate)| {Estimate the clinical probability} & & & \\
+    & & & |[terminal] (title)| {PERDA TRANSIT{\'O}RIA DA CONSCI{\^E}NCIA} & & & \\
+    & & & |[processwide] (characterize)| {\textbf{CARACTERIZAR O EVENTO}\\[1mm]
+      posi{\c c}{\~a}o/gatilho + pr{\'o}dromos + relato de testemunha\\ movimentos + recupera{\c c}{\~a}o/confus{\~a}o} & & & \\
+    & & & |[decision] (estimate)| {Estimar a probabilidade cl{\'i}nica} & & & \\
     & & & |[junction] (estimateFork)| {} & & & \\
-    & |[process] (syncopeTop)| {\textbf{SYNCOPE}\\[1mm] Prolonged sitting or standing, especially with presyncope, favors syncope.}
-      & & |[process] (seizureTop)| {\textbf{EPILEPTIC SEIZURE}\\[1mm] Lateral tongue injury, head turning, or abnormal posturing favors seizure.}
-      & & |[process] (ddxTop)| {\textbf{DIFFERENTIAL DIAGNOSES}\\[1mm] Functional event; metabolic disturbance; intoxication; cerebrovascular disease.} & \\
-    & & & |[process] (reassess)| {Reassess the probability} & & & \\
+    & |[process] (syncopeTop)| {\textbf{S{\'I}NCOPE}\\[1mm] Permanecer sentado ou em p{\'e} por tempo prolongado, sobretudo com pr{\'e}-s{\'i}ncope, favorece o diagn{\'o}stico.}
+      & & |[process] (seizureTop)| {\textbf{CRISE EPIL{\'E}PTICA}\\[1mm] Les{\~a}o lateral da l{\'i}ngua, desvio da cabe{\c c}a ou postura anormal favorecem crise epil{\'e}ptica.}
+      & & |[process] (ddxTop)| {\textbf{DIAGN{\'O}STICOS DIFERENCIAIS}\\[1mm] Evento funcional; dist{\'u}rbio metab{\'o}lico; intoxica{\c c}{\~a}o; doen{\c c}a cerebrovascular.} & \\
+    & & & |[process] (reassess)| {Reavaliar a probabilidade} & & & \\
     & & & |[junction] (reassessFork)| {} & & & \\
-    & |[process] (probSyncope)| {\textbf{PROBABLE SYNCOPE}}
-      & & & & |[process] (probSeizure)| {\textbf{PROBABLE EPILEPTIC SEIZURE}} & \\
-    & |[processwide] (exam)| {\textbf{CARDIAC EXAMINATION + ECG}\\
-      \textbf{BP AND HR IN THE STANDING POSITION}\\[1mm]
-      after 5 min supine $\rightarrow$ at 1 and 3 min standing}
-      & & & & |[processwide] (acuteCause)| {\textbf{SEARCH FOR AN ACUTE PROVOKING CAUSE}\\[1mm]
-      Glucose; sodium; calcium; magnesium; renal and liver function; toxicology if suspected; CSF if CNS infection is suspected.} & \\
+    & |[process] (probSyncope)| {\textbf{S{\'I}NCOPE PROV{\'A}VEL}}
+      & & & & |[process] (probSeizure)| {\textbf{CRISE EPIL{\'E}PTICA PROV{\'A}VEL}} & \\
+    & |[processwide] (exam)| {\textbf{EXAME CARD{\'I}ACO + ECG}\\
+      \textbf{PA E FC EM ORTOSTASE}\\[1mm]
+      ap{\'o}s 5 min em dec{\'u}bito $\rightarrow$ com 1 e 3 min em p{\'e}}
+      & & & & |[processwide] (acuteCause)| {\textbf{PESQUISAR CAUSA AGUDA DESENCADEANTE}\\[1mm]
+      Glicose; s{\'o}dio; c{\'a}lcio; magn{\'e}sio; fun{\c c}{\~a}o renal e hep{\'a}tica; toxicologia se indicada; LCR se houver suspeita de infec{\c c}{\~a}o do SNC.} & \\
     & |[junction] (examFork)| {} & & & & & \\
-    |[process] (reflex)| {\textbf{REFLEX}\\[1mm] Typical trigger and autonomic prodrome: pain/procedure, heat, prolonged standing, nausea or sweating.}
-      & |[process] (ortho)| {\textbf{ORTHOSTATIC}\\[1mm] Symptoms on standing with concordant BP drop: SBP $\geq 20$ or DBP $\geq 10$ mmHg within 3 min.}
-      & |[process] (cardiac)| {\textbf{CARDIAC}\\[1mm] AF/flutter, cyanosis, structural disease, ECG abnormality, chest pain or dyspnea.}
-      & & & |[note] (noCause)| {If no clear acute provoking cause} & \\
+    |[process] (reflex)| {\textbf{REFLEXA}\\[1mm] Gatilho t{\'i}pico e pr{\'o}dromos auton{\^o}micos: dor/procedimento, calor, ortostase prolongada, n{\'a}usea ou sudorese.}
+      & |[process] (ortho)| {\textbf{ORTOST{\'A}TICA}\\[1mm] Sintomas ao levantar com queda concordante: PAS $\geq 20$ ou PAD $\geq 10$ mmHg em at{\'e} 3 min.}
+      & |[process] (cardiac)| {\textbf{CARD{\'I}ACA}\\[1mm] FA/flutter, cianose, cardiopatia estrutural, ECG anormal, dor tor{\'a}cica ou dispneia.}
+      & & & |[note] (noCause)| {Se n{\~a}o houver causa aguda desencadeante clara} & \\
     & & |[junction] (cardiacFork)| {} & & & & \\
-    |[note] (reflexResult)| {Typical pattern $\rightarrow$ clinical diagnosis}
-      & |[note] (orthoResult)| {Evaluate hypovolemia, bleeding, medications or dysautonomia; extend testing if symptoms occur later.}
-      & |[note] (echo)| {Structural suspicion $\rightarrow$ echocardiography}
-      & |[note] (monitor)| {Arrhythmic suspicion $\rightarrow$ ambulatory ECG monitoring according to event frequency}
-      & & |[processwide] (eeg)| {\textbf{ELECTROENCEPHALOGRAPHY + STRUCTURAL NEUROIMAGING}\\[1mm]
-      MRI preferred; CT for acute intracranial evaluation.} & \\
-    & & & & & |[note] (eegNote)| {Normal electroencephalography does not exclude epileptic seizure.} & \\
+    |[note] (reflexResult)| {Padr{\~a}o t{\'i}pico $\rightarrow$ diagn{\'o}stico cl{\'i}nico}
+      & |[note] (orthoResult)| {Avaliar hipovolemia, sangramento, medicamentos ou disautonomia; prolongar o teste se os sintomas forem tardios.}
+      & |[note] (echo)| {Suspeita estrutural $\rightarrow$ ecocardiograma}
+      & |[note] (monitor)| {Suspeita arr{\'i}tmica $\rightarrow$ monitoriza{\c c}{\~a}o ambulatorial conforme a frequ{\^e}ncia dos eventos}
+      & & |[processwide] (eeg)| {\textbf{ELETROENCEFALOGRAMA + NEUROIMAGEM ESTRUTURAL}\\[1mm]
+      Preferir RM; usar TC na avalia{\c c}{\~a}o intracraniana aguda.} & \\
+    & & & & & |[note] (eegNote)| {Eletroencefalograma normal n{\~a}o exclui crise epil{\'e}ptica.} & \\
   };
 
   % Fluxo central superior.

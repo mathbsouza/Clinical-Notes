@@ -661,6 +661,15 @@ body {
   width: 100%;
 }
 
+/* O site usa fundo escuro: a prévia é invertida; o lightbox mostra o SVG original. */
+.flowchart-preview .static-flowchart-image {
+  filter: invert(1);
+}
+
+.flowchart-lightbox .static-flowchart-image {
+  filter: none;
+}
+
 .static-flowchart.is-expanded {
   min-width: 75rem;
 }
