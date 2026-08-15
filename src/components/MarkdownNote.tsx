@@ -1,21 +1,10 @@
-import { Children, isValidElement, useEffect, useState, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useId, useState, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
 
 type MarkdownNoteProps = {
   body: string;
-};
-
-type FlowchartBranch = {
-  title: string;
-  items: string[];
-};
-
-type DiagnosticStage = {
-  kind: 'start' | 'decision' | 'process';
-  title: string;
-  items: string[];
 };
 
 function getNodeText(node: ReactNode): string {
@@ -60,73 +49,64 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
   );
 }
 
-function EtiologyFlowchart({ source }: { source: string }) {
-  const [root = 'Etiologia', ...branchLines] = source.trim().split(/\r?\n/).filter(Boolean);
-  const branches: FlowchartBranch[] = branchLines.map((line) => {
-    const [title, ...items] = line.split('|').map((part) => part.trim());
-    return { title, items };
-  });
+function MermaidDiagram({ source, expanded }: { source: string; expanded: boolean }) {
+  const reactId = useId().replace(/:/g, '');
+  const [svg, setSvg] = useState('');
+  const [error, setError] = useState('');
 
-  const chart = (
-    <figure className="etiology-flowchart" aria-label={`Fluxograma: ${root}`}>
-      <div className="flowchart-root">{root}</div>
-      <div className="flowchart-trunk" aria-hidden="true" />
-      <div className="flowchart-branches">
-        {branches.map((branch, index) => (
-          <div className="flowchart-branch" key={`${branch.title}-${index}`}>
-            <div className="flowchart-connector" aria-hidden="true" />
-            <section className="flowchart-card">
-              <h3>{branch.title}</h3>
-              <ul>
-                {branch.items.map((item) => <li key={item}>{item}</li>)}
-              </ul>
-            </section>
-          </div>
-        ))}
-      </div>
-      <figcaption>Fluxograma de {root.toLocaleLowerCase('pt-BR')}</figcaption>
-    </figure>
-  );
+  useEffect(() => {
+    let active = true;
+    import('mermaid').then(({ default: mermaid }) => {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        theme: 'base',
+        htmlLabels: true,
+        themeVariables: {
+          background: '#0f0f0f',
+          primaryColor: '#262626',
+          primaryTextColor: '#f5f5f5',
+          primaryBorderColor: '#fb923c',
+          lineColor: '#fb923c',
+          secondaryColor: '#431407',
+          tertiaryColor: '#171717',
+          edgeLabelBackground: '#171717',
+          fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        },
+        flowchart: {
+          defaultRenderer: 'elk',
+          curve: 'stepAfter',
+          nodeSpacing: 34,
+          rankSpacing: 50,
+          useMaxWidth: true,
+          wrappingWidth: 220,
+        },
+      });
+      return mermaid.render(`mermaid-${reactId}-${expanded ? 'large' : 'preview'}`, source);
+    }).then(({ svg: renderedSvg }) => {
+      if (active) setSvg(renderedSvg);
+    }).catch(() => {
+      if (active) setError('Não foi possível renderizar o fluxograma.');
+    });
+    return () => { active = false; };
+  }, [expanded, reactId, source]);
 
-  return <ZoomableFlowchart label={`Fluxograma: ${root}`}>{() => chart}</ZoomableFlowchart>;
+  if (error) return <p className="flowchart-error">{error}</p>;
+  if (!svg) return <div className="flowchart-loading">Montando fluxograma…</div>;
+  return <div className={`mermaid-flowchart${expanded ? ' is-expanded' : ''}`} dangerouslySetInnerHTML={{ __html: svg }} />;
 }
 
-function DiagnosticFlowchart({ source }: { source: string }) {
-  const stages: DiagnosticStage[] = source.trim().split(/\r?\n/).filter(Boolean).map((line) => {
-    const [kind, title, ...items] = line.split('|').map((part) => part.trim());
-    return { kind: kind as DiagnosticStage['kind'], title, items };
-  });
-
-  const renderChart = (expanded: boolean) => (
-    <figure className={`diagnostic-flowchart${expanded ? ' is-expanded' : ''}`} aria-label="Fluxograma diagnóstico da síncope">
-      <div className="diagnostic-sequence">
-        {stages.map((stage, stageIndex) => (
-          <div className="diagnostic-stage" key={`${stage.kind}-${stage.title}`}>
-            {stageIndex > 0 && <div className="diagnostic-arrow" aria-hidden="true">↓</div>}
-            <div className={`diagnostic-node diagnostic-node-${stage.kind}`}>
-              <strong>{stage.title}</strong>
-            </div>
-            {stage.items.length > 0 && (
-              <div className={`diagnostic-options${stage.kind === 'decision' ? ' is-decision' : ''}`}>
-                {stage.items.map((item, itemIndex) => {
-                  const [label, detail = ''] = item.split('→').map((part) => part.trim());
-                  return (
-                    <div className={`diagnostic-option${itemIndex === stage.items.length - 1 ? ' continues' : ''}`} key={item}>
-                      {detail && <b>{label}</b>}
-                      <span>{detail || label}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-      <figcaption>Fluxo de avaliação, estratificação e investigação da síncope</figcaption>
-    </figure>
+function MermaidFlowchart({ source, label, caption }: { source: string; label: string; caption: string }) {
+  return (
+    <ZoomableFlowchart label={label}>
+      {(expanded) => (
+        <figure className="diagnostic-flowchart" aria-label={label}>
+          <MermaidDiagram source={source} expanded={expanded} />
+          <figcaption>{caption}</figcaption>
+        </figure>
+      )}
+    </ZoomableFlowchart>
   );
-
-  return <ZoomableFlowchart label="Fluxograma diagnóstico da síncope">{renderChart}</ZoomableFlowchart>;
 }
 
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
@@ -144,10 +124,10 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
           pre: ({ children }) => {
             const child = Children.toArray(children)[0];
             if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-etiology-flowchart') {
-              return <EtiologyFlowchart source={getNodeText(child.props.children)} />;
+              return <MermaidFlowchart source={getNodeText(child.props.children)} label="Fluxograma etiológico da síncope" caption="Principais grupos etiológicos da síncope" />;
             }
             if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-diagnostic-flowchart') {
-              return <DiagnosticFlowchart source={getNodeText(child.props.children)} />;
+              return <MermaidFlowchart source={getNodeText(child.props.children)} label="Fluxograma diagnóstico da síncope" caption="Fluxo de avaliação, estratificação e investigação da síncope" />;
             }
 
             return <pre>{children}</pre>;
