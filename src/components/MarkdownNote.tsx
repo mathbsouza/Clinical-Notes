@@ -73,8 +73,11 @@ function StaticFlowchart({ source }: { source: string }) {
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
   return <article className="prose-notes">
     <ReactMarkdown components={{
+      h1: ({ children }) => <h1 id={headingId(getNodeText(children))}>{children}</h1>,
       h2: ({ children }) => <h2 id={headingId(getNodeText(children))}>{children}</h2>,
       h3: ({ children }) => <h3 id={headingId(getNodeText(children))}>{children}</h3>,
+      h4: ({ children }) => <h4 id={headingId(getNodeText(children))}>{children}</h4>,
+      h5: ({ children }) => <h5 id={headingId(getNodeText(children))}>{children}</h5>,
       table: ({ children }) => <div className="table-scroll" role="region" aria-label="Tabela com rolagem horizontal"><table>{children}</table></div>,
       pre: ({ children }) => {
         const child = Children.toArray(children)[0];
