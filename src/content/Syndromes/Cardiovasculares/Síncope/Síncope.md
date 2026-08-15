@@ -22,26 +22,26 @@ Syndromes/Cardiovasculares/Síncope/diagrams/etiology.svg|Fluxograma etiológico
 
 - "An ECG should be obtained in all patients with suspected syncope."
 
-| Categoria | Achado eletrocardiográfico | Interpretação clínica |
-|---|---|---|
-| **Provável causa de síncope arrítmica**[^uptodate-arrhythmic-syncope] | Bradicardia sinusal persistente **< 40 bpm** ou pausas sinusais **> 3 s** em paciente acordado | Sugere etiologia bradicárdica, mas requer confirmação cuidadosa. Em geral, são necessários **8–10 s de hipotensão abaixo do limite de autorregulação cerebrovascular** para produzir síncope. |
-| **Provável causa de síncope arrítmica** | Bloqueio AV de segundo grau **Mobitz II** | Forte suspeita de bradiarritmia causal. |
-| **Provável causa de síncope arrítmica** | Bloqueio AV de terceiro grau (completo) | Forte suspeita de bradiarritmia causal. |
-| **Provável causa de síncope arrítmica** | Alternância entre bloqueio de ramo esquerdo e direito | Sugere doença avançada do sistema His–Purkinje e bloqueio AV paroxístico. |
-| **Provável causa de síncope arrítmica** | TV ou taquicardia supraventricular paroxística com resposta ventricular rápida, especialmente com disfunção ventricular esquerda importante | Considerar também pausa cardíaca prolongada após término abrupto de TSV ou fibrilação atrial. |
-| **Provável causa de síncope arrítmica** | TV polimórfica não sustentada associada a intervalo QT longo ou curto | Investigar síndromes de QT longo/curto, TV polimórfica catecolaminérgica e outras canalopatias. |
-| **Provável causa de síncope arrítmica** | Mau funcionamento de marca-passo ou cardiodesfibrilador implantável com pausas cardíacas | Correlacionar o evento com a interrogação do dispositivo. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional**[^uptodate-abnormal-ecg-syncope] | Bloqueio bifascicular, sobretudo quando associado a bloqueio AV de primeiro grau | Bloqueio de ramo direito ou esquerdo combinado com bloqueio fascicular anterior ou posterior esquerdo. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Outros distúrbios da condução intraventricular, com **QRS ≥ 120 ms** | Sugere doença do sistema de condução ou cardiopatia estrutural. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Bloqueio AV de segundo grau **Mobitz I (Wenckebach)** | Avaliar contexto clínico, localização provável do bloqueio e progressão da doença de condução. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Bradicardia sinusal **≤ 40 bpm** ou fibrilação atrial com resposta ventricular **≤ 40 bpm**, sem fármacos cronotrópicos negativos | Sugere disfunção do nó sinusal ou doença de condução. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | TV não sustentada | Investigar cardiopatia estrutural, isquemia e substrato arrítmico. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | QRS pré-excitado | Sugere padrão/síndrome de Wolff–Parkinson–White. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Intervalo QT longo ou curto | Investigar causas adquiridas e síndromes hereditárias. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Repolarização precoce | Interpretar conforme padrão, derivações envolvidas e contexto clínico. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Padrão de bloqueio de ramo direito com elevação do ST em V1–V3 | Sugere síndrome de Brugada. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Ondas T negativas nas derivações precordiais direitas e/ou onda épsilon em V1–V2 | Sugere cardiomiopatia arritmogênica do ventrículo direito. |
-| **ECG anormal que indica cardiopatia e justifica investigação adicional** | Hipertrofia ventricular esquerda | Pode sugerir cardiomiopatia hipertrófica ou outra cardiopatia estrutural. |
+| Classificação | Achado no ECG |
+|---|---|
+| **Causa arrítmica provável**[^uptodate-arrhythmic-syncope] | Bradicardia sinusal persistente **< 40 bpm** ou pausa sinusal **> 3 s** em vigília; interpretar com cautela. |
+| **Causa arrítmica provável** | Bloqueio AV de segundo grau **Mobitz II**. |
+| **Causa arrítmica provável** | Bloqueio AV de terceiro grau (completo). |
+| **Causa arrítmica provável** | Alternância entre bloqueio de ramo esquerdo e direito. |
+| **Causa arrítmica provável** | TV ou TSV paroxística rápida, sobretudo com disfunção ventricular esquerda; ou pausa prolongada após término de TSV/FA. |
+| **Causa arrítmica provável** | TV polimórfica não sustentada com QT longo ou curto. |
+| **Causa arrítmica provável** | Mau funcionamento de marca-passo ou CDI com pausas cardíacas. |
+| **Investigar cardiopatia**[^uptodate-abnormal-ecg-syncope] | Bloqueio bifascicular, sobretudo com bloqueio AV de primeiro grau. |
+| **Investigar cardiopatia** | Distúrbio da condução intraventricular com **QRS ≥ 120 ms**. |
+| **Investigar cardiopatia** | Bloqueio AV de segundo grau **Mobitz I**. |
+| **Investigar cardiopatia** | Bradicardia sinusal ou FA com resposta ventricular **≤ 40 bpm**, sem fármacos cronotrópicos negativos. |
+| **Investigar cardiopatia** | TV não sustentada. |
+| **Investigar cardiopatia** | QRS pré-excitado (padrão de Wolff–Parkinson–White). |
+| **Investigar cardiopatia** | Intervalo QT longo ou curto. |
+| **Investigar cardiopatia** | Repolarização precoce. |
+| **Investigar cardiopatia** | Padrão de BRD com elevação do ST em V1–V3 (Brugada). |
+| **Investigar cardiopatia** | Ondas T negativas precordiais direitas e/ou onda épsilon em V1–V2 (cardiomiopatia arritmogênica do VD). |
+| **Investigar cardiopatia** | Hipertrofia ventricular esquerda, sugerindo cardiomiopatia hipertrófica ou outra cardiopatia estrutural. |
 
 Os achados acima aumentam a probabilidade de etiologia arrítmica, mas não dispensam a correlação entre sintomas e ritmo nem a avaliação confirmatória.[^uptodate-arrhythmic-syncope][^uptodate-abnormal-ecg-syncope]
 

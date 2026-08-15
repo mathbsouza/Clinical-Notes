@@ -366,24 +366,29 @@ body {
   border-collapse: collapse;
   font-size: 0.91rem;
   line-height: 1.5;
-  min-width: max-content;
+  table-layout: fixed;
   width: 100%;
 }
 
 .prose-notes th,
 .prose-notes td {
   border: 1px solid rgb(251 146 60 / 0.12);
+  overflow-wrap: anywhere;
   padding: 0.68rem 0.78rem;
   text-align: left;
   vertical-align: top;
-  white-space: nowrap;
+  white-space: normal;
+  word-break: normal;
 }
 
 .prose-notes td:first-child,
 .prose-notes th:first-child {
+  min-width: 0;
   white-space: normal;
-  min-width: 12rem;
+  width: 28%;
 }
+
+.prose-notes th { overflow-wrap: anywhere; }
 
 .prose-notes th {
   background: rgb(251 146 60 / 0.1);
