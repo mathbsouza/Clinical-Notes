@@ -677,13 +677,19 @@ body {
 }
 
 .diagnostic-flowchart {
+  background: rgb(23 23 23 / 0.72);
+  border: 1px solid rgb(251 146 60 / 0.22);
+  border-radius: 0.9rem;
+  box-shadow: 0 10px 32px rgb(0 0 0 / 0.22);
+  box-sizing: border-box;
   margin: 1.35rem auto 1.75rem;
   max-width: 62rem;
   min-width: 0;
-  padding: 0.4rem;
+  padding: 0.55rem;
 }
 
 .static-flowchart-image {
+  border-radius: 0.55rem;
   display: block;
   height: auto;
   margin: 0 auto;

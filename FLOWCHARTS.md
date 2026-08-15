@@ -30,6 +30,8 @@ Para um único arquivo: `npm run diagrams -- diagnosis.tikz`.
 - Caracteres acentuados no TikZ usam comandos LaTeX explícitos, como `{\'a}` e
   `{\c c}`, para permanecer compatíveis com o motor TeX embarcado.
 - A imagem pronta mantém fundo branco e desenho preto.
+- A apresentação no site usa moldura fina e sóbria, coerente com a cor de destaque,
+  `border-radius` externo de `0.9rem` e raio interno da imagem de `0.55rem`.
 - No tema escuro, somente a prévia recebe inversão de cores. Ao abrir o lightbox,
   o SVG recupera as cores originais.
 - O lightbox oferece zoom de 50% a 250%, em passos de 25%, com botões para
