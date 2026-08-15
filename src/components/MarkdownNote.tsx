@@ -42,11 +42,11 @@ function TikzFrame({ source, label, expanded }: { source: string; label: string;
   const frameId = useMemo(() => `tikz-${crypto.randomUUID()}`, []);
   const safeSource = source.replace(/<\/script/gi, '<\\/script');
   const srcDoc = `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://tikzjax.com/v1/fonts.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@rod2ik/tikzjax@1.5.0/dist/fonts.min.css">
 <style>html,body{margin:0;background:transparent}body{display:flex;justify-content:center;overflow:hidden;padding:8px;box-sizing:border-box}svg{display:block;max-width:100%;height:auto}</style>
-</head><body><script type="text/tikz">${safeSource}</script>
+</head><body><script type="text/tikz" data-tikz-libraries="positioning,arrows.meta,shapes.geometric">${safeSource}</script>
 <script>const report=()=>parent.postMessage({type:'tikz-height',id:'${frameId}',height:Math.ceil(document.documentElement.scrollHeight)},'*');new MutationObserver(report).observe(document.body,{childList:true,subtree:true});addEventListener('load',report);<\/script>
-<script src="https://tikzjax.com/v1/tikzjax.js"><\/script></body></html>`;
+<script src="https://cdn.jsdelivr.net/npm/@rod2ik/tikzjax@1.5.0/dist/tikzjax.min.js" defer><\/script></body></html>`;
 
   useEffect(() => {
     const resize = (event: MessageEvent) => {
