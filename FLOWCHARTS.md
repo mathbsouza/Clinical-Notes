@@ -89,9 +89,9 @@ Depois de definir a topologia, compacte a grade nesta ordem:
    nós. Aumente uma separação local somente se pontas de seta ou textos colidirem.
 5. Renderize e revise os corredores. Se houver espaço excessivo, reduza primeiro
    `column sep`; não desloque nós individualmente e não entorte conectores.
-6. O renderizador remove automaticamente a margem técnica de 72 pt do TikZJax e
-   conserva 18 pt nas laterais e 24 pt acima e abaixo. Não acrescente células
-   vazias para simular margem externa.
+6. Preserve integralmente o `viewBox` emitido pelo TikZJax. É proibido cortar a
+   margem externa por valores presumidos, pois setas e pontas podem ocupar essa
+   área. Não acrescente células vazias para simular margem externa.
 
 A ordem é obrigatória: eliminar colunas supérfluas → calcular separação global →
 renderizar → revisar colisões. A compactação nunca pode quebrar a simetria, mudar

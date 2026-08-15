@@ -6,34 +6,6 @@ const tex2svg = tikzjax.default;
 
 const contentRoot = path.resolve('src/content');
 const fontRoot = path.resolve('node_modules/node-tikzjax/css/bakoma/ttf');
-const rendererPadding = 72;
-const outputPadding = { horizontal: 18, vertical: 24 };
-
-function compactOuterWhitespace(svg) {
-  const viewBox = svg.match(/viewBox="([^"]+)"/)?.[1]?.trim().split(/\s+/).map(Number);
-  const renderedWidth = Number(svg.match(/\bwidth="([\d.]+)"/)?.[1]);
-  const renderedHeight = Number(svg.match(/\bheight="([\d.]+)"/)?.[1]);
-  if (!viewBox || viewBox.length !== 4 || viewBox.some(Number.isNaN)
-      || !renderedWidth || !renderedHeight) {
-    throw new Error('O SVG gerado não contém dimensões válidas.');
-  }
-
-  const [x, y, width, height] = viewBox;
-  const trimX = rendererPadding - outputPadding.horizontal;
-  const trimY = rendererPadding - outputPadding.vertical;
-  const compactWidth = width - (2 * trimX);
-  const compactHeight = height - (2 * trimY);
-  if (compactWidth <= 0 || compactHeight <= 0) {
-    throw new Error('As margens configuradas excedem as dimensões do SVG.');
-  }
-
-  const scaleX = renderedWidth / width;
-  const scaleY = renderedHeight / height;
-  return svg
-    .replace(/viewBox="[^"]+"/, `viewBox="${x + trimX} ${y + trimY} ${compactWidth} ${compactHeight}"`)
-    .replace(/\bwidth="[\d.]+"/, `width="${(compactWidth * scaleX).toFixed(3)}"`)
-    .replace(/\bheight="[\d.]+"/, `height="${(compactHeight * scaleY).toFixed(3)}"`);
-}
 
 async function embedUsedFonts(svg) {
   const families = [...new Set(
@@ -85,8 +57,7 @@ for (const inputPath of files) {
     fontCssUrl: 'https://cdn.jsdelivr.net/npm/node-tikzjax@1.0.5/css/fonts.css',
   });
   const outputPath = inputPath.replace(/\.tikz$/i, '.svg');
-  const compactSvg = compactOuterWhitespace(svg);
-  await writeFile(outputPath, addWhiteBackground(await embedUsedFonts(compactSvg)), 'utf8');
+  await writeFile(outputPath, addWhiteBackground(await embedUsedFonts(svg)), 'utf8');
   console.log(`${path.relative(process.cwd(), inputPath)} -> ${path.relative(process.cwd(), outputPath)}`);
 }
 
