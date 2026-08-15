@@ -10,13 +10,15 @@
     aspect=2.2, align=center, text width=3.4cm, inner sep=1.5mm},
   note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm,
     align=center, text width=4.2cm, inner sep=2.5mm},
+  branchlabel/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm,
+    align=center, text width=2.7cm, minimum height=8mm, inner sep=1.5mm,
+    font=\sffamily\footnotesize},
   junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt,
     minimum size=0pt, text width=0pt},
   arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
     preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}},
   trunk/.style={draw=black, line width=.8pt,
-    preaction={draw=white, line width=2.2pt}},
-  label/.style={fill=white, inner sep=1pt, font=\sffamily\scriptsize\bfseries}
+    preaction={draw=white, line width=2.2pt}}
 ]
   % Grade rígida: nós visíveis e junções invisíveis ocupam células da matriz.
   % Todos os nós são declarados antes de qualquer conexão.
@@ -31,6 +33,9 @@
       posi{\c c}{\~a}o/gatilho + pr{\'o}dromos + relato de testemunha\\ movimentos + recupera{\c c}{\~a}o/confus{\~a}o} & & & \\
     & & & |[decision] (estimate)| {Estimar a probabilidade cl{\'i}nica} & & & \\
     & & & |[junction] (estimateFork)| {} & & & \\
+    & |[branchlabel] (preSyncope)| {Probabilidade pr{\'e}-teste\\\textbf{$\approx 75\%$}}
+      & & |[branchlabel] (preSeizure)| {Probabilidade pr{\'e}-teste\\\textbf{$\approx 18\%$}}
+      & & |[branchlabel] (preDdx)| {Probabilidade pr{\'e}-teste\\\textbf{$\approx 7\%$}} & \\
     & |[process] (syncopeTop)| {\textbf{S{\'I}NCOPE}\\[1mm] Permanecer sentado ou em p{\'e} por tempo prolongado, sobretudo com pr{\'e}-s{\'i}ncope, favorece o diagn{\'o}stico.}
       & & |[process] (seizureTop)| {\textbf{CRISE EPIL{\'E}PTICA}\\[1mm] Les{\~a}o lateral da l{\'i}ngua, desvio da cabe{\c c}a ou postura anormal favorecem crise epil{\'e}ptica.}
       & & |[process] (ddxTop)| {\textbf{DIAGN{\'O}STICOS DIFERENCIAIS}\\[1mm] Evento funcional; dist{\'u}rbio metab{\'o}lico; intoxica{\c c}{\~a}o; doen{\c c}a cerebrovascular.} & \\
@@ -64,9 +69,12 @@
 
   % Fork 1: um tronco e um único barramento horizontal.
   \draw[trunk] (estimate.south) -- (estimateFork);
-  \draw[arrow] (estimateFork) -| node[label,near start,above] {$\approx 75\%$} (syncopeTop.north);
-  \draw[arrow] (estimateFork) -- node[label,left] {$\approx 18\%$} (seizureTop.north);
-  \draw[arrow] (estimateFork) -| node[label,near start,above] {$\approx 7\%$} (ddxTop.north);
+  \draw[arrow] (estimateFork) -| (preSyncope.north);
+  \draw[arrow] (estimateFork) -- (preSeizure.north);
+  \draw[arrow] (estimateFork) -| (preDdx.north);
+  \draw[arrow] (preSyncope.south) -- (syncopeTop.north);
+  \draw[arrow] (preSeizure.south) -- (seizureTop.north);
+  \draw[arrow] (preDdx.south) -- (ddxTop.north);
 
   % Convergência em nó explícito de reavaliação.
   \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) |- (reassess.west);

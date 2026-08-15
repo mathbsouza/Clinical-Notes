@@ -5,6 +5,19 @@ import tikzjax from 'node-tikzjax';
 const tex2svg = tikzjax.default;
 
 const contentRoot = path.resolve('src/content');
+const fontRoot = path.resolve('node_modules/node-tikzjax/css/bakoma/ttf');
+
+async function embedUsedFonts(svg) {
+  const families = [...new Set(
+    [...svg.matchAll(/font-family="([^"]+)"/g)].map((match) => match[1]),
+  )];
+  const declarations = await Promise.all(families.map(async (family) => {
+    const font = await readFile(path.join(fontRoot, `${family}.ttf`));
+    return `@font-face{font-family:${family};src:url(data:font/ttf;base64,${font.toString('base64')}) format('truetype')}`;
+  }));
+  const styles = `<defs><style>${declarations.join('')}</style></defs>`;
+  return svg.replace(/<defs><style>[\s\S]*?<\/style><\/defs>/, styles);
+}
 
 function addWhiteBackground(svg) {
   const values = svg.match(/viewBox="([^"]+)"/)?.[1]?.trim().split(/\s+/).map(Number);
@@ -44,7 +57,7 @@ for (const inputPath of files) {
     fontCssUrl: 'https://cdn.jsdelivr.net/npm/node-tikzjax@1.0.5/css/fonts.css',
   });
   const outputPath = inputPath.replace(/\.tikz$/i, '.svg');
-  await writeFile(outputPath, addWhiteBackground(svg), 'utf8');
+  await writeFile(outputPath, addWhiteBackground(await embedUsedFonts(svg)), 'utf8');
   console.log(`${path.relative(process.cwd(), inputPath)} -> ${path.relative(process.cwd(), outputPath)}`);
 }
 

@@ -119,6 +119,18 @@ nó invisível continua pertencendo à grade e evita coordenadas calculadas fora
 matriz. Todo texto interno de uma célula também deve ser o conteúdo de um nó da
 matriz, nunca um `node` solto sobre uma conexão.
 
+### Informação entre etapas
+
+- Toda informação clínica ou quantitativa que participa da lógica do fluxo deve
+  ser um nó visível em uma célula própria da matriz.
+- Probabilidades pré-teste, critérios, resultados intermediários e qualificadores
+  não devem ser escritos como `node[...]` sobre uma seta.
+- O nó informativo recebe uma conexão de entrada e outra de saída, ambas com
+  âncoras explícitas; no fluxo vertical, use `.north` para entrada e `.south` para
+  saída.
+- Rótulos sobre setas ficam reservados a respostas curtas de decisão, como
+  “Sim” e “Não”, quando não constituem uma etapa independente.
+
 ## Decisões
 
 - “Não” ou o fluxo principal continua verticalmente quando possível.
