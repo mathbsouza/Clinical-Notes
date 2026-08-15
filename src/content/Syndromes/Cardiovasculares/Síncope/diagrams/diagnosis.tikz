@@ -10,15 +10,19 @@
     aspect=2.2, align=center, text width=3.4cm, inner sep=1.5mm},
   note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm,
     align=center, text width=4.2cm, inner sep=2.5mm},
+  junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt,
+    minimum size=0pt, text width=0pt},
   arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
     preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}},
+  trunk/.style={draw=black, line width=.8pt,
+    preaction={draw=white, line width=2.2pt}},
   label/.style={fill=white, inner sep=1pt, font=\sffamily\scriptsize\bfseries}
 ]
-  % Grade rígida: 10 linhas x 7 colunas (coluna central = 4).
+  % Grade rígida: nós visíveis e junções invisíveis ocupam células da matriz.
   % Todos os nós são declarados antes de qualquer conexão.
   \matrix (grid) [
     matrix of nodes,
-    row sep=13mm,
+    row sep=8mm,
     column sep=8mm,
     nodes in empty cells
   ] {
@@ -26,10 +30,12 @@
     & & & |[processwide] (characterize)| {\textbf{CHARACTERIZE THE EVENT}\\[1mm]
       position/trigger + prodrome + witness account\\ movements + recovery/confusion} & & & \\
     & & & |[decision] (estimate)| {Estimate the clinical probability} & & & \\
+    & & & |[junction] (estimateFork)| {} & & & \\
     & |[process] (syncopeTop)| {\textbf{SYNCOPE}\\[1mm] Prolonged sitting or standing, especially with presyncope, favors syncope.}
       & & |[process] (seizureTop)| {\textbf{EPILEPTIC SEIZURE}\\[1mm] Lateral tongue injury, head turning, or abnormal posturing favors seizure.}
       & & |[process] (ddxTop)| {\textbf{DIFFERENTIAL DIAGNOSES}\\[1mm] Functional event; metabolic disturbance; intoxication; cerebrovascular disease.} & \\
     & & & |[process] (reassess)| {Reassess the probability} & & & \\
+    & & & |[junction] (reassessFork)| {} & & & \\
     & |[process] (probSyncope)| {\textbf{PROBABLE SYNCOPE}}
       & & & & |[process] (probSeizure)| {\textbf{PROBABLE EPILEPTIC SEIZURE}} & \\
     & |[processwide] (exam)| {\textbf{CARDIAC EXAMINATION + ECG}\\
@@ -37,10 +43,12 @@
       after 5 min supine $\rightarrow$ at 1 and 3 min standing}
       & & & & |[processwide] (acuteCause)| {\textbf{SEARCH FOR AN ACUTE PROVOKING CAUSE}\\[1mm]
       Glucose; sodium; calcium; magnesium; renal and liver function; toxicology if suspected; CSF if CNS infection is suspected.} & \\
+    & |[junction] (examFork)| {} & & & & & \\
     |[process] (reflex)| {\textbf{REFLEX}\\[1mm] Typical trigger and autonomic prodrome: pain/procedure, heat, prolonged standing, nausea or sweating.}
       & |[process] (ortho)| {\textbf{ORTHOSTATIC}\\[1mm] Symptoms on standing with concordant BP drop: SBP $\geq 20$ or DBP $\geq 10$ mmHg within 3 min.}
       & |[process] (cardiac)| {\textbf{CARDIAC}\\[1mm] AF/flutter, cyanosis, structural disease, ECG abnormality, chest pain or dyspnea.}
       & & & |[note] (noCause)| {If no clear acute provoking cause} & \\
+    & & |[junction] (cardiacFork)| {} & & & & \\
     |[note] (reflexResult)| {Typical pattern $\rightarrow$ clinical diagnosis}
       & |[note] (orthoResult)| {Evaluate hypovolemia, bleeding, medications or dysautonomia; extend testing if symptoms occur later.}
       & |[note] (echo)| {Structural suspicion $\rightarrow$ echocardiography}
@@ -54,30 +62,34 @@
   \draw[arrow] (title.south) -- (characterize.north);
   \draw[arrow] (characterize.south) -- (estimate.north);
 
-  % Primeira ramificação: cada seta nasce no nó de decisão.
-  \draw[arrow] (estimate.south) -- ++(0,-5mm) -| node[label,near start,left] {$\approx 75\%$} (syncopeTop.north);
-  \draw[arrow] (estimate.south) -- node[label,left] {$\approx 18\%$} (seizureTop.north);
-  \draw[arrow] (estimate.south) -- ++(0,-7mm) -| node[label,near start,right] {$\approx 7\%$} (ddxTop.north);
+  % Fork 1: um tronco e um único barramento horizontal.
+  \draw[trunk] (estimate.south) -- (estimateFork);
+  \draw[arrow] (estimateFork) -| node[label,near start,above] {$\approx 75\%$} (syncopeTop.north);
+  \draw[arrow] (estimateFork) -- node[label,left] {$\approx 18\%$} (seizureTop.north);
+  \draw[arrow] (estimateFork) -| node[label,near start,above] {$\approx 7\%$} (ddxTop.north);
 
   % Convergência em nó explícito de reavaliação.
   \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) -| (reassess.north west);
   \draw[arrow] (seizureTop.south) -- (reassess.north);
   \draw[arrow] (ddxTop.south) -- ++(0,-6mm) -| (reassess.north east);
 
-  % Segunda ramificação simétrica.
-  \draw[arrow] (reassess.south) -- ++(0,-5mm) -| (probSyncope.north);
-  \draw[arrow] (reassess.south) -- ++(0,-7mm) -| (probSeizure.north);
+  % Fork 2: os dois ramos compartilham o mesmo Y.
+  \draw[trunk] (reassess.south) -- (reassessFork);
+  \draw[arrow] (reassessFork) -| (probSyncope.north);
+  \draw[arrow] (reassessFork) -| (probSeizure.north);
   \draw[arrow] (probSyncope.south) -- (exam.north);
   \draw[arrow] (probSeizure.south) -- (acuteCause.north);
 
-  % Classificação da síncope em colunas fixas.
-  \draw[arrow] (exam.south) -- ++(0,-5mm) -| (reflex.north);
-  \draw[arrow] (exam.south) -- (ortho.north);
-  \draw[arrow] (exam.south) -- ++(0,-7mm) -| (cardiac.north);
+  % Fork 3: classificação em três colunas fixas.
+  \draw[trunk] (exam.south) -- (examFork);
+  \draw[arrow] (examFork) -| (reflex.north);
+  \draw[arrow] (examFork) -- (ortho.north);
+  \draw[arrow] (examFork) -| (cardiac.north);
   \draw[arrow] (reflex.south) -- (reflexResult.north);
   \draw[arrow] (ortho.south) -- (orthoResult.north);
-  \draw[arrow] (cardiac.south) -- (echo.north);
-  \draw[arrow] (cardiac.south) -- ++(0,-6mm) -| (monitor.north);
+  \draw[trunk] (cardiac.south) -- (cardiacFork);
+  \draw[arrow] (cardiacFork) -- (echo.north);
+  \draw[arrow] (cardiacFork) -| (monitor.north);
 
   % Investigação de provável crise epiléptica.
   \draw[arrow] (acuteCause.south) -- (noCause.north);

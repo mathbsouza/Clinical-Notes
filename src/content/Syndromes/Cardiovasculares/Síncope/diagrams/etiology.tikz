@@ -3,17 +3,22 @@
   flow/.style={draw=black, fill=white, line width=.6pt, rounded corners=1mm,
     align=left, text width=4.5cm, inner sep=3mm},
   terminal/.style={flow, align=center, text width=3cm, font=\sffamily\bfseries},
+  junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt,
+    minimum size=0pt, text width=0pt},
   arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
-    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
+    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}},
+  trunk/.style={draw=black, line width=.8pt,
+    preaction={draw=white, line width=2.2pt}}
 ]
-  % Grade: 2 linhas x 3 colunas. A matriz define toda a geometria.
+  % Grade: o fork também ocupa uma célula invisível da matriz.
   \matrix (grid) [
     matrix of nodes,
-    row sep=18mm,
+    row sep=7mm,
     column sep=12mm,
     nodes in empty cells
   ] {
     & |[terminal] (syncope)| {S{\'i}ncope} & \\
+    & |[junction] (etiologyFork)| {} & \\
     |[flow] (reflex)| {\textbf{Reflexa / neuromediada}\\[2mm]
       $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, mic{\c c}{\~a}o, defeca{\c c}{\~a}o ou degluti{\c c}{\~a}o\\
       $\bullet$ S{\'i}ndrome do seio carot{\'i}deo\\ $\bullet$ Formas at{\'i}picas}
@@ -26,7 +31,8 @@
   };
 
   % Conexões somente após a matriz; âncoras e cotovelos explícitos.
-  \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (reflex.north);
-  \draw[arrow] (syncope.south) -- (orthostatic.north);
-  \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (cardiac.north);
+  \draw[trunk] (syncope.south) -- (etiologyFork);
+  \draw[arrow] (etiologyFork) -| (reflex.north);
+  \draw[arrow] (etiologyFork) -- (orthostatic.north);
+  \draw[arrow] (etiologyFork) -| (cardiac.north);
 \end{tikzpicture}

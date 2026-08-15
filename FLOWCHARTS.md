@@ -90,6 +90,29 @@ Regras da matriz:
 - Setas não atravessam nós nem se sobrepõem sem intenção deliberada.
 - Loops usam `coordinate` apenas como desvios locais externos à matriz.
 
+### Forks
+
+- Um fork possui exatamente um tronco vertical e um nó auxiliar invisível de
+  bifurcação, colocado em uma célula própria da `matrix of nodes`.
+- O tronco não tem ponta de seta. As pontas pertencem somente aos ramos.
+- Todos os ramos irmãos começam no mesmo nó invisível; assim, compartilham
+  exatamente o mesmo Y do barramento horizontal.
+- É proibido criar ramos irmãos com deslocamentos verticais diferentes.
+- Padrão obrigatório:
+
+```tex
+% forkA é uma célula da matrix: |[junction] (forkA)| {}
+\draw[trunk] (A.south) -- (forkA);
+\draw[arrow] (forkA) -| (B.north);
+\draw[arrow] (forkA) -- (C.north);
+\draw[arrow] (forkA) -| (D.north);
+```
+
+Use o estilo `junction` sem borda, preenchimento, texto ou dimensões mínimas. O
+nó invisível continua pertencendo à grade e evita coordenadas calculadas fora da
+matriz. Todo texto interno de uma célula também deve ser o conteúdo de um nó da
+matriz, nunca um `node` solto sobre uma conexão.
+
 ## Decisões
 
 - “Não” ou o fluxo principal continua verticalmente quando possível.
