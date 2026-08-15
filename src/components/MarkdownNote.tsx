@@ -1,4 +1,4 @@
-import { Children, isValidElement, useEffect, useId, useState, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useState, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
@@ -49,59 +49,15 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
   );
 }
 
-function MermaidDiagram({ source, expanded }: { source: string; expanded: boolean }) {
-  const reactId = useId().replace(/:/g, '');
-  const [svg, setSvg] = useState('');
-  const [error, setError] = useState('');
+function D2Flowchart({ source }: { source: string }) {
+  const [fileName, label, caption] = source.trim().split('|').map((part) => part.trim());
+  const imageUrl = `${import.meta.env.BASE_URL}diagrams/${fileName}`;
 
-  useEffect(() => {
-    let active = true;
-    import('mermaid').then(({ default: mermaid }) => {
-      mermaid.initialize({
-        startOnLoad: false,
-        securityLevel: 'strict',
-        theme: 'base',
-        htmlLabels: true,
-        themeVariables: {
-          background: '#0f0f0f',
-          primaryColor: '#262626',
-          primaryTextColor: '#f5f5f5',
-          primaryBorderColor: '#fb923c',
-          lineColor: '#fb923c',
-          secondaryColor: '#431407',
-          tertiaryColor: '#171717',
-          edgeLabelBackground: '#171717',
-          fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
-        },
-        flowchart: {
-          defaultRenderer: 'elk',
-          curve: 'stepAfter',
-          nodeSpacing: 34,
-          rankSpacing: 50,
-          useMaxWidth: true,
-          wrappingWidth: 220,
-        },
-      });
-      return mermaid.render(`mermaid-${reactId}-${expanded ? 'large' : 'preview'}`, source);
-    }).then(({ svg: renderedSvg }) => {
-      if (active) setSvg(renderedSvg);
-    }).catch(() => {
-      if (active) setError('Não foi possível renderizar o fluxograma.');
-    });
-    return () => { active = false; };
-  }, [expanded, reactId, source]);
-
-  if (error) return <p className="flowchart-error">{error}</p>;
-  if (!svg) return <div className="flowchart-loading">Montando fluxograma…</div>;
-  return <div className={`mermaid-flowchart${expanded ? ' is-expanded' : ''}`} dangerouslySetInnerHTML={{ __html: svg }} />;
-}
-
-function MermaidFlowchart({ source, label, caption }: { source: string; label: string; caption: string }) {
   return (
     <ZoomableFlowchart label={label}>
       {(expanded) => (
-        <figure className="diagnostic-flowchart" aria-label={label}>
-          <MermaidDiagram source={source} expanded={expanded} />
+        <figure className={`diagnostic-flowchart${expanded ? ' is-expanded' : ''}`} aria-label={label}>
+          <img className="d2-flowchart-image" src={imageUrl} alt={label} />
           <figcaption>{caption}</figcaption>
         </figure>
       )}
@@ -123,11 +79,8 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
           ),
           pre: ({ children }) => {
             const child = Children.toArray(children)[0];
-            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-etiology-flowchart') {
-              return <MermaidFlowchart source={getNodeText(child.props.children)} label="Fluxograma etiológico da síncope" caption="Principais grupos etiológicos da síncope" />;
-            }
-            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-diagnostic-flowchart') {
-              return <MermaidFlowchart source={getNodeText(child.props.children)} label="Fluxograma diagnóstico da síncope" caption="Fluxo de avaliação, estratificação e investigação da síncope" />;
+            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-d2-flowchart') {
+              return <D2Flowchart source={getNodeText(child.props.children)} />;
             }
 
             return <pre>{children}</pre>;

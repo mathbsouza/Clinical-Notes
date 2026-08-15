@@ -653,36 +653,12 @@ body {
   padding: 0.4rem;
 }
 
-.mermaid-flowchart {
-  min-height: 10rem;
-  overflow: hidden;
-  width: 100%;
-}
-
-.mermaid-flowchart svg {
+.d2-flowchart-image {
   display: block;
   height: auto;
   margin: 0 auto;
-  max-width: 100% !important;
+  max-width: 100%;
   width: 100%;
-}
-
-.mermaid-flowchart.is-expanded {
-  min-width: 58rem;
-}
-
-.flowchart-loading,
-.flowchart-error {
-  align-items: center;
-  color: #a3a3a3;
-  display: flex;
-  justify-content: center;
-  min-height: 10rem;
-  text-align: center;
-}
-
-.flowchart-error {
-  color: #fca5a5;
 }
 
 .diagnostic-sequence {

@@ -1,0 +1,157 @@
+vars: {
+  d2-config: {
+    layout-engine: elk
+    theme-id: 200
+  }
+}
+
+direction: down
+style.fill: "#0a0a0a"
+
+**: {
+  &leaf: true
+  style.fill: "#171717"
+  style.stroke: "#fb923c"
+  style.font-color: "#f5f5f5"
+  style.border-radius: 10
+  style.shadow: true
+  style.stroke-width: 2
+}
+
+(** -> **)[*]: {
+  style.stroke: "#fb923c"
+  style.font-color: "#fdba74"
+  style.stroke-width: 2
+}
+
+start: Perda transitória da consciência {
+  shape: oval
+  style.fill: "#ea580c"
+  style.stroke: "#fdba74"
+  style.font-color: "#fff7ed"
+  style.bold: true
+}
+unstable: |md
+  **Instabilidade clínica ou<br/>condição tempo-dependente?**
+| {
+  shape: diamond
+  style.fill: "#431407"
+}
+stabilize: |md
+  **ABCDE + monitorização**<br/>Glicemia + ECG
+| {
+  style.fill: "#450a0a"
+  style.stroke: "#f87171"
+  style.font-color: "#fee2e2"
+}
+urgent: |md
+  Tratar imediatamente conforme o contexto:<br/>arritmia grave, SCA, TEP, dissecção,<br/>hemorragia, choque ou causa neurológica
+| {
+  style.fill: "#450a0a"
+  style.stroke: "#f87171"
+  style.font-color: "#fee2e2"
+}
+syncope: |md
+  **O evento foi síncope?**<br/>Início rápido, curta duração,<br/>perda do tônus e recuperação completa
+| {
+  shape: diamond
+  style.fill: "#431407"
+}
+mimics: |md
+  **Investigar mimetizadores**<br/>Causa metabólica, epilepsia, PTC psicogênica,<br/>queda, cataplexia ou déficit neurológico
+|
+initial: |md
+  **Avaliação inicial obrigatória**<br/>História + testemunha + exame físico<br/>Ortostase + ECG + glicemia
+|
+cause: Há causa provável após a avaliação inicial? {
+  shape: diamond
+  style.fill: "#431407"
+}
+reflex: |md
+  **Reflexa**<br/>Gatilho típico, pródromos autonômicos<br/>ou situação característica
+|
+orthostatic: |md
+  **Ortostática**<br/>Sintomas ao levantar + queda da PA<br/>PAS ≥ 20 ou PAD ≥ 10 mmHg em até 3 min
+|
+cardiac: |md
+  **Cardíaca / alto risco**<br/>Monitorização e avaliação cardiológica urgente<br/>± eco, teste de esforço e exames dirigidos
+| {
+  style.fill: "#450a0a"
+  style.stroke: "#f87171"
+  style.font-color: "#fee2e2"
+}
+risk: Estratificação de risco {
+  shape: diamond
+  style.fill: "#431407"
+}
+clinical: |md
+  **Baixo risco**<br/>Diagnóstico clínico e seguimento
+| {
+  style.fill: "#14532d"
+  style.stroke: "#4ade80"
+  style.font-color: "#dcfce7"
+}
+admit: |md
+  **Alto risco**<br/>Observação monitorizada ou internação
+| {
+  style.fill: "#450a0a"
+  style.stroke: "#f87171"
+  style.font-color: "#fee2e2"
+}
+observe: |md
+  **Risco intermediário**<br/>Unidade de observação e monitorização dirigida
+|
+discharge: |md
+  **Baixo risco**<br/>Alta com seguimento ou investigação ambulatorial
+| {
+  style.fill: "#14532d"
+  style.stroke: "#4ade80"
+  style.font-color: "#dcfce7"
+}
+unexplained: Síncope inexplicada ou recorrente? {
+  shape: diamond
+  style.fill: "#431407"
+}
+investigate: Investigação dirigida à hipótese
+arrhythmia: Arritmia — Holter, monitor externo ou implantável
+reflex_tests: Reflexa / ortostática — inclinação ± testes autonômicos
+structural: Doença estrutural / ECG anormal — eco ± RM ± EEF
+other: Outras hipóteses — exames dirigidos; neuroimagem e EEG não são rotina
+followup: Seguimento clínico {
+  shape: oval
+  style.fill: "#14532d"
+  style.stroke: "#4ade80"
+  style.font-color: "#dcfce7"
+  style.bold: true
+}
+
+start -> unstable
+unstable -> stabilize: Sim
+stabilize -> urgent
+unstable -> syncope: Não
+syncope -> mimics: Não ou duvidoso
+syncope -> initial: Sim ou provável
+initial -> cause
+cause -> reflex: Reflexa
+cause -> orthostatic: Ortostática
+cause -> cardiac: Cardíaca
+cause -> risk: Incerta
+reflex -> clinical
+orthostatic -> risk
+cardiac -> admit
+risk -> admit: Alto
+risk -> observe: Intermediário
+risk -> discharge: Baixo
+admit -> unexplained
+observe -> unexplained
+discharge -> unexplained
+unexplained -> followup: Não
+unexplained -> investigate: Sim
+investigate -> arrhythmia
+investigate -> reflex_tests
+investigate -> structural
+investigate -> other
+arrhythmia -> followup
+reflex_tests -> followup
+structural -> followup
+other -> followup
