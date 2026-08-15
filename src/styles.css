@@ -385,7 +385,6 @@ body {
 .prose-notes th:first-child {
   min-width: 0;
   white-space: normal;
-  width: 28%;
 }
 
 .prose-notes th { overflow-wrap: anywhere; }
