@@ -77,8 +77,12 @@ Regras da matriz:
 - Diagonais, curvas, Bézier e zigue-zagues são proibidos.
 - Toda origem e todo destino usam âncoras explícitas.
 - Fluxo vertical alinhado: `(A.south) -- (B.north)`.
-- Ramo direito: `(A.east) -- ++(8mm,0) |- (B.north)`.
-- Ramo esquerdo: `(A.west) -- ++(-8mm,0) |- (B.north)`.
+- Se o destino estiver em uma linha inferior, a seta sempre nasce em `.south`,
+  desce primeiro e termina verticalmente em `.north`: `(A.south) -- ++(0,-6mm)
+  -| (B.north)`.
+- Use `.east` e `.west` como origem apenas para fluxos realmente laterais no
+  mesmo nível. Nesses casos, a entrada deve acompanhar a orientação, chegando em
+  `.west` ou `.east`, nunca lateralmente em `.north`.
 - `--` entre nós só é permitido quando ambos compartilham exatamente o mesmo
   eixo horizontal ou vertical.
 - Cada `\draw` começa em uma âncora do nó de origem, nunca em outra seta.

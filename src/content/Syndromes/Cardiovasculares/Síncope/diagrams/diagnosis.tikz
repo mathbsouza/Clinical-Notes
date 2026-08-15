@@ -55,29 +55,29 @@
   \draw[arrow] (characterize.south) -- (estimate.north);
 
   % Primeira ramificação: cada seta nasce no nó de decisão.
-  \draw[arrow] (estimate.west) -- ++(-8mm,0) |- node[label,near start,above] {$\approx 75\%$} (syncopeTop.north);
+  \draw[arrow] (estimate.south) -- ++(0,-5mm) -| node[label,near start,left] {$\approx 75\%$} (syncopeTop.north);
   \draw[arrow] (estimate.south) -- node[label,left] {$\approx 18\%$} (seizureTop.north);
-  \draw[arrow] (estimate.east) -- ++(8mm,0) |- node[label,near start,above] {$\approx 7\%$} (ddxTop.north);
+  \draw[arrow] (estimate.south) -- ++(0,-7mm) -| node[label,near start,right] {$\approx 7\%$} (ddxTop.north);
 
   % Convergência em nó explícito de reavaliação.
-  \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) |- (reassess.west);
+  \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) -| (reassess.north west);
   \draw[arrow] (seizureTop.south) -- (reassess.north);
-  \draw[arrow] (ddxTop.south) -- ++(0,-6mm) |- (reassess.east);
+  \draw[arrow] (ddxTop.south) -- ++(0,-6mm) -| (reassess.north east);
 
   % Segunda ramificação simétrica.
-  \draw[arrow] (reassess.west) -- ++(-8mm,0) |- (probSyncope.north);
-  \draw[arrow] (reassess.east) -- ++(8mm,0) |- (probSeizure.north);
+  \draw[arrow] (reassess.south) -- ++(0,-5mm) -| (probSyncope.north);
+  \draw[arrow] (reassess.south) -- ++(0,-7mm) -| (probSeizure.north);
   \draw[arrow] (probSyncope.south) -- (exam.north);
   \draw[arrow] (probSeizure.south) -- (acuteCause.north);
 
   % Classificação da síncope em colunas fixas.
-  \draw[arrow] (exam.west) -- ++(-8mm,0) |- (reflex.north);
+  \draw[arrow] (exam.south) -- ++(0,-5mm) -| (reflex.north);
   \draw[arrow] (exam.south) -- (ortho.north);
-  \draw[arrow] (exam.east) -- ++(8mm,0) |- (cardiac.north);
+  \draw[arrow] (exam.south) -- ++(0,-7mm) -| (cardiac.north);
   \draw[arrow] (reflex.south) -- (reflexResult.north);
   \draw[arrow] (ortho.south) -- (orthoResult.north);
   \draw[arrow] (cardiac.south) -- (echo.north);
-  \draw[arrow] (cardiac.east) -- ++(8mm,0) |- (monitor.north);
+  \draw[arrow] (cardiac.south) -- ++(0,-6mm) -| (monitor.north);
 
   % Investigação de provável crise epiléptica.
   \draw[arrow] (acuteCause.south) -- (noCause.north);

@@ -13,16 +13,16 @@
     column sep=12mm,
     nodes in empty cells
   ] {
-    & |[terminal] (syncope)| {S\'incope} & \\
+    & |[terminal] (syncope)| {S{\'i}ncope} & \\
     |[flow] (reflex)| {\textbf{Reflexa / neuromediada}\\[2mm]
-      $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, mic\c{c}\~ao, defeca\c{c}\~ao ou degluti\c{c}\~ao\\
-      $\bullet$ S\'indrome do seio carot\'ideo\\ $\bullet$ Formas at\'ipicas}
-    & |[flow] (orthostatic)| {\textbf{Hipotens\~ao ortost\'atica}\\[2mm]
-      $\bullet$ Disfun\c{c}\~ao auton\^omica prim\'aria\\ $\bullet$ Disfun\c{c}\~ao auton\^omica secund\'aria\\
-      $\bullet$ Induzida por f\'armacos\\ $\bullet$ Hipovolemia}
-    & |[flow] (cardiac)| {\textbf{Card\'iaca}\\[2mm]
-      $\bullet$ Arritmias: bradi ou taquiarritmias\\ $\bullet$ Doen\c{c}a estrutural card\'iaca\\
-      $\bullet$ Doen\c{c}a cardiopulmonar: TEP ou hipertens\~ao pulmonar\\ $\bullet$ Isquemia mioc\'ardica} \\
+      $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, mic{\c c}{\~a}o, defeca{\c c}{\~a}o ou degluti{\c c}{\~a}o\\
+      $\bullet$ S{\'i}ndrome do seio carot{\'i}deo\\ $\bullet$ Formas at{\'i}picas}
+    & |[flow] (orthostatic)| {\textbf{Hipotens{\~a}o ortost{\'a}tica}\\[2mm]
+      $\bullet$ Disfun{\c c}{\~a}o auton{\^o}mica prim{\'a}ria\\ $\bullet$ Disfun{\c c}{\~a}o auton{\^o}mica secund{\'a}ria\\
+      $\bullet$ Induzida por f{\'a}rmacos\\ $\bullet$ Hipovolemia}
+    & |[flow] (cardiac)| {\textbf{Card{\'i}aca}\\[2mm]
+      $\bullet$ Arritmias: bradi ou taquiarritmias\\ $\bullet$ Doen{\c c}a estrutural card{\'i}aca\\
+      $\bullet$ Doen{\c c}a cardiopulmonar: TEP ou hipertens{\~a}o pulmonar\\ $\bullet$ Isquemia mioc{\'a}rdica} \\
   };
 
   % Conexões somente após a matriz; âncoras e cotovelos explícitos.
