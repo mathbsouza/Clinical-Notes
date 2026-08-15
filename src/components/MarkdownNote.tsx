@@ -1,4 +1,4 @@
-import { Children, isValidElement, useEffect, useState, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useId, useState, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
@@ -7,9 +7,9 @@ type MarkdownNoteProps = {
   body: string;
 };
 
-const flowchartAssets = import.meta.glob<string>('../content/**/*.svg', {
+const flowchartSources = import.meta.glob<string>('../content/**/*.mmd', {
   eager: true,
-  query: '?url',
+  query: '?raw',
   import: 'default',
 });
 
@@ -55,19 +55,64 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
   );
 }
 
-function D2Flowchart({ source }: { source: string }) {
-  const [assetPath, label, caption] = source.trim().split('|').map((part) => part.trim());
-  const imageUrl = flowchartAssets[`../content/${assetPath}`];
+function MermaidDiagram({ definition, expanded }: { definition: string; expanded: boolean }) {
+  const diagramId = useId().replace(/:/g, '');
+  const [svg, setSvg] = useState('');
+  const [error, setError] = useState('');
 
-  if (!imageUrl) {
-    return <p className="flowchart-error">Fluxograma não encontrado: {assetPath}</p>;
+  useEffect(() => {
+    let active = true;
+    import('mermaid').then(({ default: mermaid }) => {
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        theme: 'base',
+        htmlLabels: true,
+        themeVariables: {
+          background: '#0a0a0a',
+          primaryColor: '#171717',
+          primaryTextColor: '#f5f5f5',
+          primaryBorderColor: '#fb923c',
+          lineColor: '#fb923c',
+          edgeLabelBackground: '#171717',
+          fontFamily: 'Inter, ui-sans-serif, system-ui, sans-serif',
+        },
+        flowchart: {
+          defaultRenderer: 'elk',
+          curve: 'stepAfter',
+          nodeSpacing: 34,
+          rankSpacing: 50,
+          useMaxWidth: true,
+          wrappingWidth: 220,
+        },
+      });
+      return mermaid.render(`mermaid-${diagramId}-${expanded ? 'large' : 'preview'}`, definition);
+    }).then(({ svg: renderedSvg }) => {
+      if (active) setSvg(renderedSvg);
+    }).catch(() => {
+      if (active) setError('Não foi possível renderizar o fluxograma.');
+    });
+    return () => { active = false; };
+  }, [definition, diagramId, expanded]);
+
+  if (error) return <p className="flowchart-error">{error}</p>;
+  if (!svg) return <div className="flowchart-loading">Montando fluxograma…</div>;
+  return <div className={`mermaid-flowchart${expanded ? ' is-expanded' : ''}`} dangerouslySetInnerHTML={{ __html: svg }} />;
+}
+
+function MermaidFlowchart({ source }: { source: string }) {
+  const [sourcePath, label, caption] = source.trim().split('|').map((part) => part.trim());
+  const definition = flowchartSources[`../content/${sourcePath}`];
+
+  if (!definition) {
+    return <p className="flowchart-error">Fluxograma não encontrado: {sourcePath}</p>;
   }
 
   return (
     <ZoomableFlowchart label={label}>
       {(expanded) => (
         <figure className={`diagnostic-flowchart${expanded ? ' is-expanded' : ''}`} aria-label={label}>
-          <img className="d2-flowchart-image" src={imageUrl} alt={label} />
+          <MermaidDiagram definition={definition} expanded={expanded} />
           <figcaption>{caption}</figcaption>
         </figure>
       )}
@@ -89,8 +134,8 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
           ),
           pre: ({ children }) => {
             const child = Children.toArray(children)[0];
-            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-d2-flowchart') {
-              return <D2Flowchart source={getNodeText(child.props.children)} />;
+            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-mermaid-flowchart') {
+              return <MermaidFlowchart source={getNodeText(child.props.children)} />;
             }
 
             return <pre>{children}</pre>;
