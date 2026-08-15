@@ -7,6 +7,12 @@ type MarkdownNoteProps = {
   body: string;
 };
 
+const flowchartAssets = import.meta.glob<string>('../content/**/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
 function getNodeText(node: ReactNode): string {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
   if (Array.isArray(node)) return node.map(getNodeText).join('');
@@ -50,8 +56,12 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
 }
 
 function D2Flowchart({ source }: { source: string }) {
-  const [fileName, label, caption] = source.trim().split('|').map((part) => part.trim());
-  const imageUrl = `${import.meta.env.BASE_URL}diagrams/${fileName}`;
+  const [assetPath, label, caption] = source.trim().split('|').map((part) => part.trim());
+  const imageUrl = flowchartAssets[`../content/${assetPath}`];
+
+  if (!imageUrl) {
+    return <p className="flowchart-error">Fluxograma não encontrado: {assetPath}</p>;
+  }
 
   return (
     <ZoomableFlowchart label={label}>

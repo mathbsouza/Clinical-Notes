@@ -14,11 +14,11 @@ Síncope é uma **perda transitória da consciência causada por hipoperfusão c
 ## Etiologia
 
 ```d2-flowchart
-syncope-etiology.svg|Fluxograma etiológico da síncope|Principais grupos etiológicos da síncope
+Syndromes/Cardiovasculares/Síncope/syncope-etiology.svg|Fluxograma etiológico da síncope|Principais grupos etiológicos da síncope
 ```
 
 ## Diagnóstico
 
 ```d2-flowchart
-syncope-diagnosis.svg|Fluxograma diagnóstico da síncope|Fluxo de avaliação, estratificação e investigação da síncope
+Syndromes/Cardiovasculares/Síncope/syncope-diagnosis.svg|Fluxograma diagnóstico da síncope|Fluxo de avaliação, estratificação e investigação da síncope
 ```
