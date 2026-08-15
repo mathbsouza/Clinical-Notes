@@ -76,6 +76,12 @@ Regras da matriz:
 - Todas as linhas são estritamente horizontais ou verticais.
 - Diagonais, curvas, Bézier e zigue-zagues são proibidos.
 - Toda origem e todo destino usam âncoras explícitas.
+- A âncora de entrada corresponde obrigatoriamente ao último segmento: chegada
+  horizontal da esquerda usa `.west`; chegada horizontal da direita usa `.east`;
+  chegada vertical de cima usa `.north`; chegada vertical de baixo usa `.south`.
+- O operador também deve preservar essa orientação: use `|-` quando o último
+  segmento precisa ser horizontal e `-|` quando o último segmento precisa ser
+  vertical.
 - Fluxo vertical alinhado: `(A.south) -- (B.north)`.
 - Se o destino estiver em uma linha inferior, a seta sempre nasce em `.south`,
   desce primeiro e termina verticalmente em `.north`: `(A.south) -- ++(0,-6mm)

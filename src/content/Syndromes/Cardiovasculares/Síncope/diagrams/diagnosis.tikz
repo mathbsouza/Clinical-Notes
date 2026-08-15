@@ -69,9 +69,9 @@
   \draw[arrow] (estimateFork) -| node[label,near start,above] {$\approx 7\%$} (ddxTop.north);
 
   % Convergência em nó explícito de reavaliação.
-  \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) -| (reassess.north west);
+  \draw[arrow] (syncopeTop.south) -- ++(0,-6mm) |- (reassess.west);
   \draw[arrow] (seizureTop.south) -- (reassess.north);
-  \draw[arrow] (ddxTop.south) -- ++(0,-6mm) -| (reassess.north east);
+  \draw[arrow] (ddxTop.south) -- ++(0,-6mm) |- (reassess.east);
 
   % Fork 2: os dois ramos compartilham o mesmo Y.
   \draw[trunk] (reassess.south) -- (reassessFork);
