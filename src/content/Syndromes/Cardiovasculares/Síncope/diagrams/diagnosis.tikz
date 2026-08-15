@@ -1,9 +1,9 @@
 \begin{tikzpicture}[
-    font=\sffamily,
-    >=Latex,
-    line/.style={draw, -Latex, line width=0.8pt},
+    font=\sffamily\small,
+    line/.style={draw=black, -{Stealth[scale=1.0]}, line width=0.8pt},
     box/.style={
         draw,
+        fill=white,
         rectangle,
         rounded corners=0.5mm,
         align=center,
@@ -24,6 +24,7 @@
     smallbox/.default=30mm,
     titlebox/.style={
         draw,
+        fill=white,
         rectangle,
         line width=0.9pt,
         align=center,
@@ -35,7 +36,7 @@
     headbox/.style={
         draw,
         rectangle,
-        fill=green!8,
+        fill=white,
         align=center,
         minimum height=12mm,
         text width=68mm,

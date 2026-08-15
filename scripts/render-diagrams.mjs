@@ -6,16 +6,6 @@ const tex2svg = tikzjax.default;
 
 const contentRoot = path.resolve('src/content');
 
-function addWhiteBackground(svg) {
-  const viewBox = svg.match(/viewBox="([^"]+)"/)?.[1]?.trim().split(/\s+/).map(Number);
-  if (!viewBox || viewBox.length !== 4 || viewBox.some(Number.isNaN)) {
-    throw new Error('O SVG gerado não contém um viewBox válido.');
-  }
-  const [x, y, width, height] = viewBox;
-  const background = `<rect x="${x}" y="${y}" width="${width}" height="${height}" fill="#fff"/>`;
-  return svg.replace(/<svg\b[^>]*>/, (openingTag) => `${openingTag}${background}`);
-}
-
 async function findTikzFiles(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const nested = await Promise.all(entries.map((entry) => {
@@ -44,7 +34,7 @@ for (const inputPath of files) {
     fontCssUrl: 'https://cdn.jsdelivr.net/npm/node-tikzjax@1.0.5/css/fonts.css',
   });
   const outputPath = inputPath.replace(/\.tikz$/i, '.svg');
-  await writeFile(outputPath, addWhiteBackground(svg), 'utf8');
+  await writeFile(outputPath, svg, 'utf8');
   console.log(`${path.relative(process.cwd(), inputPath)} -> ${path.relative(process.cwd(), outputPath)}`);
 }
 

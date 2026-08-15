@@ -1,10 +1,10 @@
 \begin{tikzpicture}[
   font=\sffamily,
   >={Stealth[length=2.6mm]},
-  flow/.style={draw=orange!70!black, line width=.8pt, rounded corners=3pt,
-    fill=black!92, text=white, align=left, text width=4.5cm, inner sep=9pt},
+  flow/.style={draw=black, line width=.6pt, rounded corners=3pt,
+    fill=white, text=black, align=left, text width=4.5cm, inner sep=9pt},
   title/.style={flow, text width=3cm, align=center, font=\sffamily\bfseries},
-  arrow/.style={->, orange!78!white, line width=1pt, rounded corners=2pt}
+  arrow/.style={-{Stealth[scale=1.0]}, draw=black, line width=.8pt, rounded corners=2pt}
 ]
   \node[title] (syncope) {S\'incope};
   \node[flow, below left=18mm and 31mm of syncope] (reflex) {\textbf{Reflexa / neuromediada}\\[3pt]
