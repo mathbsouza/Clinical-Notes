@@ -20,23 +20,38 @@ function getNodeText(node: ReactNode): string {
 
 function ZoomableFlowchart({ label, children }: { label: string; children: (expanded: boolean) => ReactNode }) {
   const [expanded, setExpanded] = useState(false);
+  const [zoom, setZoom] = useState(1);
+  const changeZoom = (delta: number) => setZoom((current) => Math.min(2.5, Math.max(0.5, Number((current + delta).toFixed(2)))));
+  const open = () => { setZoom(1); setExpanded(true); };
 
   useEffect(() => {
     if (!expanded) return;
-    const closeOnEscape = (event: KeyboardEvent) => event.key === 'Escape' && setExpanded(false);
-    document.addEventListener('keydown', closeOnEscape);
-    return () => document.removeEventListener('keydown', closeOnEscape);
+    const handleKeyboard = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setExpanded(false);
+      if (event.key === '+' || event.key === '=') changeZoom(0.25);
+      if (event.key === '-') changeZoom(-0.25);
+      if (event.key === '0') setZoom(1);
+    };
+    document.addEventListener('keydown', handleKeyboard);
+    return () => document.removeEventListener('keydown', handleKeyboard);
   }, [expanded]);
 
   return <>
     <div className="flowchart-preview" role="button" tabIndex={0} aria-label={`Ampliar ${label}`}
-      onClick={() => setExpanded(true)} onKeyDown={(event) => (event.key === 'Enter' || event.key === ' ') && setExpanded(true)}>
+      onClick={open} onKeyDown={(event) => (event.key === 'Enter' || event.key === ' ') && open()}>
       {children(false)}
     </div>
     {expanded && <div className="flowchart-lightbox" role="dialog" aria-modal="true" aria-label={label} onClick={() => setExpanded(false)}>
       <div className="flowchart-lightbox-panel" onClick={(event) => event.stopPropagation()}>
+        <div className="flowchart-toolbar" aria-label="Controles de zoom">
+          <button type="button" onClick={() => changeZoom(-0.25)} disabled={zoom <= 0.5} aria-label="Reduzir zoom">−</button>
+          <button type="button" onClick={() => setZoom(1)} aria-label="Restaurar zoom">{Math.round(zoom * 100)}%</button>
+          <button type="button" onClick={() => changeZoom(0.25)} disabled={zoom >= 2.5} aria-label="Aumentar zoom">+</button>
+        </div>
         <button className="flowchart-close" type="button" onClick={() => setExpanded(false)} aria-label="Fechar fluxograma ampliado">×</button>
-        {children(true)}
+        <div className="flowchart-zoom-content" style={{ width: `${zoom * 100}%`, minWidth: `${zoom * 75}rem` }}>
+          {children(true)}
+        </div>
       </div>
     </div>}
   </>;

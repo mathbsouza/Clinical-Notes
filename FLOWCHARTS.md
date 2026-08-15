@@ -23,6 +23,20 @@ npm run build
 
 Para um único arquivo: `npm run diagrams -- diagnosis.tikz`.
 
+### Renderização e visualização
+
+- O SVG publicado deve ser autocontido: o renderizador incorpora somente as
+  fontes Computer Modern efetivamente usadas e não mantém `@import` externo.
+- Caracteres acentuados no TikZ usam comandos LaTeX explícitos, como `{\'a}` e
+  `{\c c}`, para permanecer compatíveis com o motor TeX embarcado.
+- A imagem pronta mantém fundo branco e desenho preto.
+- No tema escuro, somente a prévia recebe inversão de cores. Ao abrir o lightbox,
+  o SVG recupera as cores originais.
+- O lightbox oferece zoom de 50% a 250%, em passos de 25%, com botões para
+  reduzir, restaurar e ampliar. Atalhos: `-`, `0` e `+`.
+- Quando o conteúdo ampliado exceder a janela, o painel deve conservar rolagem
+  horizontal e vertical; o zoom não pode deformar a proporção da imagem.
+
 ## Fonte de verdade: `matrix of nodes`
 
 Todo fluxograma usa `matrix of nodes` como mecanismo padrão de layout. As linhas
@@ -58,6 +72,28 @@ Regras da matriz:
 - use `row sep` e `column sep` globais e uniformes;
 - não use cascatas de `below=of`, `right=of` ou coordenadas `at (x,y)` como
   mecanismo principal.
+
+### Algoritmo de compactação
+
+Depois de definir a topologia, compacte a grade nesta ordem:
+
+1. Remova toda coluna sem função lógica. Uma coluna vazia não pode existir apenas
+   para criar distância; use `column sep` para isso.
+2. Preserve somente as colunas exigidas por nós, ramos e corredores ortogonais de
+   setas. Ramos equivalentes continuam simétricos em relação à coluna central.
+3. Seja `W` a maior largura de nó equivalente. Use como ponto inicial
+   `column sep = clamp(4 mm, 0,08 × W, 8 mm)`.
+4. Use `row sep = clamp(5 mm, 0,12 × H, 10 mm)`, em que `H` é a altura mediana dos
+   nós. Aumente uma separação local somente se pontas de seta ou textos colidirem.
+5. Renderize e revise os corredores. Se houver espaço excessivo, reduza primeiro
+   `column sep`; não desloque nós individualmente e não entorte conectores.
+6. O renderizador remove automaticamente a margem técnica de 72 pt do TikZJax e
+   conserva 18 pt nas laterais e 24 pt acima e abaixo. Não acrescente células
+   vazias para simular margem externa.
+
+A ordem é obrigatória: eliminar colunas supérfluas → calcular separação global →
+renderizar → revisar colisões. A compactação nunca pode quebrar a simetria, mudar
+as colunas lógicas ou criar setas diagonais.
 
 ## Nós e estilo acadêmico
 

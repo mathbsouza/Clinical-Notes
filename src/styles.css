@@ -646,6 +646,36 @@ body {
   z-index: 2;
 }
 
+.flowchart-toolbar {
+  display: flex;
+  gap: 0.35rem;
+  left: 0;
+  position: sticky;
+  top: 0;
+  width: max-content;
+  z-index: 3;
+}
+
+.flowchart-toolbar button {
+  background: #262626;
+  border: 1px solid #525252;
+  border-radius: 0.45rem;
+  color: #fafafa;
+  cursor: pointer;
+  font: inherit;
+  min-width: 2.35rem;
+  padding: 0.4rem 0.65rem;
+}
+
+.flowchart-toolbar button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.flowchart-zoom-content {
+  transform-origin: top left;
+}
+
 .diagnostic-flowchart {
   margin: 1.35rem auto 1.75rem;
   max-width: 62rem;
@@ -670,9 +700,7 @@ body {
   filter: none;
 }
 
-.static-flowchart.is-expanded {
-  min-width: 75rem;
-}
+.static-flowchart.is-expanded { max-width: none; }
 
 .mermaid-flowchart {
   min-height: 10rem;

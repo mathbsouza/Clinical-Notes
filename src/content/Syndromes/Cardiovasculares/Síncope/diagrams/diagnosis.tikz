@@ -25,7 +25,7 @@
   \matrix (grid) [
     matrix of nodes,
     row sep=6mm,
-    column sep=6mm,
+    column sep=4.5mm,
     nodes in empty cells
   ] {
     & & & |[terminal] (title)| {PERDA TRANSIT{\'O}RIA DA CONSCI{\^E}NCIA} & & & \\

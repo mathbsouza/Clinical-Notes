@@ -14,7 +14,7 @@
   \matrix (grid) [
     matrix of nodes,
     row sep=6mm,
-    column sep=9mm,
+    column sep=6mm,
     nodes in empty cells
   ] {
     & |[terminal] (syncope)| {S{\'i}ncope} & \\
