@@ -32,52 +32,53 @@ syncope: Síncope {
 }
 
 reflex: Reflexa / neuromediada {
-  style.fill: "#431407"
+  grid-columns: 1
+  grid-gap: 10
+  style.fill: "#1c110c"
+  style.stroke: "#fb923c"
   style.font-color: "#ffedd5"
   style.bold: true
-}
-orthostatic: Hipotensão ortostática {
-  style.fill: "#431407"
-  style.font-color: "#ffedd5"
-  style.bold: true
-}
-cardiac: Cardíaca {
-  style.fill: "#431407"
-  style.font-color: "#ffedd5"
-  style.bold: true
+  style.border-radius: 14
+  style.shadow: true
+
+  vasovagal: Vasovagal
+  situational: Situacional — tosse, micção, defecação ou deglutição
+  carotid: Síndrome do seio carotídeo
+  atypical: Formas atípicas
 }
 
-vasovagal: Vasovagal
-situational: |md
-  Situacional<br/>tosse, micção, defecação ou deglutição
-|
-carotid: Síndrome do seio carotídeo
-atypical: Formas atípicas
-primary: Disfunção autonômica primária
-secondary: Disfunção autonômica secundária
-drugs: Induzida por fármacos
-hypovolemia: Hipovolemia
-arrhythmias: |md
-  Arritmias<br/>bradi ou taquiarritmias
-|
-structural: Doença estrutural cardíaca
-cardiopulmonary: |md
-  Doença cardiopulmonar<br/>TEP ou hipertensão pulmonar
-|
-ischemia: Isquemia miocárdica
+orthostatic: Hipotensão ortostática {
+  grid-columns: 1
+  grid-gap: 10
+  style.fill: "#1c110c"
+  style.stroke: "#fb923c"
+  style.font-color: "#ffedd5"
+  style.bold: true
+  style.border-radius: 14
+  style.shadow: true
+
+  primary: Disfunção autonômica primária
+  secondary: Disfunção autonômica secundária
+  drugs: Induzida por fármacos
+  hypovolemia: Hipovolemia
+}
+
+cardiac: Cardíaca {
+  grid-columns: 1
+  grid-gap: 10
+  style.fill: "#1c110c"
+  style.stroke: "#fb923c"
+  style.font-color: "#ffedd5"
+  style.bold: true
+  style.border-radius: 14
+  style.shadow: true
+
+  arrhythmias: Arritmias — bradi ou taquiarritmias
+  structural: Doença estrutural cardíaca
+  cardiopulmonary: Doença cardiopulmonar — TEP ou hipertensão pulmonar
+  ischemia: Isquemia miocárdica
+}
 
 syncope -> reflex
 syncope -> orthostatic
 syncope -> cardiac
-reflex -> vasovagal
-reflex -> situational
-reflex -> carotid
-reflex -> atypical
-orthostatic -> primary
-orthostatic -> secondary
-orthostatic -> drugs
-orthostatic -> hypovolemia
-cardiac -> arrhythmias
-cardiac -> structural
-cardiac -> cardiopulmonary
-cardiac -> ischemia
