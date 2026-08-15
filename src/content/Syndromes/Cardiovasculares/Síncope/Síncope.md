@@ -20,36 +20,42 @@ Syndromes/Cardiovasculares/Síncope/diagrams/etiology.svg|Fluxograma etiológico
 
 ## Diagnóstico
 
-- "An ECG should be obtained in all patients with suspected syncope."
+- Deve-se obter um eletrocardiograma em toda avaliação de paciente com suspeita de síncope.[^uptodate-ecg-syncope]
 
-| Classificação | Achado no ECG |
-|---|---|
-| **Causa arrítmica provável**[^uptodate-arrhythmic-syncope] | Bradicardia sinusal persistente **< 40 bpm** ou pausa sinusal **> 3 s** em vigília; interpretar com cautela. |
-| **Causa arrítmica provável** | Bloqueio AV de segundo grau **Mobitz II**. |
-| **Causa arrítmica provável** | Bloqueio AV de terceiro grau (completo). |
-| **Causa arrítmica provável** | Alternância entre bloqueio de ramo esquerdo e direito. |
-| **Causa arrítmica provável** | TV ou TSV paroxística rápida, sobretudo com disfunção ventricular esquerda; ou pausa prolongada após término de TSV/FA. |
-| **Causa arrítmica provável** | TV polimórfica não sustentada com QT longo ou curto. |
-| **Causa arrítmica provável** | Mau funcionamento de marca-passo ou CDI com pausas cardíacas. |
-| **Investigar cardiopatia**[^uptodate-abnormal-ecg-syncope] | Bloqueio bifascicular, sobretudo com bloqueio AV de primeiro grau. |
-| **Investigar cardiopatia** | Distúrbio da condução intraventricular com **QRS ≥ 120 ms**. |
-| **Investigar cardiopatia** | Bloqueio AV de segundo grau **Mobitz I**. |
-| **Investigar cardiopatia** | Bradicardia sinusal ou FA com resposta ventricular **≤ 40 bpm**, sem fármacos cronotrópicos negativos. |
-| **Investigar cardiopatia** | TV não sustentada. |
-| **Investigar cardiopatia** | QRS pré-excitado (padrão de Wolff–Parkinson–White). |
-| **Investigar cardiopatia** | Intervalo QT longo ou curto. |
-| **Investigar cardiopatia** | Repolarização precoce. |
-| **Investigar cardiopatia** | Padrão de BRD com elevação do ST em V1–V3 (Brugada). |
-| **Investigar cardiopatia** | Ondas T negativas precordiais direitas e/ou onda épsilon em V1–V2 (cardiomiopatia arritmogênica do VD). |
-| **Investigar cardiopatia** | Hipertrofia ventricular esquerda, sugerindo cardiomiopatia hipertrófica ou outra cardiopatia estrutural. |
+| Classificação | Achado no ECG | Interpretação |
+|---|---|---|
+| **Causa arrítmica provável**[^uptodate-arrhythmic-syncope] | Bradicardia sinusal persistente **< 40 bpm** ou pausa sinusal **> 3 s** em vigília. | Sugere etiologia bradicárdica; exige confirmação clínica. |
+| **Causa arrítmica provável** | Bloqueio AV de segundo grau **Mobitz II**. | Forte suspeita de bradiarritmia causal. |
+| **Causa arrítmica provável** | Bloqueio AV de terceiro grau (completo). | Forte suspeita de bradiarritmia causal. |
+| **Causa arrítmica provável** | Alternância entre bloqueio de ramo esquerdo e direito. | Sugere doença avançada do sistema His–Purkinje. |
+| **Causa arrítmica provável** | TV ou TSV paroxística rápida; ou pausa após término de TSV/FA. | Mais relevante com disfunção ventricular esquerda ou pausa prolongada. |
+| **Causa arrítmica provável** | TV polimórfica não sustentada com QT longo ou curto. | Investigar canalopatia e causas adquiridas. |
+| **Causa arrítmica provável** | Mau funcionamento de marca-passo ou CDI com pausas. | Correlacionar com a interrogação do dispositivo. |
+| **Investigar cardiopatia**[^uptodate-abnormal-ecg-syncope] | Bloqueio bifascicular, sobretudo com BAV de primeiro grau. | Sugere doença do sistema de condução. |
+| **Investigar cardiopatia** | Distúrbio da condução intraventricular com **QRS ≥ 120 ms**. | Pesquisar cardiopatia estrutural ou doença de condução. |
+| **Investigar cardiopatia** | Bloqueio AV de segundo grau **Mobitz I**. | Avaliar localização e progressão do bloqueio. |
+| **Investigar cardiopatia** | Bradicardia sinusal ou FA com frequência **≤ 40 bpm**, sem fármacos cronotrópicos negativos. | Sugere disfunção sinusal ou doença de condução. |
+| **Investigar cardiopatia** | TV não sustentada. | Pesquisar substrato estrutural ou isquêmico. |
+| **Investigar cardiopatia** | QRS pré-excitado. | Sugere padrão de Wolff–Parkinson–White. |
+| **Investigar cardiopatia** | Intervalo QT longo ou curto. | Pesquisar causas adquiridas e hereditárias. |
+| **Investigar cardiopatia** | Repolarização precoce. | Interpretar conforme padrão e contexto clínico. |
+| **Investigar cardiopatia** | BRD com elevação do ST em V1–V3. | Sugere síndrome de Brugada. |
+| **Investigar cardiopatia** | Ondas T negativas precordiais direitas e/ou onda épsilon em V1–V2. | Sugere cardiomiopatia arritmogênica do VD. |
+| **Investigar cardiopatia** | Hipertrofia ventricular esquerda. | Considerar cardiomiopatia hipertrófica ou outra cardiopatia estrutural. |
 
 Os achados acima aumentam a probabilidade de etiologia arrítmica, mas não dispensam a correlação entre sintomas e ritmo nem a avaliação confirmatória.[^uptodate-arrhythmic-syncope][^uptodate-abnormal-ecg-syncope]
+
+- Quando houver cardiopatia estrutural conhecida ou suspeita a partir da história, do exame físico ou do ECG, deve-se realizar ecocardiograma transtorácico para avaliação estrutural.[^uptodate-echo-syncope]
 
 ```svg-diagram
 Syndromes/Cardiovasculares/Síncope/diagrams/diagnosis.svg|Fluxograma diagnóstico da síncope
 ```
 
 [^uptodate-syncope]: "Syncope is a clinical syndrome in which transient loss of consciousness (TLOC) is caused by a period of inadequate cerebral blood flow and oxygenation, most often the result of an abrupt drop of systemic blood pressure." [...] "Unfortunately, the term "syncope" is often misapplied to encompass other forms of abrupt collapse, such as seizures or concussions, which may or may not be accompanied by TLOC." *Syncope in adults: Clinical manifestations and initial diagnostic evaluation*. UpToDate.
+
+[^uptodate-ecg-syncope]: “An ECG should be obtained in all patients with suspected syncope.” *Syncope in adults: Clinical manifestations and initial diagnostic evaluation*. UpToDate.
+
+[^uptodate-echo-syncope]: “When structural heart disease is known or is suspected based on the results of the history, physical examination, and ECG, a transthoracic echocardiogram should be performed to evaluate for structural heart disease [1].” *Syncope in adults: Clinical manifestations and initial diagnostic evaluation*. UpToDate.
 
 [^uptodate-arrhythmic-syncope]: *Syncope in adults: Clinical manifestations and initial diagnostic evaluation*. UpToDate. Trecho copiado na íntegra:
 
