@@ -9,7 +9,8 @@ tags: síncope, perda de consciência, cardiovascular
 
 ## Definição
 
-Síncope é uma **perda transitória da consciência causada por hipoperfusão cerebral global**, caracterizada por início rápido, curta duração e recuperação espontânea completa. Em geral, há perda do tônus postural. Deve ser diferenciada de outras causas de perda transitória da consciência, como crises epilépticas, intoxicações, distúrbios metabólicos e causas psicogênicas.
+- Síncope é uma **perda transitória da consciência causada por hipoperfusão cerebral global**, caracterizada por início rápido, curta duração e recuperação espontânea completa.[^UpToDate-Syncope-in-adults]
+- Em geral, há perda do tônus postural. Deve ser diferenciada de outras causas de perda transitória da consciência, como crises epilépticas, intoxicações, distúrbios metabólicos e causas psicogênicas.
 
 ## Etiologia
 
@@ -26,14 +27,14 @@ Síncope é uma **perda transitória da consciência causada por hipoperfusão c
 ]
   \node[title] (syncope) {Síncope};
   \node[flow, below left=18mm and 31mm of syncope] (reflex) {\textbf{Reflexa / neuromediada}\\[3pt]
-    Vasovagal\\ Situacional: tosse, micção, defecação ou deglutição\\
-    Síndrome do seio carotídeo\\ Formas atípicas};
+    $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, micção, defecação ou deglutição\\
+    $\bullet$ Síndrome do seio carotídeo\\ $\bullet$ Formas atípicas};
   \node[flow, below=18mm of syncope] (orthostatic) {\textbf{Hipotensão ortostática}\\[3pt]
-    Disfunção autonômica primária\\ Disfunção autonômica secundária\\
-    Induzida por fármacos\\ Hipovolemia};
+    $\bullet$ Disfunção autonômica primária\\ $\bullet$ Disfunção autonômica secundária\\
+    $\bullet$ Induzida por fármacos\\ $\bullet$ Hipovolemia};
   \node[flow, below right=18mm and 31mm of syncope] (cardiac) {\textbf{Cardíaca}\\[3pt]
-    Arritmias: bradi ou taquiarritmias\\ Doença estrutural cardíaca\\
-    Doença cardiopulmonar: TEP ou hipertensão pulmonar\\ Isquemia miocárdica};
+    $\bullet$ Arritmias: bradi ou taquiarritmias\\ $\bullet$ Doença estrutural cardíaca\\
+    $\bullet$ Doença cardiopulmonar: TEP ou hipertensão pulmonar\\ $\bullet$ Isquemia miocárdica};
 
   \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (reflex.north);
   \draw[arrow] (syncope.south) -- (orthostatic.north);
@@ -114,3 +115,4 @@ Síncope é uma **perda transitória da consciência causada por hipoperfusão c
   \draw[arrow] (other.south) |- (followup.east);
 \end{tikzpicture}
 ```
+[^UpToDate-Syncope-in-adults] "Syncope is a clinical syndrome in which transient loss of consciousness (TLOC) is caused by a period of inadequate cerebral blood flow and oxygenation, most often the result of an abrupt drop of systemic blood pressure." Syncope in adults: Clinical manifestations and initial diagnostic evaluation, UpToDate.
