@@ -1,9 +1,9 @@
 ---
 title: Insuficiência Cardíaca
-entityGroup: Doenças
-category: Cardiologia
+entityGroup: Síndromes
+category: Cardiovasculares
 summary: Síndrome clínica causada por anormalidade cardíaca estrutural ou funcional, abordada por fenótipo, congestão, etiologia e terapia modificadora de prognóstico.
-updated: 2026-08-11
+updated: 2026-08-14
 tags: insuficiência cardíaca, bnp, nt-probnp, dispneia, icfer, icfep
 ---
 
