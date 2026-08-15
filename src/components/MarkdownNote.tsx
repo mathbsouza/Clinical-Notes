@@ -1,4 +1,4 @@
-import { Children, isValidElement, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useState, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
@@ -12,6 +12,12 @@ type FlowchartBranch = {
   items: string[];
 };
 
+type DiagnosticStage = {
+  kind: 'start' | 'decision' | 'process';
+  title: string;
+  items: string[];
+};
+
 function getNodeText(node: ReactNode): string {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
   if (Array.isArray(node)) return node.map(getNodeText).join('');
@@ -19,14 +25,49 @@ function getNodeText(node: ReactNode): string {
   return '';
 }
 
-function Flowchart({ source }: { source: string }) {
+function ZoomableFlowchart({ label, children }: { label: string; children: (expanded: boolean) => ReactNode }) {
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    if (!expanded) return;
+    const closeOnEscape = (event: KeyboardEvent) => event.key === 'Escape' && setExpanded(false);
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [expanded]);
+
+  return (
+    <>
+      <div
+        className="flowchart-preview"
+        role="button"
+        tabIndex={0}
+        aria-label={`Ampliar ${label}`}
+        onClick={() => setExpanded(true)}
+        onKeyDown={(event) => (event.key === 'Enter' || event.key === ' ') && setExpanded(true)}
+      >
+        {children(false)}
+        <span className="flowchart-expand-hint">Clique para ampliar</span>
+      </div>
+      {expanded && (
+        <div className="flowchart-lightbox" role="dialog" aria-modal="true" aria-label={label} onClick={() => setExpanded(false)}>
+          <div className="flowchart-lightbox-panel" onClick={(event) => event.stopPropagation()}>
+            <button className="flowchart-close" type="button" onClick={() => setExpanded(false)} aria-label="Fechar fluxograma ampliado">×</button>
+            {children(true)}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+function EtiologyFlowchart({ source }: { source: string }) {
   const [root = 'Etiologia', ...branchLines] = source.trim().split(/\r?\n/).filter(Boolean);
   const branches: FlowchartBranch[] = branchLines.map((line) => {
     const [title, ...items] = line.split('|').map((part) => part.trim());
     return { title, items };
   });
 
-  return (
+  const chart = (
     <figure className="etiology-flowchart" aria-label={`Fluxograma: ${root}`}>
       <div className="flowchart-root">{root}</div>
       <div className="flowchart-trunk" aria-hidden="true" />
@@ -46,6 +87,46 @@ function Flowchart({ source }: { source: string }) {
       <figcaption>Fluxograma de {root.toLocaleLowerCase('pt-BR')}</figcaption>
     </figure>
   );
+
+  return <ZoomableFlowchart label={`Fluxograma: ${root}`}>{() => chart}</ZoomableFlowchart>;
+}
+
+function DiagnosticFlowchart({ source }: { source: string }) {
+  const stages: DiagnosticStage[] = source.trim().split(/\r?\n/).filter(Boolean).map((line) => {
+    const [kind, title, ...items] = line.split('|').map((part) => part.trim());
+    return { kind: kind as DiagnosticStage['kind'], title, items };
+  });
+
+  const renderChart = (expanded: boolean) => (
+    <figure className={`diagnostic-flowchart${expanded ? ' is-expanded' : ''}`} aria-label="Fluxograma diagnóstico da síncope">
+      <div className="diagnostic-sequence">
+        {stages.map((stage, stageIndex) => (
+          <div className="diagnostic-stage" key={`${stage.kind}-${stage.title}`}>
+            {stageIndex > 0 && <div className="diagnostic-arrow" aria-hidden="true">↓</div>}
+            <div className={`diagnostic-node diagnostic-node-${stage.kind}`}>
+              <strong>{stage.title}</strong>
+            </div>
+            {stage.items.length > 0 && (
+              <div className={`diagnostic-options${stage.kind === 'decision' ? ' is-decision' : ''}`}>
+                {stage.items.map((item, itemIndex) => {
+                  const [label, detail = ''] = item.split('→').map((part) => part.trim());
+                  return (
+                    <div className={`diagnostic-option${itemIndex === stage.items.length - 1 ? ' continues' : ''}`} key={item}>
+                      {detail && <b>{label}</b>}
+                      <span>{detail || label}</span>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <figcaption>Fluxo de avaliação, estratificação e investigação da síncope</figcaption>
+    </figure>
+  );
+
+  return <ZoomableFlowchart label="Fluxograma diagnóstico da síncope">{renderChart}</ZoomableFlowchart>;
 }
 
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
@@ -63,7 +144,10 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
           pre: ({ children }) => {
             const child = Children.toArray(children)[0];
             if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-etiology-flowchart') {
-              return <Flowchart source={getNodeText(child.props.children)} />;
+              return <EtiologyFlowchart source={getNodeText(child.props.children)} />;
+            }
+            if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-diagnostic-flowchart') {
+              return <DiagnosticFlowchart source={getNodeText(child.props.children)} />;
             }
 
             return <pre>{children}</pre>;
