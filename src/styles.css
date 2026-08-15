@@ -685,6 +685,151 @@ body {
   color: #fca5a5;
 }
 
+.clinical-flow {
+  background: #0a0a0a;
+  border: 1px solid rgb(251 146 60 / 0.14);
+  border-radius: 0.9rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.clinical-flow .react-flow__pane {
+  cursor: inherit;
+}
+
+.clinical-flow.is-expanded .react-flow__pane {
+  cursor: grab;
+}
+
+.clinical-flow.is-expanded .react-flow__pane:active {
+  cursor: grabbing;
+}
+
+.clinical-flow-node {
+  align-items: center;
+  background: linear-gradient(145deg, #262626, #171717);
+  border: 2px solid #fb923c;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 0.3);
+  color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  width: 100%;
+}
+
+.clinical-flow-node strong {
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.clinical-flow-node > span {
+  color: #c8c3bf;
+  font-size: 0.78rem;
+  line-height: 1.42;
+  margin-top: 0.45rem;
+}
+
+.clinical-flow-node-start {
+  background: linear-gradient(135deg, #fb923c, #ea580c);
+  border-color: #fdba74;
+  border-radius: 999px;
+  color: #fff7ed;
+}
+
+.clinical-flow-node-decision {
+  background: #431407;
+  clip-path: polygon(9% 0, 91% 0, 100% 50%, 91% 100%, 9% 100%, 0 50%);
+  color: #ffedd5;
+  padding-left: 2.25rem;
+  padding-right: 2.25rem;
+}
+
+.clinical-flow-node-urgent {
+  background: linear-gradient(145deg, #450a0a, #290606);
+  border-color: #f87171;
+  color: #fee2e2;
+}
+
+.clinical-flow-node-endpoint {
+  background: linear-gradient(145deg, #14532d, #0b321b);
+  border-color: #4ade80;
+  border-radius: 999px;
+  color: #dcfce7;
+}
+
+.clinical-flow-node-group {
+  background: linear-gradient(145deg, #23140d, #130d09);
+  border-color: #fb923c;
+  border-radius: 1rem;
+  color: #ffedd5;
+  justify-content: flex-start;
+  padding: 1.1rem;
+}
+
+.clinical-flow-node-group strong {
+  font-size: 1.15rem;
+  margin-bottom: 0.8rem;
+}
+
+.clinical-flow-node-group ul {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.clinical-flow-node-group li {
+  align-items: center;
+  background: #171717;
+  border: 1px solid rgb(251 146 60 / 0.65);
+  border-radius: 0.65rem;
+  color: #e7e5e4;
+  display: flex;
+  font-size: 0.78rem;
+  justify-content: center;
+  line-height: 1.3;
+  margin: 0;
+  min-height: 2.9rem;
+  padding: 0.55rem 0.7rem;
+}
+
+.clinical-flow-node-group li::before {
+  content: none;
+}
+
+.clinical-flow-handle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.clinical-flow .react-flow__edge-path {
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.clinical-flow .react-flow__controls {
+  border: 1px solid rgb(251 146 60 / 0.3);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+}
+
+.clinical-flow .react-flow__controls-button {
+  background: #171717;
+  border-bottom-color: #404040;
+  color: #fdba74;
+  fill: currentColor;
+}
+
+.clinical-flow .react-flow__controls-button:hover {
+  background: #292524;
+}
+
 .diagnostic-sequence {
   align-items: center;
   display: flex;
