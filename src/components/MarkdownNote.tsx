@@ -1,9 +1,15 @@
-import { Children, isValidElement, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useState, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
 
 type MarkdownNoteProps = { body: string };
+
+const diagramSources = import.meta.glob<string>('../content/**/diagrams/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
 
 function getNodeText(node: ReactNode): string {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
@@ -37,39 +43,14 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
   </>;
 }
 
-function TikzFrame({ source, label, expanded }: { source: string; label: string; expanded: boolean }) {
-  const frameRef = useRef<HTMLIFrameElement>(null);
-  const frameId = useMemo(() => `tikz-${crypto.randomUUID()}`, []);
-  const safeSource = source.replace(/<\/script/gi, '<\\/script');
-  const srcDoc = `<!doctype html><html><head><meta charset="utf-8">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@rod2ik/tikzjax@1.5.0/dist/fonts.min.css">
-<style>html,body{margin:0;background:transparent}body{display:flex;justify-content:center;overflow:hidden;padding:8px;box-sizing:border-box}svg{display:block;max-width:100%;height:auto}</style>
-</head><body><script type="text/tikz" data-tikz-libraries="positioning,arrows.meta,shapes.geometric">${safeSource}</script>
-<script>const report=()=>parent.postMessage({type:'tikz-height',id:'${frameId}',height:Math.ceil(document.documentElement.scrollHeight)},'*');new MutationObserver(report).observe(document.body,{childList:true,subtree:true});addEventListener('load',report);<\/script>
-<script src="https://cdn.jsdelivr.net/npm/@rod2ik/tikzjax@1.5.0/dist/tikzjax.min.js" defer><\/script></body></html>`;
-
-  useEffect(() => {
-    const resize = (event: MessageEvent) => {
-      if (event.data?.type !== 'tikz-height' || event.data.id !== frameId || !frameRef.current) return;
-      frameRef.current.style.height = `${Math.max(Number(event.data.height) || 0, 120)}px`;
-    };
-    window.addEventListener('message', resize);
-    return () => window.removeEventListener('message', resize);
-  }, [frameId]);
-
-  return <iframe ref={frameRef} className={`tikz-frame${expanded ? ' is-expanded' : ''}`} title={label} srcDoc={srcDoc} sandbox="allow-scripts allow-same-origin" />;
-}
-
-function TikzFlowchart({ source }: { source: string }) {
-  const firstLineBreak = source.indexOf('\n');
-  const metadata = (firstLineBreak >= 0 ? source.slice(0, firstLineBreak) : '').match(/^%\s*([^|]+)\|\s*(.+)$/);
-  const label = metadata?.[1].trim() || 'Fluxograma TikZ';
-  const caption = metadata?.[2].trim() || '';
-  const tikz = firstLineBreak >= 0 && metadata ? source.slice(firstLineBreak + 1).trim() : source.trim();
+function StaticFlowchart({ source }: { source: string }) {
+  const [sourcePath, label = 'Fluxograma', caption = ''] = source.trim().split('|').map((part) => part.trim());
+  const imageUrl = diagramSources[`../content/${sourcePath}`];
+  if (!imageUrl) return <p className="flowchart-error">Diagrama não encontrado: {sourcePath}</p>;
 
   return <ZoomableFlowchart label={label}>{(expanded) =>
-    <figure className={`diagnostic-flowchart tikz-flowchart${expanded ? ' is-expanded' : ''}`} aria-label={label}>
-      <TikzFrame source={tikz} label={label} expanded={expanded} />
+    <figure className={`diagnostic-flowchart static-flowchart${expanded ? ' is-expanded' : ''}`} aria-label={label}>
+      <img className="static-flowchart-image" src={imageUrl} alt={label} />
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
   }</ZoomableFlowchart>;
@@ -83,8 +64,8 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
       table: ({ children }) => <div className="table-scroll" role="region" aria-label="Tabela com rolagem horizontal"><table>{children}</table></div>,
       pre: ({ children }) => {
         const child = Children.toArray(children)[0];
-        if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-tikz') {
-          return <TikzFlowchart source={getNodeText(child.props.children)} />;
+        if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-svg-diagram') {
+          return <StaticFlowchart source={getNodeText(child.props.children)} />;
         }
         return <pre>{children}</pre>;
       },

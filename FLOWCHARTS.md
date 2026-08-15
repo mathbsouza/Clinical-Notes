@@ -1,22 +1,36 @@
-# Flowcharts clínicos com TikZ
+# Diagramas clínicos com TikZ
 
-Os diagramas ficam no próprio artigo Markdown e são compilados no navegador pelo
-TikZJax (TeX em WebAssembly). O GitHub Pages publica apenas os arquivos estáticos;
-não é necessário instalar LaTeX no workflow.
+Cada entidade guarda seus próprios diagramas:
+
+```text
+Nome da entidade/
+├── Nome da entidade.md
+└── diagrams/
+    ├── etiology.tikz   # fonte editável
+    ├── etiology.svg    # imagem pronta publicada
+    ├── diagnosis.tikz
+    └── diagnosis.svg
+```
+
+## Fluxo de publicação
+
+Depois de editar qualquer `.tikz`, renderize localmente antes do commit:
+
+```bash
+npm run diagrams
+npm run build
+```
+
+`npm run diagrams` encontra todos os arquivos `src/content/**/diagrams/*.tikz` e
+grava o SVG ao lado da fonte. O SVG deve ser versionado no Git. O workflow do
+GitHub Pages recebe e publica somente a imagem pronta; não executa TeX.
+
+No artigo, use:
 
 ````markdown
-```tikz
-% Nome acessível do diagrama | Legenda exibida abaixo do diagrama
-\usetikzlibrary{positioning,arrows.meta}
-\begin{tikzpicture}[>=Stealth]
-  \node[draw] (inicio) {Início};
-  \node[draw, below=1cm of inicio] (fim) {Fim};
-  \draw[->] (inicio.south) -- (fim.north);
-\end{tikzpicture}
+```svg-diagram
+Syndromes/Cardiovasculares/Síncope/diagrams/etiology.svg|Nome acessível|Legenda
 ```
 ````
 
-Como em TikZ normal, a origem e o destino podem usar âncoras (`.north`, `.east`,
-`.south`, `.west`), deslocamentos relativos (`++(0,-7mm)`) e cotovelos ortogonais
-(`|-` e `-|`). O SVG se ajusta à largura disponível e pode ser ampliado com um
-clique.
+O site ajusta a imagem à largura disponível e abre uma versão maior ao clicar.

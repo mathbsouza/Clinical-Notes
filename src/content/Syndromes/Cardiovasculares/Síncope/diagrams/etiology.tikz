@@ -1,0 +1,23 @@
+\begin{tikzpicture}[
+  font=\sffamily,
+  >={Stealth[length=2.6mm]},
+  flow/.style={draw=orange!70!black, line width=.8pt, rounded corners=3pt,
+    fill=black!92, text=white, align=left, text width=4.5cm, inner sep=9pt},
+  title/.style={flow, text width=3cm, align=center, font=\sffamily\bfseries},
+  arrow/.style={->, orange!78!white, line width=1pt, rounded corners=2pt}
+]
+  \node[title] (syncope) {S\'incope};
+  \node[flow, below left=18mm and 31mm of syncope] (reflex) {\textbf{Reflexa / neuromediada}\\[3pt]
+    $\bullet$ Vasovagal\\ $\bullet$ Situacional: tosse, mic\c{c}\~ao, defeca\c{c}\~ao ou degluti\c{c}\~ao\\
+    $\bullet$ S\'indrome do seio carot\'ideo\\ $\bullet$ Formas at\'ipicas};
+  \node[flow, below=18mm of syncope] (orthostatic) {\textbf{Hipotens\~ao ortost\'atica}\\[3pt]
+    $\bullet$ Disfun\c{c}\~ao auton\^omica prim\'aria\\ $\bullet$ Disfun\c{c}\~ao auton\^omica secund\'aria\\
+    $\bullet$ Induzida por f\'armacos\\ $\bullet$ Hipovolemia};
+  \node[flow, below right=18mm and 31mm of syncope] (cardiac) {\textbf{Card\'iaca}\\[3pt]
+    $\bullet$ Arritmias: bradi ou taquiarritmias\\ $\bullet$ Doen\c{c}a estrutural card\'iaca\\
+    $\bullet$ Doen\c{c}a cardiopulmonar: TEP ou hipertens\~ao pulmonar\\ $\bullet$ Isquemia mioc\'ardica};
+
+  \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (reflex.north);
+  \draw[arrow] (syncope.south) -- (orthostatic.north);
+  \draw[arrow] (syncope.south) -- ++(0,-7mm) -| (cardiac.north);
+\end{tikzpicture}

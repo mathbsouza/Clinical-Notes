@@ -653,21 +653,15 @@ body {
   padding: 0.4rem;
 }
 
-.tikz-frame {
-  background: transparent;
-  border: 0;
+.static-flowchart-image {
   display: block;
-  min-height: 12rem;
-  pointer-events: none;
-  transition: height 180ms ease;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
   width: 100%;
 }
 
-.tikz-frame.is-expanded {
-  min-height: 32rem;
-}
-
-.tikz-flowchart.is-expanded {
+.static-flowchart.is-expanded {
   min-width: 75rem;
 }
 
