@@ -28,11 +28,10 @@ tags: MBE, estatística, regressão linear, regressão logística, regressão de
 
 #### Exemplo
 
-Se um estudo pretende comparar o **número de infecções respiratórias ocorridas durante um ano**, ajustando para variáveis confundidoras, a regressão de Poisson é a escolha inicial mais apropriada.
-
-- A regressão linear é inadequada porque o desfecho é uma contagem discreta, geralmente assimétrica e limitada a valores não negativos.
-- A regressão logística responderia se ocorreu **ao menos uma infecção**, mas descartaria a informação sobre o número de episódios.
-- A regressão de Cox analisaria o **tempo até um evento**, e não diretamente a quantidade total de infecções.
+- Se um estudo pretende comparar o **número de infecções respiratórias ocorridas durante um ano**, ajustando para variáveis confundidoras, a regressão de Poisson é a escolha inicial mais apropriada.
+  - A regressão linear é inadequada porque o desfecho é uma contagem discreta, geralmente assimétrica e limitada a valores não negativos.
+  - A regressão logística responderia se ocorreu **ao menos uma infecção**, mas descartaria a informação sobre o número de episódios.
+  - A regressão de Cox analisaria o **tempo até um evento**, e não diretamente a quantidade total de infecções.
 
 #### Verificação dos pressupostos
 
