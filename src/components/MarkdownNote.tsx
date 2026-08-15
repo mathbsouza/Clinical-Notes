@@ -19,7 +19,7 @@ function getNodeText(node: ReactNode): string {
   return '';
 }
 
-function EtiologyFlowchart({ source }: { source: string }) {
+function Flowchart({ source }: { source: string }) {
   const [root = 'Etiologia', ...branchLines] = source.trim().split(/\r?\n/).filter(Boolean);
   const branches: FlowchartBranch[] = branchLines.map((line) => {
     const [title, ...items] = line.split('|').map((part) => part.trim());
@@ -43,7 +43,7 @@ function EtiologyFlowchart({ source }: { source: string }) {
           </div>
         ))}
       </div>
-      <figcaption>Principais grupos etiológicos da síncope</figcaption>
+      <figcaption>Fluxograma de {root.toLocaleLowerCase('pt-BR')}</figcaption>
     </figure>
   );
 }
@@ -63,7 +63,7 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
           pre: ({ children }) => {
             const child = Children.toArray(children)[0];
             if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-etiology-flowchart') {
-              return <EtiologyFlowchart source={getNodeText(child.props.children)} />;
+              return <Flowchart source={getNodeText(child.props.children)} />;
             }
 
             return <pre>{children}</pre>;
