@@ -21,6 +21,52 @@ tags: tag1, tag2
 ---
 ```
 
+## Organização das entidades
+
+Cada artigo deve ser modular e permanecer dentro da pasta da própria entidade:
+
+```text
+src/content/
+└── Grupo/
+    └── Categoria/
+        └── Entidade/
+            ├── Entidade.md
+            └── diagrams/
+                ├── diagnosis.tikz
+                ├── diagnosis.svg
+                ├── etiology.tikz
+                └── etiology.svg
+```
+
+- `Grupo` define a primeira coluna de navegação: `Clinical Signs`, `Syndromes`, `Disorders`, `Interventions`, `MBE` etc.
+- `category` descreve a especialidade ou domínio dentro do grupo.
+- A pasta final e o arquivo `.md` devem ter o mesmo nome; o frontend os apresenta como uma única entidade.
+- Fontes TikZ e imagens renderizadas pertencem à pasta `diagrams/` da entidade, nunca a uma pasta global.
+- O valor `entityGroup` é o nome apresentado ao leitor e pode estar em português, mesmo quando a pasta estrutural usa outro nome.
+- `summary` deve ser uma única frase curta e pesquisável.
+- `updated` usa `AAAA-MM-DD` e deve refletir a última revisão material.
+
+Cada artigo recebe automaticamente uma URL compartilhável derivada do caminho:
+
+```text
+#/artigo/grupo/categoria/entidade
+```
+
+Não escreva URLs manualmente no frontmatter.
+
+## Hierarquia de títulos
+
+O título da entidade já é o H1 da página e é gerado pela interface. No corpo do Markdown:
+
+- `##` inicia uma seção principal;
+- `###` inicia uma subseção;
+- `####` identifica uma divisão interna curta;
+- `#####` é reservado a rótulos locais raros;
+- não use `#` em artigos regulares, para evitar dois títulos principais na mesma página;
+- não salte níveis sem necessidade.
+
+Todos os níveis recebem IDs automáticos para links e navegação por âncora.
+
 Ordem sugerida para doenças:
 
 - Definição
@@ -70,28 +116,23 @@ O texto principal deve ser sintético, interpretativo e útil. Detalhes extensos
 
 O artigo deve parecer uma explicação clínica natural, não um checklist de cursinho. Use transições curtas para manter fluxo: definição leva a epidemiologia; epidemiologia leva a etiologia; etiologia explica manifestações; manifestações orientam diagnóstico; diagnóstico seleciona tratamento; tratamento muda prognóstico.
 
-## Uso de Citações Diretas
+## Citações diretas e paráfrases
 
-Use blockquotes com `>` apenas para trechos centrais que sustentam decisões importantes.
-
-Não coloque uma citação direta antes de todo parágrafo. Prefira poucos blocos mais densos.
-
-Bom padrão:
+O texto principal deve preferir uma paráfrase clínica clara. Preserve o trecho original na footnote quando ele tiver sido copiado de uma fonte.
 
 ```markdown
-> “Trecho traduzido importante, com dado ou conclusão central. Segundo trecho complementar se necessário.”[^referencia]
+- Deve-se obter ECG em todo paciente com suspeita de síncope.[^uptodate-ecg]
 
-Texto clínico interpretando a implicação prática daquela evidência.[^referencia]
+[^uptodate-ecg]: “An ECG should be obtained in all patients with suspected syncope.” — *Syncope in adults: Clinical manifestations and initial diagnostic evaluation*. UpToDate.
 ```
 
-As citações em `>` devem ser:
-
-- traduzidas para português;
-- fiéis ao sentido original;
-- curtas ou moderadas;
-- usadas quando sustentam uma decisão diagnóstica, terapêutica ou prognóstica importante.
-
-Se o trecho original for em inglês, a footnote deve deixar claro qual é a fonte.
+- Nunca use `>` dentro de uma footnote; ele cria um bloco visual inadequado na seção de referências.
+- Mantenha o excerto entre aspas na mesma linha da definição da footnote.
+- Mantenha excerto e atribuição em um único parágrafo quando não houver necessidade semântica de separá-los.
+- Preserve o idioma original na nota quando a paráfrase em português estiver no corpo.
+- Remissões internas que não funcionam fora da plataforma de origem, como `(See "Bifascicular block".)`, devem ser removidas e substituídas por `[...]` no local apropriado.
+- Não apresente como fonte primária uma diretriz conhecida apenas por meio de uma fonte secundária; atribua o texto à fonte realmente consultada.
+- Não use citação direta no corpo quando uma paráfrase transmitir a recomendação com mais clareza.
 
 ## Footnotes
 
@@ -102,6 +143,8 @@ Texto clínico.[^chave]
 
 [^chave]: Fonte, desenho, população, desfecho principal e resultado relevante.
 ```
+
+Escolha chaves descritivas e estáveis, como `[^uptodate-ecg-syncope]`, e reúna todas as definições ao final do artigo. A referência deve aparecer imediatamente após a afirmação, o título ou a linha de tabela que sustenta.
 
 Use o mínimo de footnotes necessário, mas sem perder rastreabilidade. Uma footnote pode agrupar evidências relacionadas, desde que o agrupamento seja coerente.
 
@@ -240,6 +283,17 @@ Evite listas longas quando um parágrafo curto resolver melhor.
 
 Evite fragmentação excessiva. Muitos subtítulos curtos fazem a nota parecer uma colagem de cartões. Prefira seções maiores, com parágrafos breves e bullets somente para decisões, critérios, doses, contraindicações ou listas realmente escaneáveis.
 
+Subitens usam dois espaços de indentação. Não escreva `- -` na mesma linha:
+
+```markdown
+- Item principal.
+  - Subitem.
+  - Outro subitem.
+    - Terceiro nível, apenas quando indispensável.
+```
+
+Deixe uma linha vazia antes de iniciar uma lista, mas não separe o item principal de seus subitens.
+
 ## Tabelas
 
 Use tabelas quando houver comparação ou dose.
@@ -252,6 +306,12 @@ Boas tabelas:
 - diferenças entre fenótipos.
 
 Toda tabela com conteúdo clínico deve ter footnote ou referências nas células/linhas relevantes.
+
+- Prefira poucas colunas e textos concisos.
+- Células podem e devem quebrar linha; não insira espaços artificiais para alargar a tabela.
+- Remova colunas repetitivas. Quando uma classificação se repete em várias linhas, use um subtítulo e uma tabela separada.
+- Para comparação clínica, `Achado` e `Interpretação` costumam ser suficientes.
+- Evite repetir na interpretação tudo o que já está explícito no achado.
 
 Quando uma tabela tiver abreviações, unidade, ressalva de dose ou nota operacional, coloque a legenda como última linha da própria tabela:
 
@@ -287,6 +347,38 @@ Ao migrar do MedFichas:
 - remova metatexto de migração;
 - substitua `\directquote` por blockquote `>` apenas quando o trecho for realmente importante;
 - converta referências em footnotes Markdown.
+
+## Diagramas e imagens
+
+Use o bloco `svg-diagram` para inserir um SVG pré-renderizado da própria entidade:
+
+````markdown
+```svg-diagram
+Syndromes/Cardiovasculares/Síncope/diagrams/diagnosis.svg|Fluxograma diagnóstico da síncope
+```
+````
+
+- O arquivo publicado é o `.svg`; o navegador não compila TikZ.
+- O SVG deve mostrar o diagrama inteiro, sem recortar o `viewBox` por margens presumidas.
+- A prévia se adapta à largura do artigo e pode ser clicada para abrir o lightbox com zoom.
+- As fontes precisam estar incorporadas no SVG para que acentos e caracteres especiais funcionem online.
+- Antes de publicar alterações em `.tikz`, execute `npm run diagrams`.
+- Geometria, setas, matriz, forks e regras de compactação estão documentados em `FLOWCHARTS.md` e são obrigatórios.
+
+## Validação e publicação
+
+Antes do push:
+
+```bash
+npm run diagrams   # somente quando houver mudança em TikZ
+npm run build
+```
+
+- Publique fontes e imagens renderizadas juntas.
+- Não inclua `node_modules`, `dist`, logs ou arquivos temporários.
+- O workflow do GitHub Pages deve terminar com `success` para que a publicação seja considerada concluída.
+- O HTML do GitHub Pages pode permanecer em cache por alguns minutos; use recarga forçada ou um parâmetro de consulta para verificar imediatamente um novo bundle.
+- Para o procedimento operacional completo, consulte `ATUALIZAR_GITHUB_PAGES.md`.
 
 ## Checklist Antes de Finalizar
 
