@@ -653,6 +653,24 @@ body {
   padding: 0.4rem;
 }
 
+.tikz-frame {
+  background: transparent;
+  border: 0;
+  display: block;
+  min-height: 12rem;
+  pointer-events: none;
+  transition: height 180ms ease;
+  width: 100%;
+}
+
+.tikz-frame.is-expanded {
+  min-height: 32rem;
+}
+
+.tikz-flowchart.is-expanded {
+  min-width: 75rem;
+}
+
 .mermaid-flowchart {
   min-height: 10rem;
   overflow: hidden;
