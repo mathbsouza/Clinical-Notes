@@ -24,7 +24,7 @@ tags: MBE, estatística, regressão linear, regressão logística, regressão de
 
 - A regressão de Poisson é indicada quando o desfecho corresponde ao **número de eventos** observado em determinado intervalo. Seus coeficientes podem ser apresentados como **razões de taxas de incidência** (*incidence rate ratios* — IRR).
 
-Quando os participantes apresentam tempos de observação diferentes, deve-se incorporar o logaritmo do tempo sob risco como *offset*. O modelo permite ajustar simultaneamente para potenciais confundidores.
+- Quando os participantes apresentam tempos de observação diferentes, deve-se incorporar o logaritmo do tempo sob risco como *offset*. O modelo permite ajustar simultaneamente para potenciais confundidores.
 
 #### Exemplo
 
