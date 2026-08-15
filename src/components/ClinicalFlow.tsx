@@ -2,12 +2,16 @@ import { memo, useEffect, useMemo, useState } from 'react';
 import {
   Background,
   BackgroundVariant,
+  BaseEdge,
   Controls,
+  EdgeLabelRenderer,
   Handle,
   MarkerType,
   Position,
   ReactFlow,
   type Edge,
+  type EdgeProps,
+  type EdgeTypes,
   type Node,
   type NodeProps,
   type NodeTypes,
@@ -46,6 +50,21 @@ type ClinicalNodeData = {
   variant: ClinicalNodeType;
 };
 
+type OrthogonalEdgeData = {
+  path: string;
+  labelX: number;
+  labelY: number;
+};
+
+type ElkRoutedEdge = {
+  id: string;
+  sections?: Array<{
+    startPoint: { x: number; y: number };
+    bendPoints?: Array<{ x: number; y: number }>;
+    endPoint: { x: number; y: number };
+  }>;
+};
+
 const elk = new ELK();
 
 const dimensions: Record<ClinicalNodeType, { width: number; height: number }> = {
@@ -72,6 +91,49 @@ const ClinicalNode = memo(({ data }: NodeProps<Node<ClinicalNodeData>>) => (
 ));
 
 const nodeTypes: NodeTypes = { clinical: ClinicalNode };
+
+const OrthogonalEdge = memo(({ id, data, label, markerEnd, style }: EdgeProps<Edge<OrthogonalEdgeData>>) => (
+  <>
+    <BaseEdge id={id} path={data?.path ?? ''} markerEnd={markerEnd} style={style} />
+    {label && data && (
+      <EdgeLabelRenderer>
+        <div
+          className="clinical-flow-edge-label nodrag nopan"
+          style={{ transform: `translate(-50%, -50%) translate(${data.labelX}px, ${data.labelY}px)` }}
+        >
+          {label}
+        </div>
+      </EdgeLabelRenderer>
+    )}
+  </>
+));
+
+const edgeTypes: EdgeTypes = { orthogonal: OrthogonalEdge };
+
+function orthogonalPath(points: Array<{ x: number; y: number }>) {
+  return points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ');
+}
+
+function pathMidpoint(points: Array<{ x: number; y: number }>) {
+  const segments = points.slice(1).map((point, index) => {
+    const previous = points[index];
+    return { from: previous, to: point, length: Math.abs(point.x - previous.x) + Math.abs(point.y - previous.y) };
+  });
+  const half = segments.reduce((sum, segment) => sum + segment.length, 0) / 2;
+  let covered = 0;
+
+  for (const segment of segments) {
+    if (covered + segment.length >= half) {
+      const ratio = segment.length === 0 ? 0 : (half - covered) / segment.length;
+      return {
+        x: segment.from.x + (segment.to.x - segment.from.x) * ratio,
+        y: segment.from.y + (segment.to.y - segment.from.y) * ratio,
+      };
+    }
+    covered += segment.length;
+  }
+  return points[0] ?? { x: 0, y: 0 };
+}
 
 async function layoutFlow(definition: ClinicalFlowDefinition) {
   const graph = await elk.layout({
@@ -111,20 +173,33 @@ async function layoutFlow(definition: ClinicalFlowDefinition) {
     style: dimensions[node.type],
   }));
 
-  const edges: Edge[] = definition.edges.map((edge, index) => ({
-    id: `edge-${edge.source}-${edge.target}-${index}`,
-    source: edge.source,
-    target: edge.target,
-    label: edge.label,
-    type: 'step',
-    markerEnd: { type: MarkerType.ArrowClosed, color: '#fb923c' },
-    style: { stroke: '#fb923c', strokeWidth: 2 },
-    labelStyle: { fill: '#fdba74', fontSize: 12, fontWeight: 700 },
-    labelBgStyle: { fill: '#171717', fillOpacity: 0.96 },
-    labelBgPadding: [6, 4],
-    labelBgBorderRadius: 5,
-    selectable: false,
-  }));
+  const routedEdges = (graph.edges ?? []) as unknown as ElkRoutedEdge[];
+  const layoutEdges = new Map(routedEdges.map((edge) => [edge.id, edge]));
+  const edges: Edge<OrthogonalEdgeData>[] = definition.edges.map((edge, index) => {
+    const section = layoutEdges.get(`layout-edge-${index}`)?.sections?.[0];
+    const sourceNode = graph.children?.find((node) => node.id === edge.source);
+    const targetNode = graph.children?.find((node) => node.id === edge.target);
+    const fallbackPoints = [
+      { x: (sourceNode?.x ?? 0) + (sourceNode?.width ?? 0) / 2, y: (sourceNode?.y ?? 0) + (sourceNode?.height ?? 0) },
+      { x: (targetNode?.x ?? 0) + (targetNode?.width ?? 0) / 2, y: targetNode?.y ?? 0 },
+    ];
+    const points = section
+      ? [section.startPoint, ...(section.bendPoints ?? []), section.endPoint]
+      : fallbackPoints;
+    const midpoint = pathMidpoint(points);
+
+    return {
+      id: `edge-${edge.source}-${edge.target}-${index}`,
+      source: edge.source,
+      target: edge.target,
+      label: edge.label,
+      type: 'orthogonal',
+      data: { path: orthogonalPath(points), labelX: midpoint.x, labelY: midpoint.y },
+      markerEnd: { type: MarkerType.ArrowClosed, color: '#fb923c', width: 18, height: 18 },
+      style: { stroke: '#fb923c', strokeWidth: 2 },
+      selectable: false,
+    };
+  });
 
   return { nodes, edges };
 }
@@ -159,6 +234,7 @@ export default function ClinicalFlow({ definition, expanded }: { definition: Cli
         edges={elements.edges}
         onInit={setInstance}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         fitView
         fitViewOptions={{ padding: expanded ? 0.12 : 0.2, maxZoom: expanded ? 1.5 : 0.9 }}
         minZoom={0.1}

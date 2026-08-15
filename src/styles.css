@@ -814,6 +814,21 @@ body {
   stroke-linejoin: miter;
 }
 
+.clinical-flow-edge-label {
+  background: #171717;
+  border: 1px solid rgb(251 146 60 / 0.32);
+  border-radius: 0.35rem;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.35);
+  color: #fdba74;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.32rem 0.45rem;
+  pointer-events: none;
+  position: absolute;
+  white-space: nowrap;
+}
+
 .clinical-flow .react-flow__controls {
   border: 1px solid rgb(251 146 60 / 0.3);
   box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
