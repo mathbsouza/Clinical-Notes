@@ -50,7 +50,7 @@ Syndromes/Cardiovasculares/Síncope/diagrams/etiology.svg|Fluxograma etiológico
 | Ondas T negativas precordiais direitas e/ou onda épsilon em V1–V2. | Sugere cardiomiopatia arritmogênica do VD. |
 | Hipertrofia ventricular esquerda. | Considerar cardiomiopatia hipertrófica ou outra cardiopatia estrutural. |
 
-Os achados acima aumentam a probabilidade de etiologia arrítmica, mas não dispensam a correlação entre sintomas e ritmo nem a avaliação confirmatória.[^uptodate-arrhythmic-syncope][^uptodate-abnormal-ecg-syncope]
+- Os achados acima aumentam a probabilidade de etiologia arrítmica, mas não dispensam a correlação entre sintomas e ritmo nem a avaliação confirmatória.[^uptodate-arrhythmic-syncope][^uptodate-abnormal-ecg-syncope]
 
 - Quando houver cardiopatia estrutural conhecida ou suspeita a partir da história, do exame físico ou do ECG, deve-se realizar ecocardiograma transtorácico para avaliação estrutural.[^uptodate-echo-syncope]
 

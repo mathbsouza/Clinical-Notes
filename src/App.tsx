@@ -100,11 +100,35 @@ function scoreNote(note: Note, query: string) {
   return score;
 }
 
+const articleHashPrefix = '#/artigo/';
+
+function articleHash(slug: string) {
+  return `${articleHashPrefix}${slug.split('/').map(encodeURIComponent).join('/')}`;
+}
+
+function articleSlugFromHash() {
+  if (!window.location.hash.startsWith(articleHashPrefix)) return '';
+  try {
+    return window.location.hash
+      .slice(articleHashPrefix.length)
+      .split('/')
+      .map(decodeURIComponent)
+      .join('/');
+  } catch {
+    return '';
+  }
+}
+
+function validArticleSlugFromHash() {
+  const slug = articleSlugFromHash();
+  return notes.some((note) => note.slug === slug) ? slug : '';
+}
+
 export default function App() {
   const [query, setQuery] = useState('');
   const [selectedPath, setSelectedPath] = useState<string[]>([]);
-  const [activeSlug, setActiveSlug] = useState('');
-  const [view, setView] = useState<'home' | 'article'>('home');
+  const [activeSlug, setActiveSlug] = useState(validArticleSlugFromHash);
+  const [view, setView] = useState<'home' | 'article'>(() => validArticleSlugFromHash() ? 'article' : 'home');
   const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 768px)').matches);
   const hasQuery = query.trim().length > 0;
 
@@ -142,6 +166,21 @@ export default function App() {
     return () => media.removeEventListener('change', updateViewport);
   }, []);
 
+  useEffect(() => {
+    const syncArticleWithUrl = () => {
+      const slug = validArticleSlugFromHash();
+      setActiveSlug(slug);
+      setView(slug ? 'article' : 'home');
+    };
+
+    window.addEventListener('hashchange', syncArticleWithUrl);
+    window.addEventListener('popstate', syncArticleWithUrl);
+    return () => {
+      window.removeEventListener('hashchange', syncArticleWithUrl);
+      window.removeEventListener('popstate', syncArticleWithUrl);
+    };
+  }, []);
+
   function selectNode(node: NavNode) {
     if (node.note) {
       openArticle(node.note.slug);
@@ -152,6 +191,7 @@ export default function App() {
   }
 
   function openArticle(slug: string) {
+    window.history.pushState(null, '', `${window.location.pathname}${window.location.search}${articleHash(slug)}`);
     setActiveSlug(slug);
     setView('article');
   }
@@ -161,6 +201,8 @@ export default function App() {
   }
 
   function returnHome() {
+    window.history.pushState(null, '', `${window.location.pathname}${window.location.search}`);
+    setActiveSlug('');
     setView('home');
     setSelectedPath([]);
     setQuery('');
@@ -188,7 +230,7 @@ export default function App() {
           <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4">
             <button
               className="inline-flex items-center gap-2 text-sm text-neutral-400 transition hover:text-orange-200"
-              onClick={() => setView('home')}
+              onClick={returnHome}
               type="button"
             >
               <ArrowLeft size={17} aria-hidden="true" />
