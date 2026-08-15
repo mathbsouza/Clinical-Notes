@@ -32,7 +32,6 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
     <div className="flowchart-preview" role="button" tabIndex={0} aria-label={`Ampliar ${label}`}
       onClick={() => setExpanded(true)} onKeyDown={(event) => (event.key === 'Enter' || event.key === ' ') && setExpanded(true)}>
       {children(false)}
-      <span className="flowchart-expand-hint">Clique para ampliar</span>
     </div>
     {expanded && <div className="flowchart-lightbox" role="dialog" aria-modal="true" aria-label={label} onClick={() => setExpanded(false)}>
       <div className="flowchart-lightbox-panel" onClick={(event) => event.stopPropagation()}>

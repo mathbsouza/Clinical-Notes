@@ -15,13 +15,13 @@ tags: síncope, perda de consciência, cardiovascular
 ## Etiologia
 
 ```svg-diagram
-Syndromes/Cardiovasculares/Síncope/diagrams/etiology.svg|Fluxograma etiológico da síncope|Principais grupos etiológicos da síncope
+Syndromes/Cardiovasculares/Síncope/diagrams/etiology.svg|Fluxograma etiológico da síncope
 ```
 
 ## Diagnóstico
 
 ```svg-diagram
-Syndromes/Cardiovasculares/Síncope/diagrams/diagnosis.svg|Fluxograma diagnóstico da síncope|Fluxo de avaliação, estratificação e investigação da síncope
+Syndromes/Cardiovasculares/Síncope/diagrams/diagnosis.svg|Fluxograma diagnóstico da síncope
 ```
 
 [^uptodate-syncope]: "Syncope is a clinical syndrome in which transient loss of consciousness (TLOC) is caused by a period of inadequate cerebral blood flow and oxygenation, most often the result of an abrupt drop of systemic blood pressure." *Syncope in adults: Clinical manifestations and initial diagnostic evaluation*. UpToDate.
