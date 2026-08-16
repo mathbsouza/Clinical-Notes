@@ -1411,21 +1411,6 @@ body {
     justify-content: space-between;
   }
 
-  .note-toc-toggle {
-    display: inline-flex;
-    width: 2rem;
-    height: 2rem;
-    align-items: center;
-    justify-content: center;
-    border: 0;
-    color: #a3a3a3;
-    background: transparent;
-    font: inherit;
-    font-size: 1.2rem;
-    cursor: pointer;
-  }
-
-  .note-toc-toggle:hover { color: #fb923c; }
   .note-toc.is-collapsed { width: 2.4rem; }
   .note-toc.is-collapsed .note-toc-title,
   .note-toc.is-collapsed nav { display: none; }

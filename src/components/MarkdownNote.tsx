@@ -149,6 +149,11 @@ function markdownHeadings(body: string): TocItem[] {
 function NoteToc({ items }: { items: TocItem[] }) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? '');
   const [collapsed, setCollapsed] = useState(false);
+  useEffect(() => {
+    const toggle = () => setCollapsed((value) => !value);
+    window.addEventListener('clinical-notes:toc-toggle', toggle);
+    return () => window.removeEventListener('clinical-notes:toc-toggle', toggle);
+  }, []);
   const goTo = (id: string) => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -161,10 +166,6 @@ function NoteToc({ items }: { items: TocItem[] }) {
   return <aside className={`note-toc${collapsed ? ' is-collapsed' : ''}`} aria-label="Sumário do artigo">
     <div className="note-toc-head">
       <div className="note-toc-title">Sumário</div>
-      <button className="note-toc-toggle" type="button" onClick={() => setCollapsed((value) => !value)}
-        aria-label={collapsed ? 'Expandir sumário' : 'Recolher sumário'} title={collapsed ? 'Expandir sumário' : 'Recolher sumário'}>
-        <span aria-hidden="true">{collapsed ? '›' : '‹'}</span>
-      </button>
     </div>
     <nav>{items.map((item) => <button className={activeId === item.id ? 'is-active' : ''}
       key={`${item.depth}-${item.id}`} onClick={() => goTo(item.id)}
