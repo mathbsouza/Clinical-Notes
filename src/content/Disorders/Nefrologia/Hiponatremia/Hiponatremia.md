@@ -12,6 +12,15 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 - Hiponatremia é a concentração sérica de sódio **< 135 mmol/L**. Classifica-se bioquimicamente em leve (130–134 mmol/L), moderada (125–129 mmol/L) e profunda (< 125 mmol/L); quanto à duração, é aguda quando documentada há < 48 horas e crônica quando persiste por ≥ 48 horas. Se a duração for desconhecida, deve ser tratada como crônica para definir os limites de correção.[^ese-guideline]
 - Ela representa, na maioria das vezes, excesso relativo de água em relação ao sódio e ao potássio corporais, e não deficiência isolada de sódio. 
 - A emergência é determinada sobretudo pelos sintomas e pela rapidez da queda. Vômitos persistentes, confusão, cefaleia intensa e sonolência anormal são sintomas moderadamente graves; convulsão, coma, desconforto cardiorrespiratório e rebaixamento profundo da consciência são graves.[^sfe-emergency]
+### Classificação fisiopatológica
+
+Este artigo utiliza uma nomenclatura fisiopatológica própria, mantendo a correspondência com os termos convencionais na primeira apresentação:
+
+| Fenótipo | Termo convencional | Mecanismo predominante |
+| --- | --- | --- |
+| **Hipertonodepletiva** | Hipovolêmica | Perda de sódio e água, proporcionalmente maior de sódio, com contração do volume extracelular. |
+| **Aquacumulativa** | Euvolêmica | Retenção predominante de água, sem edema clinicamente relevante; o protótipo é a SIAD. |
+| **Hipotonocumulativa** | Hipervolêmica | Acúmulo de sódio e água, proporcionalmente maior de água, com edema e baixo volume arterial efetivo. |
 
 ## Diagnóstico
 
@@ -24,9 +33,9 @@ Confirmar o resultado em nova amostra quando ele for inesperado, medir glicose e
 | Osmolaridade sérica | < 275 mOsm/kg | Hiponatremia hipotônica verdadeira; prosseguir com urina. |
 | Osmolaridade urinária | ≤ 100 mOsm/kg | ADH suprimido: excesso de água ou baixa ingestão de solutos, como polidipsia primária e potomania. |
 | Osmolaridade urinária | > 100 mOsm/kg | ADH ativo; interpretar sódio urinário. |
-| Sódio urinário | ≤ 30 mmol/L | Baixo volume arterial efetivo: perdas extrarrenais, hipovolemia, insuficiência cardíaca ou cirrose. |
+| Sódio urinário | ≤ 30 mmol/L | Baixo volume arterial efetivo: fenótipo hipertonodepletivo por perdas extrarrenais ou fenótipo hipotonocumulativo por insuficiência cardíaca/cirrose. |
 | Sódio urinário | > 30 mmol/L | Considerar SIAD, diurético, insuficiência adrenal, hipotireoidismo ou perda renal de sal. |
-| Nota: diuréticos, doença renal e coleta após expansão volêmica reduzem a confiabilidade do sódio urinário. SIAD exige euvolemia, osmolaridade urinária > 100 mOsm/kg, sódio urinário > 30 mmol/L com ingestão habitual e exclusão de insuficiência adrenal, tireoidiana, renal e uso recente de diurético. |  |  |
+| Nota: diuréticos, doença renal e coleta após expansão volêmica reduzem a confiabilidade do sódio urinário. SIAD, causa típica do fenótipo aquacumulativo, exige ausência de sinais de depleção ou edema, osmolaridade urinária > 100 mOsm/kg, sódio urinário > 30 mmol/L com ingestão habitual e exclusão de insuficiência adrenal, tireoidiana, renal e uso recente de diurético. |  |  |
 
 Na hiperglicemia, uma estimativa útil é: **Na corrigido = Na medido + 2,4 × [(glicose em mg/dL − 100)/100]**. A correção é aproximada e serve para reconhecer hiponatremia translocacional; o tratamento deve ser dirigido à hiperglicemia e à osmolaridade, não à infusão automática de sódio.[^hillier-corrected-na]
 
@@ -49,11 +58,11 @@ Disorders/Nefrologia/Hiponatremia/diagrams/treatment.svg|Fluxograma específico 
 
 | Fenótipo | Conduta específica |
 | --- | --- |
-| Hipovolemia sem choque | NaCl 0,9% IV a **0,5–1 mL/kg/h**, com reavaliação de perfusão, diurese e Na; suspender ou reduzir se surgir aquarese e o Na acelerar. |
+| Hipertonodepletiva (hipovolêmica) sem choque | NaCl 0,9% IV a **0,5–1 mL/kg/h**, com reavaliação de perfusão, diurese e Na; suspender ou reduzir se surgir aquarese e o Na acelerar. |
 | Choque/instabilidade | Cristaloide isotônico em bolus conforme ressuscitação hemodinâmica; restaurar perfusão tem prioridade, com sódio e diurese monitorizados de perto. |
 | Insuficiência adrenal aguda suspeita | Após colher cortisol se isso não atrasar: **hidrocortisona 100 mg IV/IM imediatamente**, seguida de **200 mg/24 h** em infusão contínua ou 50 mg IV/IM a cada 6 h, além de NaCl 0,9% conforme o estado volêmico.[^adrenal-crisis] |
-| SIAD | Tratar causa e suspender fármacos; restringir líquidos inicialmente a **500–1.000 mL/dia**. Se resposta insuficiente, considerar ureia **0,25–0,50 g/kg/dia** ou diurético de alça em baixa dose associado a NaCl oral, com supervisão especializada.[^ese-guideline] |
-| Hipervolêmica | Restrição hídrica, tratamento da insuficiência cardíaca/cirrose/doença renal e diurético de alça quando houver congestão. Salina isotônica tende a piorar edema e não corrige o mecanismo. |
+| Aquacumulativa (SIAD) | Tratar causa e suspender fármacos; restringir líquidos inicialmente a **500–1.000 mL/dia**. Se resposta insuficiente, considerar ureia **0,25–0,50 g/kg/dia** ou diurético de alça em baixa dose associado a NaCl oral, com supervisão especializada.[^ese-guideline] |
+| Hipotonocumulativa (hipervolêmica) | Restrição hídrica, tratamento da insuficiência cardíaca/cirrose/doença renal e diurético de alça quando houver congestão. Salina isotônica tende a piorar edema e não corrige o mecanismo. |
 | Polidipsia/baixa oferta de solutos | Interromper excesso de água e reintroduzir proteína/solutos gradualmente; o risco de aquarese abrupta e hipercorreção exige Na e diurese a cada 2–4 h nos casos profundos. |
 
 ### Prevenção e reversão da hipercorreção

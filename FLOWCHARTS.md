@@ -175,6 +175,10 @@ matriz, nunca um `node` solto sobre uma conexão.
 
 ## Decisões
 
+- As respostas `Sim` e `Não` pertencem às saídas da decisão e são escritas sobre o primeiro segmento da seta; é proibido prefixar o texto do nó de destino com `SIM`, `NÃO`, `SIM:` ou `NÃO:`.
+- Se uma resposta precisar de explicação além de `Sim` ou `Não`, crie um nó intermediário próprio para essa informação e conecte-o normalmente. Não transforme a resposta em título do processo seguinte.
+- Quando vários tratamentos levarem a uma vigilância comum sem representar sequência terapêutica direta, use conexões `densely dotted`, sempre ortogonais, para uni-los ao nó comum. Linhas pontilhadas não substituem as setas sólidas do fluxo decisório.
+
 - “Não” ou o fluxo principal continua verticalmente quando possível.
 - “Sim” sai lateralmente por `.east` ou `.west`.
 - Rótulos ficam no primeiro segmento com `node[above]`, `node[left]` ou similar.
