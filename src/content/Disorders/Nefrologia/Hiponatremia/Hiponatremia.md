@@ -13,7 +13,7 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 - Ela representa, na maioria das vezes, excesso relativo de água em relação ao sódio e ao potássio corporais, e não deficiência isolada de sódio. 
 - A emergência é determinada sobretudo pelos sintomas e pela rapidez da queda. Vômitos persistentes, confusão, cefaleia intensa e sonolência anormal são sintomas moderadamente graves; convulsão, coma, desconforto cardiorrespiratório e rebaixamento profundo da consciência são graves.[^sfe-emergency]
 
-### Fisiopatologia
+## Fisiopatologia
 
 - A concentração plasmática de sódio reflete a relação entre os cátions corporais trocáveis — sobretudo sódio e potássio — e a água corporal total. Na hiponatremia hipotônica, a ingestão ou retenção de água supera a capacidade renal de excretá-la, geralmente pela ação persistente da arginina-vasopressina, que mantém a urina inadequadamente concentrada. A redução da tonicidade desloca água para o compartimento intracelular e pode causar edema cerebral; após aproximadamente 48 horas, a extrusão neuronal de eletrólitos e osmólitos orgânicos limita o edema, mas aumenta a vulnerabilidade à desmielinização osmótica quando o sódio é corrigido rapidamente.[^ese-guideline]
 
@@ -53,8 +53,6 @@ Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|T
 ```
 
 ### Conduta guiada
-
-Selecione as características do caso para chegar à conduta inicial correspondente ao algoritmo do UpToDate.
 
 ```hyponatremia-treatment
 ```

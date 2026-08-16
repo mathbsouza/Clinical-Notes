@@ -78,11 +78,9 @@ export default function HyponatremiaTreatmentWizard() {
 
   return <div className="treatment-wizard">
     <div className="treatment-wizard-top">
-      <span>Conduta guiada</span>
       <button type="button" onClick={() => setShowAll(true)}>Ver todas</button>
     </div>
     {result ? <TreatmentCard result={result} /> : <div className="treatment-question">
-      <small>Etapa {history.length + 1}</small>
       <h4>{step.question}</h4>
       {step.hint && <p>{step.hint}</p>}
       <div className="treatment-options">{step.choices.map((choice) => <button key={choice.label} type="button" onClick={() => choose(choice)}>{choice.label}</button>)}</div>
