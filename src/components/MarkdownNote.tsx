@@ -1,5 +1,6 @@
 import { Children, isValidElement, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { createPortal } from 'react-dom';
 import { ListTree, PanelLeftClose, WandSparkles } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
@@ -92,7 +93,7 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
       onClick={open} onKeyDown={(event) => (event.key === 'Enter' || event.key === ' ') && open()}>
       {children(false)}
     </div>
-    {expanded && <div className="flowchart-lightbox" role="dialog" aria-modal="true" aria-label={label} onClick={() => setExpanded(false)}>
+    {expanded && createPortal(<div className="flowchart-lightbox" role="dialog" aria-modal="true" aria-label={label} onClick={() => setExpanded(false)}>
       <div className="flowchart-lightbox-panel" onClick={(event) => event.stopPropagation()}>
         <div className="flowchart-toolbar" aria-label="Controles de zoom">
           <button type="button" onClick={() => changeZoom(-0.25)} disabled={zoom <= 0.5} aria-label="Reduzir zoom">−</button>
@@ -104,7 +105,7 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
           {children(true)}
         </div>
       </div>
-    </div>}
+    </div>, document.body)}
   </>;
 }
 
@@ -164,7 +165,7 @@ function NoteToc({ items }: { items: TocItem[] }) {
     window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   };
   if (!items.length) return null;
-  return <aside className={`note-toc${collapsed ? ' is-collapsed' : ''}`} aria-label="Sumário do artigo">
+  return createPortal(<aside className={`note-toc${collapsed ? ' is-collapsed' : ''}`} aria-label="Sumário do artigo">
     <div className="note-toc-head">
       <div className="note-toc-title">Sumário</div>
       <button className="note-toc-toggle" type="button" onClick={() => setCollapsed((value) => !value)}
@@ -175,7 +176,7 @@ function NoteToc({ items }: { items: TocItem[] }) {
     <nav>{items.map((item) => <button className={activeId === item.id ? 'is-active' : ''}
       key={`${item.depth}-${item.id}`} onClick={() => goTo(item.id)}
       style={{ paddingLeft: `${0.65 + (item.depth - 2) * 0.8}rem` }} type="button">{item.magic ? <WandSparkles className="note-toc-magic-icon" size={14} aria-hidden="true" /> : null}{item.label}</button>)}</nav>
-  </aside>;
+  </aside>, document.body);
 }
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
   const tocItems = useMemo(() => markdownHeadings(body), [body]);
