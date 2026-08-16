@@ -129,6 +129,10 @@ as colunas lógicas ou criar setas diagonais.
   `.west` ou `.east`, nunca lateralmente em `.north`.
 - `--` entre nós só é permitido quando ambos compartilham exatamente o mesmo
   eixo horizontal ou vertical.
+- **Proibição absoluta de conexão oblíqua:** antes de usar `--`, confirme que origem e destino têm a mesma coordenada X ou a mesma coordenada Y. Se ambas variarem, a conexão é inválida, mesmo quando a inclinação for discreta.
+- Quando dois nós logicamente consecutivos ocuparem colunas diferentes, acrescente uma `row` exclusiva com uma `junction` alinhada verticalmente à origem ou ao destino. Conecte por segmentos horizontais/verticais com `|-` ou `-|`; o acotovelamento ortogonal é obrigatório e tem prioridade sobre a compactação.
+- Troncos de fork devem ser verticais: a `junction` fica obrigatoriamente na mesma coluna da origem. Nunca use `(A.south) -- (fork)` se o fork estiver em outra coluna.
+- Na revisão, toda ocorrência de `--` entre dois nós ou entre nó e junção deve ser rejeitada quando as células não compartilham linha ou coluna. Corrija a matriz; não tente mascarar a diagonal alterando espessura, comprimento ou âncora.
 - Cada `\draw` começa em uma âncora do nó de origem, nunca em outra seta.
 - Uma conexão lateral deve ter preferencialmente um único cotovelo.
 - Setas não atravessam nós nem se sobrepõem sem intenção deliberada.

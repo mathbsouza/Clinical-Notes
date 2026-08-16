@@ -18,7 +18,7 @@
     |[process] (stop)| {\textbf{SIM}\ Suspender bolus; tratar causa. Na a cada 4 h durante infus{\~a}o. Meta 4--6; limite 10/24 h e 18/48 h; alto risco: 8/24 h} & & |[decision] (urineosm)| {\textbf{SIM}\ Osmolaridade urin{\'a}ria $\leq100$ mOsm/kg?} \\
     & & |[process] (water)| {\textbf{SIM}\ Polidipsia/baixo soluto: restringir {\'a}gua, repor soluto gradualmente; Na + diurese a cada 2--4 h} \\
     & & |[decision] (urinesodium)| {\textbf{N{\~A}O}\ Na urin{\'a}rio $\leq30$ mmol/L?} \\
-    & |[junction] (causeFork)| {} & \\
+    & & |[junction] (causeFork)| {} \\
     |[branch] (hypovolemia)| {\textbf{Hipovolemia}\ NaCl 0,9\% a 0,5--1 mL/kg/h; se choque, bolus de cristaloide conforme perfus{\~a}o} & & |[branch] (edema)| {\textbf{Edema/baixo volume arterial}\ Restritar l{\'i}quido, tratar IC/cirrose/DRC; diur{\'e}tico de al{\c c}a se congesto} \\
     & |[processwide] (highurine)| {Se Na urin{\'a}rio $>30$: excluir diur{\'e}tico, insufici{\^e}ncia adrenal/renal/tireoidiana. SIAD: tratar causa + restri{\c c}{\~a}o 500--1.000 mL/d; refrat{\'a}ria: ureia 0,25--0,50 g/kg/d ou al{\c c}a + NaCl oral} & \\
     & |[decision] (overcorrect)| {\textbf{EM QUALQUER RAMO}\ Diurese aquosa ou proje{\c c}{\~a}o acima do limite?} & \\
