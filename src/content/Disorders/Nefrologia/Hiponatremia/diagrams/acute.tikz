@@ -1,0 +1,35 @@
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  terminal/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm, align=center, text width=8.4cm, minimum height=10mm, inner sep=2.5mm, font=\sffamily\bfseries\small},
+  process/.style={draw=black, fill=white, line width=.6pt, rectangle, align=center, text width=5.2cm, minimum height=10mm, inner sep=2.5mm},
+  processwide/.style={process, text width=8.4cm},
+  decision/.style={draw=black, fill=white, line width=.6pt, diamond, aspect=2.5, align=center, text width=3.9cm, inner sep=1.2mm},
+  note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm, align=center, text width=5.2cm, inner sep=2mm},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt, preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
+]
+  \matrix (grid) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells] {
+    & |[terminal] (start)| {HIPONATREMIA AGUDA\\ dura{\c c}{\~a}o documentada $<48$ h} & \\
+    & |[decision] (shock)| {Choque ou instabilidade hemodin{\^a}mica?} & \\
+    |[process] (resuscitate)| {\textbf{RESSUSCITAR PRIMEIRO}\\ Cristaloide isot{\^o}nico em bolus at{\'e} restaurar perfus{\~a}o; monitorar Na e diurese} & & \\
+    & |[decision] (mildna)| {Na entre 130 e 134 mmol/L?} & \\
+    |[note] (mildmonitor)| {Sem risco habitual de hernia{\c c}{\~a}o por hiponatremia: suspender hipot{\^o}nicos, tratar causa e monitorar queda adicional} & & \\
+    & |[decision] (symptoms)| {Na $<130$: qualquer sintoma compat{\'i}vel com hipertens{\~a}o intracraniana?} & \\
+    |[process] (symptomatic)| {\textbf{NaCl 3\% --- ESCOLHER UM ESQUEMA}\\ EUA: 100 mL IV/10 min; repetir at{\'e} 2 vezes se sintomas persistirem.\\ Europa: 150 mL IV/20 min; repetir uma vez conforme Na/resposta.\\ \textbf{N{\~a}o combinar os esquemas.}} & & |[decision] (autocorrect)| {Assintom{\'a}tico: aquarese com autocorre{\c c}{\~a}o em curso?} \\
+    |[process] (symgoal)| {Meta: elevar Na em 4--6 mmol/L em poucas horas. Dosar ap{\'o}s cada bolus; parar ao melhorar ou atingir a meta.} & |[note] (nohyper)| {Sem NaCl 3\%. Suspender aporte hipot{\^o}nico; Na e sintomas a cada 1--2 h.} & |[process] (fifty)| {NaCl 3\% 50 mL IV em bolus para impedir queda adicional; reavaliar Na e sintomas em 1--2 h.} \\
+    |[note] (peripheral)| {NaCl 3\% pode ser administrado em veia perif{\'e}rica; n{\~a}o atrasar terapia para obter acesso central. N{\~a}o usar manitol ou vaptan.} & & |[note] (autonote)| {Suspeitar autocorre{\c c}{\~a}o se causa revertida + diurese crescente + urina dilu{\'i}da: densidade $<1{,}005$, OsmU $<200$ ou NaU+KU $<$ metade do Na s{\'e}rico.} \\
+  };
+  \draw[arrow] (start.south) -- (shock.north);
+  \draw[arrow] (shock.west) -- node[above]{Sim} ++(-6mm,0) -| (resuscitate.north);
+  \draw[arrow] (shock.south) -- node[left]{N{\~a}o} (mildna.north);
+  \draw[arrow] (resuscitate.south) -- ++(0,-5mm) -| (mildna.north);
+  \draw[arrow] (mildna.west) -- node[above]{Sim} ++(-6mm,0) -| (mildmonitor.north);
+  \draw[arrow] (mildna.south) -- node[left]{N{\~a}o} (symptoms.north);
+  \draw[arrow] (symptoms.west) -- node[above]{Sim} ++(-6mm,0) -| (symptomatic.north);
+  \draw[arrow] (symptoms.east) -- node[above]{N{\~a}o} ++(6mm,0) -| (autocorrect.north);
+  \draw[arrow] (symptomatic.south) -- (symgoal.north);
+  \draw[arrow] (symgoal.south) -- (peripheral.north);
+  \draw[arrow] (autocorrect.west) -- node[above]{Sim} ++(-6mm,0) -| (nohyper.north);
+  \draw[arrow] (autocorrect.south) -- node[right]{N{\~a}o} (fifty.north);
+  \draw[arrow] (fifty.south) -- (autonote.north);
+\end{tikzpicture}
+

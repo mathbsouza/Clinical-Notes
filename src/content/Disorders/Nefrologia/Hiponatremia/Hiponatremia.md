@@ -43,16 +43,24 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 
 ## Tratamento
 
-- O fluxograma abaixo explicita a prescrição inicial, as reavaliações e as barreiras contra desmielinização osmótica. 
-- A solução salina hipertônica deve ser administrada em ambiente monitorizado, por médico experiente, sem aguardar toda a investigação etiológica quando há sintomas moderadamente graves ou graves.[^sfe-emergency]
+- A terapia nas primeiras seis horas depende da duração, dos sintomas, do valor do Na, da presença de patologia intracraniana e do risco de autocorreção. Choque ou instabilidade hemodinâmica exigem ressuscitação com cristaloide isotônico antes de seguir o protocolo do sódio.[^sfe-emergency][^uptodate-initial-hyponatremia]
+- Os esquemas americano (NaCl 3% 100 mL/10 min) e europeu (150 mL/20 min) são alternativas; deve-se escolher um protocolo institucional e não somar os dois. NaCl 3% pode ser administrado por veia periférica, sem atrasar a terapia para obter acesso central.[^sfe-emergency][^uptodate-initial-hyponatremia]
+
+### Hiponatremia aguda — primeiras seis horas
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/treatment.svg|Fluxograma específico de tratamento da hiponatremia no adulto
+Disorders/Nefrologia/Hiponatremia/diagrams/acute.svg|Tratamento inicial da hiponatremia aguda no adulto
+```
+
+### Hiponatremia crônica ou de duração desconhecida — primeiras seis horas
+
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/chronic.svg|Tratamento inicial da hiponatremia crônica ou de duração desconhecida no adulto
 ```
 
 #### Metas e monitorização
 
-- Durante salina a 3%, dosar sódio após cada bolus e a cada 4 horas enquanto a infusão prosseguir. Nos demais pacientes com Na ≤ 120 mmol/L ou risco de aquarese, medir a cada 2–4 horas e acompanhar diurese horária.
+- Na terapia em bolus, dosar Na após cada dose; na hiponatremia aguda, reavaliar Na e sintomas a cada 1–2 horas. Na forma crônica com Na <120 mmol/L, infusão contínua ou risco de aquarese, medir Na a cada 2–4 horas e acompanhar diurese horária; após estabelecer clamp estável com desmopressina, pode-se espaçar para 6 horas.[^uptodate-initial-hyponatremia]
 - A meta inicial na emergência é elevar o Na em **4–6 mmol/L**, usualmente o suficiente para reduzir edema cerebral. Não é necessário normalizar o sódio no primeiro dia.
 - Adotar como limite conservador **≤ 8 mmol/L em qualquer período de 24 horas** nos pacientes com Na ≤ 105 mmol/L, hipocalemia, alcoolismo, desnutrição ou hepatopatia avançada. Nos demais, não ultrapassar 10 mmol/L nas primeiras 24 horas e 18 mmol/L em 48 horas; como erros laboratoriais e aquarese tornam a correção imprevisível, uma meta de 6–8 mmol/L/24 h é mais segura.[^correction-limits]
 - Corrigir hipocalemia com cautela, pois a reposição de potássio também eleva o sódio sérico. Interromper tiazídicos e outros fármacos causais sempre que possível.
@@ -86,3 +94,5 @@ Hiponatremia aguda pode causar edema cerebral, herniação e morte; já a corre�
 [^adrenal-crisis]: Arlt W et al. Society for Endocrinology emergency guidance: *Emergency management of acute adrenal insufficiency (adrenal crisis) in adult patients*. Endocrine Connections. 2016;5:G1–G3. Recomenda hidrocortisona 100 mg imediata e 200 mg/24 h, além de ressuscitação com solução isotônica. https://doi.org/10.1530/EC-16-0054
 
 [^ddavp-relowering]: Rondon-Berrios H, Sterns RH. *Therapeutic Relowering of Plasma Sodium after Overly Rapid Correction of Hyponatremia*. Clinical Journal of the American Society of Nephrology. 2020;15:282–284. Revisão de séries clínicas e estudos experimentais; propõe desmopressina 2–4 µg IV/SC a cada 6–8 h e glicose 5% a 3 mL/kg/h para relowering, com ajuste pela resposta. https://doi.org/10.2215/CJN.04880419
+
+[^uptodate-initial-hyponatremia]: *Hyponatremia in adults: Initial therapy during the first six hours*. UpToDate, conteúdo fornecido para esta revisão. A síntese diferencia hiponatremia aguda e crônica, propõe NaCl 3% 50 mL na forma aguda assintomática <130 mmol/L sem autocorreção; 100 mL/10 min até três doses na forma sintomática ou com patologia intracraniana; e, na forma crônica <120 mmol/L sem sintomas graves, 15–30 mL/h ou bolus de 1 mL/kg a cada 6 h. Também descreve administração periférica e clamp com desmopressina 1–2 µg IV/SC a cada 6–8 h.

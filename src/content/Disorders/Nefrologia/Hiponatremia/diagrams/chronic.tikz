@@ -1,0 +1,41 @@
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  terminal/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm, align=center, text width=8.4cm, minimum height=10mm, inner sep=2.5mm, font=\sffamily\bfseries\small},
+  process/.style={draw=black, fill=white, line width=.6pt, rectangle, align=center, text width=5.2cm, minimum height=10mm, inner sep=2.5mm},
+  processwide/.style={process, text width=8.4cm},
+  decision/.style={draw=black, fill=white, line width=.6pt, diamond, aspect=2.5, align=center, text width=3.9cm, inner sep=1.2mm},
+  note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm, align=center, text width=5.2cm, inner sep=2mm},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt, preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
+]
+  \matrix (grid) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells] {
+    & |[terminal] (start)| {HIPONATREMIA CR{\^O}NICA\\ dura{\c c}{\~a}o $\geq48$ h ou desconhecida} & \\
+    & |[decision] (shock)| {Choque ou instabilidade hemodin{\^a}mica?} & \\
+    |[process] (resuscitate)| {\textbf{RESSUSCITAR PRIMEIRO}\\ Cristaloide isot{\^o}nico em bolus at{\'e} restaurar perfus{\~a}o; monitorar Na e diurese} & & \\
+    & |[decision] (mildna)| {Na entre 130 e 134 mmol/L?} & \\
+    |[process] (general)| {Sem NaCl 3\%: retirar f{\'a}rmacos causais, tratar causa e limitar {\'a}gua/aporte hipot{\^o}nico.} & & \\
+    & |[decision] (danger)| {Na $<130$: sintomas graves ou patologia intracraniana recente/expansiva?} & \\
+    |[process] (bolus)| {\textbf{NaCl 3\% --- ESCOLHER UM ESQUEMA}\\ EUA: 100 mL IV/10 min; repetir at{\'e} 2 vezes se necess{\'a}rio.\\ Europa: 150 mL IV/20 min; repetir uma vez conforme Na/resposta.\\ \textbf{N{\~a}o combinar.}} & & |[decision] (severena)| {Na $<120$ mmol/L?} \\
+    |[process] (dangergoal)| {Meta inicial: +4--6 mmol/L em poucas horas. Dosar ap{\'o}s cada bolus e interromper ao melhorar/atingir meta.} & & |[process] (moderate)| {Na 120--129, sem sintomas graves/patologia intracraniana: medidas gerais; n{\~a}o usar NaCl 3\% rotineiramente.} \\
+    & |[decision] (ddavp)| {Na $<120$: causa rapidamente revers{\'i}vel ou alto risco de desmieliniza{\c c}{\~a}o?} & \\
+    |[process] (clamp)| {\textbf{CLAMP COM DESMOPRESSINA}\\ DDAVP 1--2 $\mu$g IV/SC a cada 6--8 h + NaCl 3\% iniciando em 0,25 mL/kg/h; restringir {\'a}gua livre.} & & |[process] (slow)| {\textbf{NaCl 3\% CONTROLADO}\\ 15--30 mL/h; alternativa: 1 mL/kg (m{\'a}x. 100 mL) a cada 6 h, ajustando pelo Na.} \\
+    & |[processwide] (monitor)| {Via perif{\'e}rica permitida. Meta usual 4--6 mmol/L/24 h; limite 8 mmol/L/24 h se alto risco. Na a cada 2--4 h no in{\'i}cio + diurese hor{\'a}ria; com clamp est{\'a}vel, pode espa{\c c}ar para 6 h.} & \\
+    & |[note] (risk)| {Causa revers{\'i}vel: deple{\c c}{\~a}o vol{\^e}mica, corticoide na insufici{\^e}ncia adrenal, retirada de tiazida/est{\'i}mulo de ADH. Alto risco: Na $\leq105$, hipocalemia, alcoolismo, hepatopatia, desnutri{\c c}{\~a}o. Evitar DDAVP em intoxica{\c c}{\~a}o h{\'i}drica autoinduzida e, em geral, em IC/cirrose.} & \\
+  };
+  \draw[arrow] (start.south) -- (shock.north);
+  \draw[arrow] (shock.west) -- node[above]{Sim} ++(-6mm,0) -| (resuscitate.north);
+  \draw[arrow] (shock.south) -- node[left]{N{\~a}o} (mildna.north);
+  \draw[arrow] (resuscitate.south) -- ++(0,-5mm) -| (mildna.north);
+  \draw[arrow] (mildna.west) -- node[above]{Sim} ++(-6mm,0) -| (general.north);
+  \draw[arrow] (mildna.south) -- node[left]{N{\~a}o} (danger.north);
+  \draw[arrow] (danger.west) -- node[above]{Sim} ++(-6mm,0) -| (bolus.north);
+  \draw[arrow] (danger.east) -- node[above]{N{\~a}o} ++(6mm,0) -| (severena.north);
+  \draw[arrow] (bolus.south) -- (dangergoal.north);
+  \draw[arrow] (severena.south) -- node[right]{N{\~a}o} (moderate.north);
+  \draw[arrow] (severena.west) -- node[above]{Sim} ++(-6mm,0) |- (ddavp.east);
+  \draw[arrow] (ddavp.west) -- node[above]{Sim} ++(-6mm,0) -| (clamp.north);
+  \draw[arrow] (ddavp.east) -- node[above]{N{\~a}o} ++(6mm,0) -| (slow.north);
+  \draw[arrow] (clamp.south) -- ++(0,-5mm) -| (monitor.north);
+  \draw[arrow] (slow.south) -- ++(0,-5mm) -| (monitor.north);
+  \draw[arrow] (monitor.south) -- (risk.north);
+\end{tikzpicture}
+
