@@ -52,68 +52,85 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada.↵* Sintomas graves: convulsões, torpor, coma e parada respiratória.↵¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico.↵Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares.↵Fonte: UpToDate.
 ```
 
-### Condutas prontas para copiar
+### Condutas para copiar
 
-Os textos abaixo reproduzem as situações do fluxograma do UpToDate. Ajustar às condições clínicas, ao protocolo institucional e aos resultados seriados do paciente.
-
-#### Aguda, assintomática e em autocorreção
+#### Aguda · assintomática · autocorreção
 
 ```copy-treatment
-Hiponatremia aguda assintomática em autocorreção: não administrar solução salina hipertônica neste momento. Manter internação e medidas gerais; suspender soluções hipotônicas e possíveis fármacos causais. Monitorar diurese e sódio sérico de hora em hora até aumento de 4–6 mmol/L. Se o sódio voltar a cair, administrar NaCl 3% 50 mL IV em bolus e reavaliar.
+Não administrar NaCl 3%.
+Monitorar Na e diurese de hora em hora até aumento de 4–6 mmol/L.
+Se o Na cair: NaCl 3% 50 mL IV em bolus.
 ```
 
-#### Aguda, assintomática e sem autocorreção
+#### Aguda · assintomática · sem autocorreção
 
 ```copy-treatment
-Hiponatremia aguda assintomática sem autocorreção: administrar NaCl 3% 50 mL IV em bolus para prevenir nova queda do sódio. Manter internação e medidas gerais. Monitorar diurese e sódio sérico de hora em hora para definir necessidade de novos bolus.
+NaCl 3% 50 mL IV em bolus.
+Monitorar Na e diurese de hora em hora.
 ```
 
-#### Aguda com qualquer sintoma atribuível à hiponatremia
+#### Aguda · sintomática
 
 ```copy-treatment
-Hiponatremia aguda sintomática: administrar NaCl 3% 100 mL IV em 10 minutos. Se os sintomas persistirem, repetir até mais duas vezes, total máximo inicial de 300 mL. Dosar sódio após cada bolus e monitorá-lo de hora em hora até aumento de 4–6 mmol/L; depois, reduzir a frequência conforme estabilidade. Manter medidas gerais.
+NaCl 3% 100 mL IV em 10 minutos.
+Se persistirem sintomas, repetir até 2 vezes (máximo inicial: 300 mL).
+Dosar Na após cada bolus; meta inicial: aumento de 4–6 mmol/L.
 ```
 
-#### Crônica com sintomas graves ou patologia intracraniana conhecida
+#### Crônica · sintomas graves ou patologia intracraniana
 
 ```copy-treatment
-Hiponatremia crônica com sintomas graves ou patologia intracraniana: administrar NaCl 3% 100 mL IV em 10 minutos. Se os sintomas persistirem, repetir até mais duas vezes, total máximo inicial de 300 mL. Dosar sódio após cada bolus e monitorá-lo de hora em hora até aumento de 4–6 mmol/L; depois, reduzir a frequência conforme estabilidade. Manter internação e medidas gerais.
+NaCl 3% 100 mL IV em 10 minutos.
+Se persistirem sintomas, repetir até 2 vezes (máximo inicial: 300 mL).
+Dosar Na após cada bolus; meta inicial: aumento de 4–6 mmol/L.
 ```
 
-#### Crônica, Na ≥120 mmol/L, com sintomas leves ou moderados
+#### Crônica · Na ≥120 · sintomas leves/moderados
 
 ```copy-treatment
-Hiponatremia crônica com Na ≥120 mmol/L e sintomas leves ou moderados, sem patologia intracraniana: internar; não administrar NaCl 3% de rotina. Identificar e tratar a causa, suspender fármacos contribuintes quando seguro, restringir água livre e suspender soluções hipotônicas. Monitorar sódio sérico a cada 6–12 horas.
+Internar. Não administrar NaCl 3% de rotina.
+Tratar a causa, suspender soluções hipotônicas e restringir água livre.
+Monitorar Na a cada 6–12 horas.
 ```
 
-#### Crônica, Na ≥120 mmol/L e assintomática
+#### Crônica · Na ≥120 · assintomática
 
 ```copy-treatment
-Hiponatremia crônica com Na ≥120 mmol/L, assintomática e sem patologia intracraniana: não administrar NaCl 3%. Instituir medidas gerais — tratar a causa, revisar e suspender fármacos contribuintes quando seguro, restringir água livre e suspender soluções hipotônicas — e acompanhar ambulatorialmente se não houver outra indicação de internação.
+Não administrar NaCl 3%.
+Tratar a causa, revisar fármacos e restringir água livre.
+Seguimento ambulatorial se não houver outra indicação de internação.
 ```
 
-#### Crônica, Na <120 mmol/L, por intoxicação hídrica autoinduzida
+#### Crônica · Na <120 · intoxicação hídrica autoinduzida
 
 ```copy-treatment
-Hiponatremia crônica com Na <120 mmol/L por intoxicação hídrica autoinduzida: internar, interromper a ingestão excessiva de água e instituir medidas gerais. Não usar desmopressina profilática. Monitorar sódio sérico a cada 6–12 horas, com maior frequência se houver queda adicional, sintomas ou mudança importante da diurese.
+Internar e interromper a ingestão excessiva de água.
+Não usar desmopressina profilática.
+Monitorar Na a cada 6–12 horas.
 ```
 
-#### Crônica, Na <120 mmol/L, com edema por insuficiência cardíaca ou cirrose
+#### Crônica · Na <120 · insuficiência cardíaca/cirrose com edema
 
 ```copy-treatment
-Hiponatremia crônica com Na <120 mmol/L e estado edematoso: iniciar NaCl 3% IV a 15–30 mL/h e furosemida 40 mg IV ou em dose diária maior conforme congestão e função renal. Monitorar sódio a cada 2–4 horas e ajustar a solução para aumento total de 4–6 mmol/L em 24 horas. Suspender este esquema quando o sódio atingir pelo menos 125 mmol/L. Não usar desmopressina profilática. Manter medidas gerais e tratar insuficiência cardíaca ou cirrose.
+NaCl 3% IV a 15–30 mL/h + furosemida 40 mg IV ou dose diária maior, conforme congestão.
+Monitorar Na a cada 2–4 horas; meta: aumento de 4–6 mmol/L/24 h.
+Suspender o esquema quando Na ≥125 mmol/L. Não usar desmopressina profilática.
 ```
 
-#### Crônica, Na <120 mmol/L, com causa rapidamente reversível ou alto risco de desmielinização osmótica
+#### Crônica · Na <120 · causa reversível ou alto risco de desmielinização
 
 ```copy-treatment
-Hiponatremia crônica com Na <120 mmol/L e causa rapidamente reversível ou alto risco de desmielinização osmótica: iniciar NaCl 3% IV a 15–30 mL/h associado a desmopressina 1–2 µg IV ou SC a cada 6–8 horas. Monitorar diurese e sódio a cada 2–3 horas inicialmente; após controle das perdas de água, a cada 4–6 horas. Ajustar o NaCl 3% para aumento total de 4–6 mmol/L em 24 horas e suspender o esquema quando o sódio atingir pelo menos 125 mmol/L. Restringir água livre e manter medidas gerais.
+NaCl 3% IV a 15–30 mL/h + desmopressina 1–2 µg IV/SC a cada 6–8 horas.
+Monitorar Na e diurese a cada 2–3 horas; após estabilização, a cada 4–6 horas.
+Meta: aumento de 4–6 mmol/L/24 h. Suspender o esquema quando Na ≥125 mmol/L.
 ```
 
-#### Crônica, Na <120 mmol/L, sem causa rapidamente reversível e sem alto risco de desmielinização osmótica
+#### Crônica · Na <120 · sem causa reversível e baixo risco de desmielinização
 
 ```copy-treatment
-Hiponatremia crônica com Na <120 mmol/L, sem causa rapidamente reversível e sem alto risco de desmielinização osmótica: iniciar NaCl 3% IV a 15–30 mL/h, sem desmopressina profilática. Monitorar diurese e sódio a cada 4–6 horas e ajustar a infusão para aumento total de 4–6 mmol/L em 24 horas. Suspender o esquema quando o sódio atingir pelo menos 125 mmol/L. Manter medidas gerais.
+NaCl 3% IV a 15–30 mL/h, sem desmopressina profilática.
+Monitorar Na e diurese a cada 4–6 horas.
+Meta: aumento de 4–6 mmol/L/24 h. Suspender o esquema quando Na ≥125 mmol/L.
 ```
 #### Metas e monitorização
 
