@@ -23,6 +23,11 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 | **Aquacumulativa** | Retenção renal de água livre pela ação persistente da arginina-vasopressina. | SIAD; baixo volume arterial efetivo na insuficiência cardíaca ou cirrose. |
 | **Hipotonocumulativa** | Entrada de líquido hipotônico superior à capacidade renal de eliminação, inclusive quando limitada pela baixa oferta de solutos. | Polidipsia primária, potomania e dieta extremamente pobre em solutos. |
 
+## Etiologia
+
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
+```
 ## Diagnóstico
 
 - Confirmar o resultado em nova amostra quando ele for inesperado, medir glicose e osmolaridade sérica e colher **osmolaridade urinária e sódio urinário simultaneamente**, antes de administrar volume sempre que isso não atrasar o tratamento de uma emergência. 
@@ -52,22 +57,20 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada.↵* Sintomas graves: convulsões, torpor, coma e parada respiratória.↵¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico.↵Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares.↵Fonte: UpToDate.
 ```
 
-### Tratamento inicial da hiponatremia
-
 ```hyponatremia-treatment
 ```
+
 #### Metas e monitorização
+
 ```svg-diagram
 Disorders/Nefrologia/Hiponatremia/diagrams/targets-monitoring.svg|Metas e monitorização da correção da hiponatremia
 ```
+
 #### Tratamento dirigido à causa
 
 ```svg-diagram
 Disorders/Nefrologia/Hiponatremia/diagrams/cause-directed-treatment.svg|Tratamento da hiponatremia conforme o mecanismo e a causa
 ```
-## Prognóstico
-
-Hiponatremia aguda pode causar edema cerebral, herniação e morte; já a correção excessivamente rápida da forma crônica pode causar síndrome de desmielinização osmótica, tipicamente com deterioração neurológica tardia. O risco é maior com Na muito baixo e nos pacientes com hipocalemia, alcoolismo, desnutrição ou hepatopatia avançada.[^correction-limits]
 
 [^ese-guideline]: Spasovski G et al. *Clinical practice guideline on diagnosis and treatment of hyponatraemia*. European Journal of Endocrinology. 2014;170:G1–G47. Diretriz conjunta ESE/ESICM/ERA-EDTA com algoritmo diagnóstico por osmolaridade urinária e sódio urinário, classificação e recomendações terapêuticas. https://doi.org/10.1530/EJE-13-1020
 

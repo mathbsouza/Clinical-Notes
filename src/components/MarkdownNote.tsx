@@ -143,7 +143,12 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
       h3: ({ children }) => <h3 id={headingId(getNodeText(children))}>{children}</h3>,
       h4: ({ children }) => <h4 id={headingId(getNodeText(children))}>{children}</h4>,
       h5: ({ children }) => <h5 id={headingId(getNodeText(children))}>{children}</h5>,
-      table: ({ children }) => <div className="table-scroll" role="region" aria-label="Tabela com rolagem horizontal"><table>{children}</table></div>,
+      section: ({ children, className, node: _node, ...props }) => className?.includes('footnotes')
+        ? <details className="note-accordion footnotes-accordion">
+            <summary className="note-accordion-summary">Notas e referências</summary>
+            <div className="footnotes-accordion-content">{children}</div>
+          </details>
+        : <section className={className} {...props}>{children}</section>,      table: ({ children }) => <div className="table-scroll" role="region" aria-label="Tabela com rolagem horizontal"><table>{children}</table></div>,
       pre: ({ children }) => {
         const child = Children.toArray(children)[0];
         if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-svg-diagram') {
