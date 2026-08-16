@@ -1318,3 +1318,43 @@ body {
   .magic-flowchart__options { display: grid; }
   .magic-flowchart__options button { width: 100%; }
 }
+
+.note-accordion {
+  margin: 0.85rem 0;
+  border: 1px solid rgb(255 255 255 / 0.09);
+  border-radius: 0.65rem;
+  background: rgb(255 255 255 / 0.018);
+  overflow: clip;
+}
+
+.note-accordion-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1rem;
+  color: #e5e5e5;
+  font-size: 1.05rem;
+  font-weight: 650;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.note-accordion-summary::-webkit-details-marker { display: none; }
+.note-accordion-summary::before {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 1.5px solid #fb923c;
+  border-bottom: 1.5px solid #fb923c;
+  content: '';
+  transform: rotate(-45deg);
+  transition: transform 140ms ease;
+}
+
+.note-accordion[open] > .note-accordion-summary {
+  border-bottom: 1px solid rgb(255 255 255 / 0.07);
+}
+
+.note-accordion[open] > .note-accordion-summary::before { transform: rotate(45deg); }
+.note-accordion > :not(summary) { margin-left: 1rem; margin-right: 1rem; }
+.note-accordion > :last-child { margin-bottom: 1rem; }

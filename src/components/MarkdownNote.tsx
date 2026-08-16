@@ -12,6 +12,55 @@ const diagramSources = import.meta.glob<string>('../content/**/diagrams/*.{svg,p
   import: 'default',
 });
 
+type MarkdownAstNode = {
+  type: string;
+  depth?: number;
+  value?: string;
+  children?: MarkdownAstNode[];
+  data?: { hName?: string; hProperties?: Record<string, unknown> };
+};
+
+type MarkdownAstRoot = MarkdownAstNode & { children: MarkdownAstNode[] };
+
+function getAstText(node: MarkdownAstNode): string {
+  if (node.value) return node.value;
+  return node.children?.map(getAstText).join('') ?? '';
+}
+
+function remarkH2Accordions() {
+  return (tree: MarkdownAstRoot) => {
+    const output: MarkdownAstNode[] = [];
+    let section: MarkdownAstNode[] | undefined;
+
+    const flush = () => {
+      if (!section) return;
+      output.push({
+        type: 'blockquote',
+        data: { hName: 'details', hProperties: { className: ['note-accordion'] } },
+        children: section,
+      });
+      section = undefined;
+    };
+
+    for (const node of tree.children) {
+      if (node.type === 'heading' && node.depth === 2) {
+        flush();
+        const title = getAstText(node);
+        section = [{
+          ...node,
+          data: { hName: 'summary', hProperties: { id: headingId(title), className: ['note-accordion-summary'] } },
+        }];
+      } else if (section) {
+        section.push(node);
+      } else {
+        output.push(node);
+      }
+    }
+
+    flush();
+    tree.children = output;
+  };
+}
 function getNodeText(node: ReactNode): string {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
   if (Array.isArray(node)) return node.map(getNodeText).join('');
@@ -118,6 +167,6 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         }
         return <tr>{children}</tr>;
       },
-    }} remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
+    }} remarkPlugins={[remarkGfm, remarkH2Accordions]}>{body}</ReactMarkdown>
   </article>;
 }
