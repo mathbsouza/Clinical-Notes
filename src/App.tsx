@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, ArrowRight, CalendarDays, FileText, Folder, Menu, Search, Tags } from 'lucide-react';
+import { AArrowDown, AArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronsDownUp, ChevronsUpDown, FileText, Folder, Menu, Search, Tags } from 'lucide-react';
 import MarkdownNote from './components/MarkdownNote';
 import { type Note, notes } from './lib/notes';
 
@@ -124,6 +124,17 @@ function validArticleSlugFromHash() {
   return notes.some((note) => note.slug === slug) ? slug : '';
 }
 
+function ReaderControls() {
+  const accordions = (detail: 'expand' | 'collapse') => window.dispatchEvent(new CustomEvent('clinical-notes:accordions', { detail }));
+  const fontSize = (detail: number) => window.dispatchEvent(new CustomEvent('clinical-notes:font-size', { detail }));
+  const buttonClass = 'inline-flex h-9 w-9 items-center justify-center rounded-md text-neutral-400 transition hover:bg-orange-300/10 hover:text-orange-200';
+  return <div className="reader-controls flex items-center gap-0.5" aria-label="Controles do artigo">
+    <button aria-label="Expandir todos os accordions" className={buttonClass} onClick={() => accordions('expand')} title="Expandir tudo" type="button"><ChevronsUpDown size={18} aria-hidden="true" /></button>
+    <button aria-label="Recolher todos os accordions" className={buttonClass} onClick={() => accordions('collapse')} title="Recolher tudo" type="button"><ChevronsDownUp size={18} aria-hidden="true" /></button>
+    <button aria-label="Aumentar tamanho da letra" className={buttonClass} onClick={() => fontSize(0.08)} title="Aumentar letra" type="button"><AArrowUp size={18} aria-hidden="true" /></button>
+    <button aria-label="Diminuir tamanho da letra" className={buttonClass} onClick={() => fontSize(-0.08)} title="Diminuir letra" type="button"><AArrowDown size={18} aria-hidden="true" /></button>
+  </div>;
+}
 export default function App() {
   const [query, setQuery] = useState('');
   const [selectedPath, setSelectedPath] = useState<string[]>([]);
@@ -243,9 +254,8 @@ export default function App() {
             >
               Clinical Notes
             </button>
-            <span className="text-xs uppercase tracking-[0.18em] text-orange-200/35">
-              {activeNote?.pathSegments.slice(0, -1).join(' / ')}
-            </span>
+            <ReaderControls />
+
           </div>
         </header>
 
@@ -379,7 +389,7 @@ function DesktopReader({
   const menuStep = Math.max(menuColumns.length - 1, 0);
 
   return (
-    <main className="flex h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100">
+    <main className={`flex h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100${sidebarOpen ? ' sidebar-is-open' : ''}`}>
       <header className="relative z-10 grid h-16 shrink-0 grid-cols-[1fr_minmax(22rem,38rem)_1fr] items-center border-b border-orange-300/10 bg-neutral-950/95 px-4 backdrop-blur">
         <div className="flex items-center gap-3">
           <button
@@ -404,7 +414,7 @@ function DesktopReader({
             onChange={(event) => setQuery(event.target.value)}
           />
         </label>
-        <div />
+        <div className="flex justify-end">{activeNote ? <ReaderControls /> : null}</div>
       </header>
 
       <div className={`grid min-h-0 flex-1 transition-[grid-template-columns] duration-200 ${sidebarOpen ? 'grid-cols-[19rem_minmax(0,1fr)]' : 'grid-cols-[0_minmax(0,1fr)]'}`}>

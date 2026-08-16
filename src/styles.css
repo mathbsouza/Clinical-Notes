@@ -1394,14 +1394,41 @@ body {
   .note-toc {
     position: fixed;
     top: 5.25rem;
-    right: 1.25rem;
+    left: 1.25rem;
     display: block;
     width: 13.5rem;
+    transition: left 200ms ease, width 160ms ease;
     max-height: calc(100vh - 6.5rem);
     border-left: 1px solid rgb(255 255 255 / 0.08);
     overflow-y: auto;
   }
 
+  .sidebar-is-open .note-toc { left: 20.25rem; }
+
+  .note-toc-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .note-toc-toggle {
+    display: inline-flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    color: #a3a3a3;
+    background: transparent;
+    font: inherit;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  .note-toc-toggle:hover { color: #fb923c; }
+  .note-toc.is-collapsed { width: 2.4rem; }
+  .note-toc.is-collapsed .note-toc-title,
+  .note-toc.is-collapsed nav { display: none; }
   .note-toc-title {
     padding: 0 0.65rem 0.55rem;
     color: #737373;
@@ -1433,3 +1460,14 @@ body {
     color: #fed7aa;
   }
 }
+/* Escala tipográfica do leitor */
+.prose-notes { font-size: calc(1rem * var(--note-font-scale, 1)); }
+.prose-notes p { font-size: calc(1rem * var(--note-font-scale, 1)); }
+.prose-notes li { font-size: calc(0.95rem * var(--note-font-scale, 1)); }
+.prose-notes h3 { font-size: calc(1.16rem * var(--note-font-scale, 1)); }
+.prose-notes h4,
+.prose-notes h5 { font-size: calc(0.84rem * var(--note-font-scale, 1)); }
+.prose-notes th,
+.prose-notes td { font-size: calc(0.86rem * var(--note-font-scale, 1)); }
+.prose-notes .note-accordion-summary { font-size: calc(1.05rem * var(--note-font-scale, 1)); }
+.prose-notes .note-accordion[open] > .note-accordion-summary { font-size: calc(1.22rem * var(--note-font-scale, 1)); }

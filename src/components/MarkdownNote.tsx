@@ -1,4 +1,4 @@
-import { Children, isValidElement, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
@@ -148,6 +148,7 @@ function markdownHeadings(body: string): TocItem[] {
 
 function NoteToc({ items }: { items: TocItem[] }) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? '');
+  const [collapsed, setCollapsed] = useState(false);
   const goTo = (id: string) => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -157,8 +158,14 @@ function NoteToc({ items }: { items: TocItem[] }) {
     window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   };
   if (!items.length) return null;
-  return <aside className="note-toc" aria-label="Sumário do artigo">
-    <div className="note-toc-title">Sumário</div>
+  return <aside className={`note-toc${collapsed ? ' is-collapsed' : ''}`} aria-label="Sumário do artigo">
+    <div className="note-toc-head">
+      <div className="note-toc-title">Sumário</div>
+      <button className="note-toc-toggle" type="button" onClick={() => setCollapsed((value) => !value)}
+        aria-label={collapsed ? 'Expandir sumário' : 'Recolher sumário'} title={collapsed ? 'Expandir sumário' : 'Recolher sumário'}>
+        <span aria-hidden="true">{collapsed ? '›' : '‹'}</span>
+      </button>
+    </div>
     <nav>{items.map((item) => <button className={activeId === item.id ? 'is-active' : ''}
       key={`${item.depth}-${item.id}`} onClick={() => goTo(item.id)}
       style={{ paddingLeft: `${0.65 + (item.depth - 2) * 0.8}rem` }} type="button">{item.label}</button>)}</nav>
@@ -166,7 +173,27 @@ function NoteToc({ items }: { items: TocItem[] }) {
 }
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
   const tocItems = useMemo(() => markdownHeadings(body), [body]);
-  return <div className="note-layout"><article className="prose-notes">
+  const articleRef = useRef<HTMLElement>(null);
+  const [fontScale, setFontScale] = useState(1);
+
+  useEffect(() => {
+    const toggleAccordions = (event: Event) => {
+      const expand = (event as CustomEvent<'expand' | 'collapse'>).detail === 'expand';
+      articleRef.current?.querySelectorAll<HTMLDetailsElement>('details.note-accordion').forEach((item) => { item.open = expand; });
+    };
+    const resizeFont = (event: Event) => {
+      const delta = (event as CustomEvent<number>).detail;
+      setFontScale((current) => Math.min(1.3, Math.max(0.85, Number((current + delta).toFixed(2)))));
+    };
+    window.addEventListener('clinical-notes:accordions', toggleAccordions);
+    window.addEventListener('clinical-notes:font-size', resizeFont);
+    return () => {
+      window.removeEventListener('clinical-notes:accordions', toggleAccordions);
+      window.removeEventListener('clinical-notes:font-size', resizeFont);
+    };
+  }, []);
+
+  return <div className="note-layout"><article className="prose-notes" ref={articleRef} style={{ '--note-font-scale': fontScale } as CSSProperties}>
     <ReactMarkdown components={{
       h1: ({ children }) => <h1 id={headingId(getNodeText(children))}>{children}</h1>,
       h2: ({ children }) => <h2 id={headingId(getNodeText(children))}>{children}</h2>,

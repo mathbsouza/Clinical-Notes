@@ -26,9 +26,12 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 ## Etiologia
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
+Disorders/Nefrologia/Hiponatremia/diagrams/etiology-by-mechanism.svg|Principais causas de hiponatremia conforme o mecanismo
 ```
 ## Diagnóstico
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
+```
 
 - Confirmar o resultado em nova amostra quando ele for inesperado, medir glicose e osmolaridade sérica e colher **osmolaridade urinária e sódio urinário simultaneamente**, antes de administrar volume sempre que isso não atrasar o tratamento de uma emergência. 
 - Solicitar função renal, potássio, TSH e cortisol matinal.[^ese-guideline]
