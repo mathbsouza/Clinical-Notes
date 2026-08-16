@@ -52,85 +52,11 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada.↵* Sintomas graves: convulsões, torpor, coma e parada respiratória.↵¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico.↵Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares.↵Fonte: UpToDate.
 ```
 
-### Condutas para copiar
+### Conduta guiada
 
-#### Aguda · assintomática · autocorreção
+Selecione as características do caso para chegar à conduta inicial correspondente ao algoritmo do UpToDate.
 
-```copy-treatment
-Não administrar NaCl 3%.
-Monitorar Na e diurese de hora em hora até aumento de 4–6 mmol/L.
-Se o Na cair: NaCl 3% 50 mL IV em bolus.
-```
-
-#### Aguda · assintomática · sem autocorreção
-
-```copy-treatment
-NaCl 3% 50 mL IV em bolus.
-Monitorar Na e diurese de hora em hora.
-```
-
-#### Aguda · sintomática
-
-```copy-treatment
-NaCl 3% 100 mL IV em 10 minutos.
-Se persistirem sintomas, repetir até 2 vezes (máximo inicial: 300 mL).
-Dosar Na após cada bolus; meta inicial: aumento de 4–6 mmol/L.
-```
-
-#### Crônica · sintomas graves ou patologia intracraniana
-
-```copy-treatment
-NaCl 3% 100 mL IV em 10 minutos.
-Se persistirem sintomas, repetir até 2 vezes (máximo inicial: 300 mL).
-Dosar Na após cada bolus; meta inicial: aumento de 4–6 mmol/L.
-```
-
-#### Crônica · Na ≥120 · sintomas leves/moderados
-
-```copy-treatment
-Internar. Não administrar NaCl 3% de rotina.
-Tratar a causa, suspender soluções hipotônicas e restringir água livre.
-Monitorar Na a cada 6–12 horas.
-```
-
-#### Crônica · Na ≥120 · assintomática
-
-```copy-treatment
-Não administrar NaCl 3%.
-Tratar a causa, revisar fármacos e restringir água livre.
-Seguimento ambulatorial se não houver outra indicação de internação.
-```
-
-#### Crônica · Na <120 · intoxicação hídrica autoinduzida
-
-```copy-treatment
-Internar e interromper a ingestão excessiva de água.
-Não usar desmopressina profilática.
-Monitorar Na a cada 6–12 horas.
-```
-
-#### Crônica · Na <120 · insuficiência cardíaca/cirrose com edema
-
-```copy-treatment
-NaCl 3% IV a 15–30 mL/h + furosemida 40 mg IV ou dose diária maior, conforme congestão.
-Monitorar Na a cada 2–4 horas; meta: aumento de 4–6 mmol/L/24 h.
-Suspender o esquema quando Na ≥125 mmol/L. Não usar desmopressina profilática.
-```
-
-#### Crônica · Na <120 · causa reversível ou alto risco de desmielinização
-
-```copy-treatment
-NaCl 3% IV a 15–30 mL/h + desmopressina 1–2 µg IV/SC a cada 6–8 horas.
-Monitorar Na e diurese a cada 2–3 horas; após estabilização, a cada 4–6 horas.
-Meta: aumento de 4–6 mmol/L/24 h. Suspender o esquema quando Na ≥125 mmol/L.
-```
-
-#### Crônica · Na <120 · sem causa reversível e baixo risco de desmielinização
-
-```copy-treatment
-NaCl 3% IV a 15–30 mL/h, sem desmopressina profilática.
-Monitorar Na e diurese a cada 4–6 horas.
-Meta: aumento de 4–6 mmol/L/24 h. Suspender o esquema quando Na ≥125 mmol/L.
+```hyponatremia-treatment
 ```
 #### Metas e monitorização
 

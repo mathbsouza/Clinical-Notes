@@ -2,6 +2,7 @@ import { Children, isValidElement, useEffect, useState, type ReactNode } from 'r
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
+import HyponatremiaTreatmentWizard from './HyponatremiaTreatmentWizard';
 
 type MarkdownNoteProps = { body: string };
 
@@ -98,6 +99,9 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         const child = Children.toArray(children)[0];
         if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-svg-diagram') {
           return <StaticFlowchart source={getNodeText(child.props.children)} />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hyponatremia-treatment') {
+          return <HyponatremiaTreatmentWizard />;
         }
         if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-copy-treatment') {
           return <CopyTreatmentBlock>{child.props.children}</CopyTreatmentBlock>;
