@@ -256,7 +256,6 @@ export default function App() {
             >
               Clinical Notes
             </button>
-            <ReaderControls />
 
           </div>
         </header>
@@ -280,6 +279,7 @@ export default function App() {
                   {activeNote.title}
                 </h1>
                 <p className="mt-4 max-w-2xl text-[1.03rem] leading-7 text-neutral-400">{activeNote.summary}</p>
+                <div className="mt-3 flex justify-end"><ReaderControls /></div>
               </div>
 
               <div className="pt-0">
@@ -416,7 +416,7 @@ function DesktopReader({
             onChange={(event) => setQuery(event.target.value)}
           />
         </label>
-        <div className="flex justify-end">{activeNote ? <ReaderControls /> : null}</div>
+<div />
       </header>
 
       <div className={`grid min-h-0 flex-1 transition-[grid-template-columns] duration-200 ${sidebarOpen ? 'grid-cols-[19rem_minmax(0,1fr)]' : 'grid-cols-[0_minmax(0,1fr)]'}`}>
@@ -480,7 +480,8 @@ function DesktopReader({
               {activeNote.summary ? (
                 <p className="mt-3 text-[1.04rem] leading-6 text-neutral-400">{activeNote.summary}</p>
               ) : null}
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.75rem] text-neutral-600">
+              <div className="mt-3 flex items-end justify-between gap-4">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.75rem] text-neutral-600">
                 <span>{activeNote.category}</span>
                 <span aria-hidden="true">·</span>
                 <span>{activeNote.updated || 'Sem data'}</span>
@@ -490,6 +491,8 @@ function DesktopReader({
                     <span>{activeNote.tags.slice(0, 3).join(', ')}</span>
                   </>
                 ) : null}
+                </div>
+                <ReaderControls />
               </div>
             </header>
             <div className="pt-0">
