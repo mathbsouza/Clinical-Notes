@@ -10,7 +10,7 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 ## Definição
 
 - Hiponatremia é a concentração sérica de sódio **< 135 mmol/L**. Classifica-se bioquimicamente em leve (130–134 mmol/L), moderada (125–129 mmol/L) e profunda (< 125 mmol/L); quanto à duração, é aguda quando documentada há < 48 horas e crônica quando persiste por ≥ 48 horas. Se a duração for desconhecida, deve ser tratada como crônica para definir os limites de correção.[^ese-guideline]
-- Ela representa, na maioria das vezes, excesso relativo de água em relação ao sódio e ao potássio corporais, e não deficiência isolada de sódio. 
+- A concentração plasmática de sódio expressa a relação entre os cátions corporais trocáveis — principalmente sódio e potássio — e a água corporal total. Na hiponatremia hipotônica, a entrada de água supera a capacidade renal de excretá-la, em geral porque a arginina-vasopressina mantém a urina concentrada; a água então se desloca para o meio intracelular, inclusive para os neurônios. Na instalação aguda, esse influxo pode produzir edema cerebral; após cerca de 48 horas, a extrusão cerebral de eletrólitos e osmólitos orgânicos reduz o edema, mas torna o encéfalo vulnerável à desidratação celular se a correção do sódio for rápida demais.[^ese-guideline]
 - A emergência é determinada sobretudo pelos sintomas e pela rapidez da queda. Vômitos persistentes, confusão, cefaleia intensa e sonolência anormal são sintomas moderadamente graves; convulsão, coma, desconforto cardiorrespiratório e rebaixamento profundo da consciência são graves.[^sfe-emergency]
 ### Classificação fisiopatológica
 
