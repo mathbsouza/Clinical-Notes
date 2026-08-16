@@ -57,19 +57,13 @@ Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|T
 ```hyponatremia-treatment
 ```
 #### Metas e monitorização
-
-- Na terapia em bolus, dosar Na após cada dose; na hiponatremia aguda, reavaliar Na e sintomas a cada 1–2 horas. Na forma crônica com Na <120 mmol/L, infusão contínua ou risco de aquarese, medir Na a cada 2–4 horas e acompanhar diurese horária; após estabelecer clamp estável com desmopressina, pode-se espaçar para 6 horas.[^uptodate-initial-hyponatremia]
-- A meta inicial na emergência é elevar o Na em **4–6 mmol/L**, usualmente o suficiente para reduzir edema cerebral. Não é necessário normalizar o sódio no primeiro dia.
-- Adotar como limite conservador **≤ 8 mmol/L em qualquer período de 24 horas** nos pacientes com Na ≤ 105 mmol/L, hipocalemia, alcoolismo, desnutrição ou hepatopatia avançada. Nos demais, não ultrapassar 10 mmol/L nas primeiras 24 horas e 18 mmol/L em 48 horas; como erros laboratoriais e aquarese tornam a correção imprevisível, uma meta de 6–8 mmol/L/24 h é mais segura.[^correction-limits]
-- Corrigir hipocalemia com cautela, pois a reposição de potássio também eleva o sódio sérico. Interromper tiazídicos e outros fármacos causais sempre que possível.
-- Diurese aquosa súbita, especialmente após volume, retirada de tiazídico, corticoide ou reposição de solutos, pode elevar o Na muito mais do que a solução infundida. 
-- Se a projeção ultrapassar o limite, interromper terapias que elevem o Na e considerar **desmopressina 2 µg IV ou SC a cada 6–8 horas**. 
-- Se o limite já foi excedido, associar **glicose 5% IV**, titulada à queda desejada; cerca de **3 mL/kg** reduz o Na em aproximadamente 1 mmol/L. Reavaliar Na a cada 2 horas e repetir glicose conforme necessário, idealmente com nefrologia/terapia intensiva.[^ddavp-relowering]
-
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/targets-monitoring.svg|Metas e monitorização da correção da hiponatremia
+```
 #### Tratamento dirigido à causa
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/treatment.svg|Tratamento da hiponatremia conforme o mecanismo
+Disorders/Nefrologia/Hiponatremia/diagrams/cause-directed-treatment.svg|Tratamento da hiponatremia conforme o mecanismo e a causa
 ```
 ## Prognóstico
 

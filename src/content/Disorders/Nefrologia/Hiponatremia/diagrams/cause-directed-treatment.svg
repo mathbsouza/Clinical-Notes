@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1580" viewBox="0 0 1500 1580">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M0 0L10 5L0 10Z" fill="#111"/></marker>
+    <marker id="dash-arrow" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto" markerUnits="strokeWidth"><path d="M0 0L11 5.5L0 11Z" fill="#8a3f00"/></marker>
+    <style>
+      .box{fill:#fff;stroke:#111;stroke-width:2}.mechanism{fill:#fff8ef;stroke:#c25b00;stroke-width:2.5}.cause{fill:#fafafa;stroke:#555;stroke-width:1.8}.alert{fill:#fff3f3;stroke:#a51d2d;stroke-width:2}.title{font:700 26px Arial,sans-serif;fill:#111}.head{font:700 19px Arial,sans-serif;fill:#111}.txt{font:16px Arial,sans-serif;fill:#222}.small{font:14px Arial,sans-serif;fill:#333}.line{fill:none;stroke:#111;stroke-width:2;marker-end:url(#arrow)}.dash{fill:none;stroke:#8a3f00;stroke-width:2.5;stroke-dasharray:9 10;marker-end:url(#dash-arrow)}.dash-branch{fill:none;stroke:#8a3f00;stroke-width:2.5;stroke-dasharray:9 10}
+    </style>
+  </defs>
+  <rect width="1500" height="1580" fill="#fff"/>
+
+  <rect class="box" x="500" y="35" width="500" height="80" rx="12"/>
+  <text class="title" x="750" y="70" text-anchor="middle">TRATAMENTO DIRIGIDO À CAUSA</text>
+  <text class="txt" x="750" y="98" text-anchor="middle">Qual é o mecanismo predominante?</text>
+
+  <path class="line" d="M750 115V165H250V220"/>
+  <path class="line" d="M750 115V220"/>
+  <path class="line" d="M750 115V165H1250V220"/>
+
+  <rect class="mechanism" x="45" y="220" width="410" height="85" rx="12"/>
+  <text class="head" x="250" y="255" text-anchor="middle">HIPERTONODEPLETIVA</text>
+  <text class="small" x="250" y="282" text-anchor="middle">Perda de soluto &gt; perda de água</text>
+
+  <rect class="mechanism" x="545" y="220" width="410" height="85" rx="12"/>
+  <text class="head" x="750" y="255" text-anchor="middle">AQUACUMULATIVA</text>
+  <text class="small" x="750" y="282" text-anchor="middle">Retenção de água mediada por ADH</text>
+
+  <rect class="mechanism" x="1045" y="220" width="410" height="85" rx="12"/>
+  <text class="head" x="1250" y="255" text-anchor="middle">HIPOTONOCUMULATIVA</text>
+  <text class="small" x="1250" y="282" text-anchor="middle">Entrada hipotônica &gt; capacidade de excreção</text>
+
+  <path class="line" d="M250 305V350"/><path class="line" d="M750 305V350"/><path class="line" d="M1250 305V350"/>
+
+  <rect class="cause" x="45" y="350" width="410" height="155" rx="12"/>
+  <text class="head" x="250" y="382" text-anchor="middle">CAUSAS</text>
+  <text class="txt" x="250" y="418" text-anchor="middle">Perdas gastrointestinais</text>
+  <text class="txt" x="250" y="447" text-anchor="middle">Diuréticos / perda renal de sal</text>
+  <text class="txt" x="250" y="476" text-anchor="middle">Insuficiência adrenal</text>
+
+  <rect class="cause" x="545" y="350" width="410" height="155" rx="12"/>
+  <text class="head" x="750" y="382" text-anchor="middle">CAUSAS</text>
+  <text class="txt" x="750" y="418" text-anchor="middle">SIAD</text>
+  <text class="txt" x="750" y="447" text-anchor="middle">Insuficiência cardíaca / cirrose</text>
+  <text class="txt" x="750" y="476" text-anchor="middle">Doença renal com baixo volume arterial efetivo</text>
+
+  <rect class="cause" x="1045" y="350" width="410" height="155" rx="12"/>
+  <text class="head" x="1250" y="382" text-anchor="middle">CAUSAS</text>
+  <text class="txt" x="1250" y="418" text-anchor="middle">Polidipsia primária</text>
+  <text class="txt" x="1250" y="447" text-anchor="middle">Potomania</text>
+  <text class="txt" x="1250" y="476" text-anchor="middle">Dieta extremamente pobre em solutos</text>
+
+  <path class="line" d="M250 505V550"/><path class="line" d="M750 505V550"/><path class="line" d="M1250 505V550"/>
+
+  <rect class="box" x="45" y="550" width="410" height="205" rx="12"/>
+  <text class="head" x="250" y="584" text-anchor="middle">Choque ou instabilidade?</text>
+  <text class="txt" x="250" y="620" text-anchor="middle">Cristaloide isotônico em bolus</text>
+  <text class="txt" x="250" y="649" text-anchor="middle">Perfusão tem prioridade sobre NaCl 3%</text>
+  <text class="txt" x="250" y="678" text-anchor="middle">Após estabilizar: reavaliar sintomas</text>
+  <text class="small" x="250" y="716" text-anchor="middle">Monitorar Na + diurese: risco de aquarese</text>
+  <text class="small" x="250" y="738" text-anchor="middle">e correção acelerada</text>
+
+  <rect class="box" x="545" y="550" width="410" height="205" rx="12"/>
+  <text class="head" x="750" y="584" text-anchor="middle">SIAD</text>
+  <text class="txt" x="750" y="620" text-anchor="middle">Tratar causa + suspender fármacos</text>
+  <text class="txt" x="750" y="649" text-anchor="middle">Restrição hídrica: 500–1.000 mL/dia</text>
+  <text class="txt" x="750" y="688" text-anchor="middle">Resposta insuficiente?</text>
+  <text class="small" x="750" y="718" text-anchor="middle">Ureia 0,25–0,50 g/kg/dia OU</text>
+  <text class="small" x="750" y="740" text-anchor="middle">alça em baixa dose + NaCl oral</text>
+
+  <rect class="box" x="1045" y="550" width="410" height="205" rx="12"/>
+  <text class="head" x="1250" y="584" text-anchor="middle">Polidipsia / baixo soluto</text>
+  <text class="txt" x="1250" y="620" text-anchor="middle">Interromper excesso de água</text>
+  <text class="txt" x="1250" y="649" text-anchor="middle">Reintroduzir proteína/solutos gradualmente</text>
+  <text class="txt" x="1250" y="688" text-anchor="middle">Na + diurese a cada 2–4 h</text>
+  <text class="small" x="1250" y="726" text-anchor="middle">Alto risco de aquarese abrupta</text>
+  <text class="small" x="1250" y="748" text-anchor="middle">e hipercorreção</text>
+
+  <path class="line" d="M250 755V800"/><path class="line" d="M750 755V800"/><path class="line" d="M1250 755V800"/>
+
+  <rect class="box" x="45" y="800" width="410" height="205" rx="12"/>
+  <text class="head" x="250" y="834" text-anchor="middle">Sintomas moderados/graves persistem?</text>
+  <text class="txt" x="250" y="870" text-anchor="middle">NaCl 3% 150 mL IV em 20 min</text>
+  <text class="txt" x="250" y="899" text-anchor="middle">Repetir até ΔNa 4–6 mmol/L</text>
+  <text class="txt" x="250" y="938" text-anchor="middle">Depois: NaCl 0,9% a 0,5–1 mL/kg/h</text>
+  <text class="small" x="250" y="977" text-anchor="middle">Reavaliar perfusão, Na e diurese</text>
+
+  <rect class="box" x="545" y="800" width="410" height="205" rx="12"/>
+  <text class="head" x="750" y="834" text-anchor="middle">Baixo volume arterial efetivo</text>
+  <text class="txt" x="750" y="870" text-anchor="middle">Restrição hídrica + tratar doença de base</text>
+  <text class="txt" x="750" y="899" text-anchor="middle">Congestão: diurético de alça</text>
+  <text class="txt" x="750" y="938" text-anchor="middle">Evitar salina isotônica</text>
+  <text class="small" x="750" y="977" text-anchor="middle">Pode piorar edema sem corrigir o mecanismo</text>
+
+  <rect class="box" x="1045" y="800" width="410" height="205" rx="12"/>
+  <text class="head" x="1250" y="834" text-anchor="middle">Intoxicação hídrica autoinduzida</text>
+  <text class="txt" x="1250" y="870" text-anchor="middle">Não usar DDAVP profilática</text>
+  <text class="txt" x="1250" y="909" text-anchor="middle">Baixo soluto + alto risco de ODS:</text>
+  <text class="txt" x="1250" y="938" text-anchor="middle">considerar clamp sob monitorização intensiva</text>
+  <text class="small" x="1250" y="977" text-anchor="middle">Evitar reposição rápida de solutos</text>
+
+  <path class="line" d="M250 1005V1050"/>
+  <rect class="box" x="45" y="1050" width="410" height="190" rx="12"/>
+  <text class="head" x="250" y="1084" text-anchor="middle">Insuficiência adrenal aguda suspeita</text>
+  <text class="txt" x="250" y="1120" text-anchor="middle">Colher cortisol se não atrasar</text>
+  <text class="txt" x="250" y="1149" text-anchor="middle">Hidrocortisona 100 mg IV/IM agora</text>
+  <text class="txt" x="250" y="1178" text-anchor="middle">Depois: 200 mg/24 h ou 50 mg 6/6 h</text>
+  <text class="small" x="250" y="1216" text-anchor="middle">+ NaCl 0,9% conforme o estado volêmico</text>
+
+  <path class="dash-branch" d="M250 1240V1300H750"/>
+  <path class="dash-branch" d="M750 1005V1300"/>
+  <path class="dash-branch" d="M1250 1005V1300H750"/>
+  <path class="dash" d="M750 1300V1360"/>
+
+  <rect class="alert" x="430" y="1360" width="640" height="165" rx="12"/>
+  <text class="head" x="750" y="1395" text-anchor="middle">EM QUALQUER MECANISMO</text>
+  <text class="txt" x="750" y="1430" text-anchor="middle">Diurese aquosa ou projeção acima do limite:</text>
+  <text class="txt" x="750" y="1459" text-anchor="middle">suspender terapia + desmopressina 2 µg IV/SC 6/6–8/8 h</text>
+  <text class="txt" x="750" y="1488" text-anchor="middle">Limite excedido: glicose 5% ≈3 mL/kg por ↓Na ≈1 mmol/L</text>
+  <text class="small" x="750" y="1516" text-anchor="middle">Reavaliar Na a cada 2 h</text>
+</svg>

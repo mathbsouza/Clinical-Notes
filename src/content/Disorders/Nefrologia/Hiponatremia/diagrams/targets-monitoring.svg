@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1510" viewBox="0 0 1200 1510">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#111"/>
+    </marker>
+    <style>
+      .box{fill:#fff;stroke:#111;stroke-width:2}.decision{fill:#fff8ef;stroke:#c25b00;stroke-width:2}.alert{fill:#fff3f3;stroke:#a51d2d;stroke-width:2}.title{font:700 25px Arial,sans-serif;fill:#111}.head{font:700 18px Arial,sans-serif;fill:#111}.txt{font:16px Arial,sans-serif;fill:#222}.small{font:14px Arial,sans-serif;fill:#333}.line{fill:none;stroke:#111;stroke-width:2;marker-end:url(#arrow)}.label{font:700 14px Arial,sans-serif;fill:#7c2d12}.dash{fill:none;stroke:#555;stroke-width:2;stroke-dasharray:7 8;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1200" height="1510" fill="#fff"/>
+
+  <rect class="box" x="350" y="35" width="500" height="75" rx="12"/>
+  <text class="title" x="600" y="68" text-anchor="middle">METAS E MONITORIZAÇÃO</text>
+  <text class="txt" x="600" y="94" text-anchor="middle">Início da correção da hiponatremia</text>
+
+  <path class="line" d="M600 110 V155"/>
+  <rect class="decision" x="400" y="155" width="400" height="85" rx="12"/>
+  <text class="head" x="600" y="188" text-anchor="middle">Como o paciente está sendo tratado?</text>
+  <text class="small" x="600" y="214" text-anchor="middle">Escolher a frequência inicial de controle</text>
+
+  <path class="line" d="M600 240 V275 H200 V320"/>
+  <path class="line" d="M600 240 V320"/>
+  <path class="line" d="M600 240 V275 H1000 V320"/>
+
+  <rect class="box" x="35" y="320" width="330" height="150" rx="12"/>
+  <text class="head" x="200" y="352" text-anchor="middle">Bolus de NaCl 3%</text>
+  <text class="txt" x="200" y="383" text-anchor="middle">Dosar Na após cada dose</text>
+  <text class="txt" x="200" y="411" text-anchor="middle">Aguda: Na + sintomas</text>
+  <text class="txt" x="200" y="439" text-anchor="middle">a cada 1–2 h</text>
+
+  <rect class="box" x="435" y="320" width="330" height="150" rx="12"/>
+  <text class="head" x="600" y="352" text-anchor="middle">Crônica com Na &lt;120</text>
+  <text class="txt" x="600" y="383" text-anchor="middle">Infusão contínua ou risco de aquarese</text>
+  <text class="txt" x="600" y="411" text-anchor="middle">Na a cada 2–4 h</text>
+  <text class="txt" x="600" y="439" text-anchor="middle">+ diurese horária</text>
+
+  <rect class="box" x="835" y="320" width="330" height="150" rx="12"/>
+  <text class="head" x="1000" y="352" text-anchor="middle">Clamp estável com DDAVP</text>
+  <text class="txt" x="1000" y="390" text-anchor="middle">Após estabilizar Na e diurese:</text>
+  <text class="txt" x="1000" y="421" text-anchor="middle">Na a cada 6 h</text>
+
+  <path class="line" d="M200 470 V520 H600 V565"/>
+  <path class="line" d="M600 470 V565"/>
+  <path class="line" d="M1000 470 V520 H600 V565"/>
+
+  <rect class="box" x="350" y="565" width="500" height="105" rx="12"/>
+  <text class="head" x="600" y="600" text-anchor="middle">META INICIAL</text>
+  <text class="title" x="600" y="636" text-anchor="middle">ΔNa = 4–6 mmol/L</text>
+  <text class="small" x="600" y="659" text-anchor="middle">Não normalizar o Na no primeiro dia</text>
+
+  <path class="line" d="M600 670 V720"/>
+  <rect class="decision" x="410" y="720" width="380" height="120" rx="12"/>
+  <text class="head" x="600" y="754" text-anchor="middle">Alto risco de desmielinização?</text>
+  <text class="small" x="600" y="782" text-anchor="middle">Na ≤105 · hipocalemia · alcoolismo</text>
+  <text class="small" x="600" y="806" text-anchor="middle">desnutrição · hepatopatia avançada</text>
+
+  <path class="line" d="M410 780 H225 V885"/>
+  <text class="label" x="315" y="770" text-anchor="middle">SIM</text>
+  <path class="line" d="M790 780 H975 V885"/>
+  <text class="label" x="885" y="770" text-anchor="middle">NÃO</text>
+
+  <rect class="alert" x="55" y="885" width="340" height="120" rx="12"/>
+  <text class="head" x="225" y="921" text-anchor="middle">LIMITE CONSERVADOR</text>
+  <text class="title" x="225" y="960" text-anchor="middle">≤8 mmol/L/24 h</text>
+  <text class="small" x="225" y="988" text-anchor="middle">Contar qualquer período móvel de 24 h</text>
+
+  <rect class="box" x="805" y="885" width="340" height="120" rx="12"/>
+  <text class="head" x="975" y="918" text-anchor="middle">DEMAIS PACIENTES</text>
+  <text class="txt" x="975" y="950" text-anchor="middle">Meta prática: 6–8 mmol/L/24 h</text>
+  <text class="txt" x="975" y="978" text-anchor="middle">Máx. 10/24 h e 18/48 h</text>
+
+  <path class="line" d="M225 1005 V1050 H600 V1090"/>
+  <path class="line" d="M975 1005 V1050 H600 V1090"/>
+
+  <rect class="decision" x="390" y="1090" width="420" height="100" rx="12"/>
+  <text class="head" x="600" y="1126" text-anchor="middle">Diurese aquosa súbita ou projeção</text>
+  <text class="head" x="600" y="1152" text-anchor="middle">acima do limite?</text>
+
+  <path class="line" d="M390 1140 H205 V1240"/>
+  <text class="label" x="300" y="1130" text-anchor="middle">SIM, PROJEÇÃO</text>
+  <path class="line" d="M810 1140 H995 V1240"/>
+  <text class="label" x="900" y="1130" text-anchor="middle">LIMITE EXCEDIDO</text>
+
+  <rect class="alert" x="35" y="1240" width="340" height="150" rx="12"/>
+  <text class="head" x="205" y="1276" text-anchor="middle">FREAR A CORREÇÃO</text>
+  <text class="txt" x="205" y="1310" text-anchor="middle">Suspender terapias que elevem o Na</text>
+  <text class="txt" x="205" y="1340" text-anchor="middle">Considerar desmopressina 2 µg</text>
+  <text class="txt" x="205" y="1368" text-anchor="middle">IV/SC a cada 6–8 h</text>
+
+  <rect class="alert" x="825" y="1240" width="340" height="180" rx="12"/>
+  <text class="head" x="995" y="1276" text-anchor="middle">REBAIXAR O Na</text>
+  <text class="txt" x="995" y="1310" text-anchor="middle">Desmopressina + glicose 5% IV</text>
+  <text class="txt" x="995" y="1340" text-anchor="middle">≈3 mL/kg de SG5% → ↓Na ≈1 mmol/L</text>
+  <text class="txt" x="995" y="1370" text-anchor="middle">Reavaliar Na a cada 2 h</text>
+  <text class="small" x="995" y="1400" text-anchor="middle">Nefrologia / terapia intensiva</text>
+
+  <path class="dash" d="M600 1190 V1455"/>
+  <rect class="box" x="350" y="1435" width="500" height="55" rx="12"/>
+  <text class="small" x="600" y="1468" text-anchor="middle">Sempre: corrigir K com cautela e suspender tiazídicos/fármacos causais</text>
+</svg>
