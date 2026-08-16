@@ -1,4 +1,3 @@
-import './HyponatremiaTreatmentWizard.css';
 import { useEffect, useState } from 'react';
 
 type Result = { id: string; title: string; text: string };
@@ -38,12 +37,12 @@ function CopyButton({ text }: { text: string }) {
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1600);
   };
-  return <button className="treatment-copy" type="button" onClick={copy}>{copied ? 'Copiado' : 'Copiar'}</button>;
+  return <button className="magic-flowchart__copy" type="button" onClick={copy}>{copied ? 'Copiado' : 'Copiar'}</button>;
 }
 
 function TreatmentCard({ result }: { result: Result }) {
-  return <section className="treatment-result">
-    <div className="treatment-result-head"><h4>{result.title}</h4><CopyButton text={result.text} /></div>
+  return <section className="magic-flowchart__result">
+    <div className="magic-flowchart__result-head"><h4>{result.title}</h4><CopyButton text={result.text} /></div>
     <p>{result.text}</p>
   </section>;
 }
@@ -77,24 +76,24 @@ export default function HyponatremiaTreatmentWizard() {
   const result = results.find((item) => item.id === resultId);
   const step = steps[current];
 
-  return <div className="treatment-wizard">
-    <div className="treatment-wizard-top">
-      <strong>Tratamento inicial da hiponatremia</strong>
+  return <div className="magic-flowchart">
+    <span className="magic-flowchart__badge">Magic Flowchart</span>
+    <div className="magic-flowchart__top">
       <button type="button" onClick={() => setShowAll(true)}>Ver todas</button>
     </div>
-    {result ? <TreatmentCard result={result} /> : <div className="treatment-question">
+    {result ? <TreatmentCard result={result} /> : <div className="magic-flowchart__question">
       <h4>{step.question}</h4>
       {step.hint && <p>{step.hint}</p>}
-      <div className="treatment-options">{step.choices.map((choice) => <button key={choice.label} type="button" onClick={() => choose(choice)}>{choice.label}</button>)}</div>
+      <div className="magic-flowchart__options">{step.choices.map((choice) => <button key={choice.label} type="button" onClick={() => choose(choice)}>{choice.label}</button>)}</div>
     </div>}
-    <div className="treatment-wizard-nav">
+    <div className="magic-flowchart__nav">
       {(history.length > 0 || result) && <button type="button" onClick={back}>Voltar</button>}
       {(history.length > 0 || result) && <button type="button" onClick={reset}>Reiniciar</button>}
     </div>
-    {showAll && <div className="treatment-modal" role="dialog" aria-modal="true" aria-label="Todas as condutas" onClick={() => setShowAll(false)}>
-      <div className="treatment-modal-panel" onClick={(event) => event.stopPropagation()}>
-        <div className="treatment-modal-head"><h3>Todas as condutas</h3><button type="button" onClick={() => setShowAll(false)} aria-label="Fechar">×</button></div>
-        <div className="treatment-modal-list">{results.map((item) => <TreatmentCard key={item.id} result={item} />)}</div>
+    {showAll && <div className="magic-flowchart__modal" role="dialog" aria-modal="true" aria-label="Todas as condutas" onClick={() => setShowAll(false)}>
+      <div className="magic-flowchart__modal-panel" onClick={(event) => event.stopPropagation()}>
+        <div className="magic-flowchart__modal-head"><h3>Todas as condutas</h3><button type="button" onClick={() => setShowAll(false)} aria-label="Fechar">×</button></div>
+        <div className="magic-flowchart__modal-list">{results.map((item) => <TreatmentCard key={item.id} result={item} />)}</div>
       </div>
     </div>}
   </div>;

@@ -52,7 +52,7 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada.↵* Sintomas graves: convulsões, torpor, coma e parada respiratória.↵¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico.↵Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares.↵Fonte: UpToDate.
 ```
 
-### Conduta guiada
+### Tratamento inicial da hiponatremia
 
 ```hyponatremia-treatment
 ```
@@ -68,15 +68,9 @@ Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|T
 
 #### Tratamento dirigido à causa
 
-| Fenótipo | Conduta específica |
-| --- | --- |
-| Hipertonodepletiva | Se houver choque ou instabilidade, restaurar primeiro a perfusão com cristaloide isotônico em bolus. Após estabilização hemodinâmica, se persistirem sintomas moderadamente graves ou graves atribuíveis à hiponatremia, administrar **NaCl 3% 150 mL IV em 20 minutos**, repetindo conforme resposta até elevação inicial de 4–6 mmol/L; em seguida, completar a correção da depleção com NaCl 0,9% IV a **0,5–1 mL/kg/h**, reavaliando perfusão, diurese e Na.[^sfe-emergency][^ese-guideline] |
-| Choque/instabilidade | Cristaloide isotônico em bolus conforme a ressuscitação hemodinâmica; restaurar perfusão tem prioridade sobre a correção com NaCl 3%. Monitorar sódio e diurese porque a expansão pode desencadear aquarese e correção acelerada. |
-| Insuficiência adrenal aguda suspeita | Após colher cortisol se isso não atrasar: **hidrocortisona 100 mg IV/IM imediatamente**, seguida de **200 mg/24 h** em infusão contínua ou 50 mg IV/IM a cada 6 h, além de NaCl 0,9% conforme o estado volêmico.[^adrenal-crisis] |
-| Aquacumulativa por SIAD | Tratar causa e suspender fármacos; restringir líquidos inicialmente a **500–1.000 mL/dia**. Se resposta insuficiente, considerar ureia **0,25–0,50 g/kg/dia** ou diurético de alça em baixa dose associado a NaCl oral, com supervisão especializada.[^ese-guideline] |
-| Aquacumulativa por baixo volume arterial efetivo | Restrição hídrica, tratamento da insuficiência cardíaca/cirrose/doença renal e diurético de alça quando houver congestão. Salina isotônica tende a piorar edema e não corrige o mecanismo. |
-| Hipotonocumulativa por polidipsia/baixa oferta de solutos | Interromper excesso de água e reintroduzir proteína/solutos gradualmente; o risco de aquarese abrupta e hipercorreção exige Na e diurese a cada 2–4 h nos casos profundos. |
-
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/treatment.svg|Tratamento da hiponatremia conforme o mecanismo
+```
 ## Prognóstico
 
 Hiponatremia aguda pode causar edema cerebral, herniação e morte; já a correção excessivamente rápida da forma crônica pode causar síndrome de desmielinização osmótica, tipicamente com deterioração neurológica tardia. O risco é maior com Na muito baixo e nos pacientes com hipocalemia, alcoolismo, desnutrição ou hepatopatia avançada.[^correction-limits]

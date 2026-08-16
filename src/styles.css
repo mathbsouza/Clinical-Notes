@@ -1151,3 +1151,170 @@ body {
 .static-flowchart figcaption span {
   display: block;
 }
+
+/* Magic Flowchart: estrutura reutilizável para fluxos clínicos iterativos. */
+.magic-flowchart {
+  position: relative;
+  margin: 1.35rem 0 1.5rem;
+  border: 1px solid rgb(251 146 60 / 0.42);
+  border-radius: 0.65rem;
+  background: rgb(255 255 255 / 0.025);
+  overflow: visible;
+}
+
+.magic-flowchart button { font: inherit; }
+.magic-flowchart__badge {
+  position: absolute;
+  top: 0;
+  left: 0.8rem;
+  z-index: 1;
+  padding: 0 0.4rem;
+  color: #fb923c;
+  background: #0a0a0a;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  transform: translateY(-50%);
+}
+
+.magic-flowchart__top,
+.magic-flowchart__modal-head,
+.magic-flowchart__result-head,
+.magic-flowchart__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.magic-flowchart__top {
+  justify-content: flex-end;
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.07);
+  color: #a3a3a3;
+  font-size: 0.78rem;
+}
+
+.magic-flowchart__top button,
+.magic-flowchart__nav button,
+.magic-flowchart__copy {
+  border: 0;
+  padding: 0.2rem 0.35rem;
+  color: #a3a3a3;
+  background: transparent;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.magic-flowchart button:hover { color: #fb923c; }
+
+.magic-flowchart__question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.15rem 1rem 1rem;
+}
+
+.prose-notes .magic-flowchart__question h4 {
+  margin: 0;
+  border: 1px solid rgb(251 146 60 / 0.25);
+  border-radius: 0.45rem;
+  padding: 0.55rem 0.8rem;
+  color: #e5e5e5;
+  background: rgb(251 146 60 / 0.045);
+  text-align: center;
+}
+
+.prose-notes .magic-flowchart__question p { margin: 0.45rem 0 0; color: #8f8f8f; font-size: 0.82rem; text-align: center; }
+
+.magic-flowchart__options {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  padding-top: 1.15rem;
+}
+
+.magic-flowchart__options::before {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: rgb(251 146 60 / 0.3);
+  content: '';
+}
+
+.magic-flowchart__options button {
+  position: relative;
+  border: 1px solid rgb(255 255 255 / 0.11);
+  border-radius: 0.45rem;
+  padding: 0.5rem 0.75rem;
+  color: #d4d4d4;
+  background: #171717;
+  cursor: pointer;
+}
+
+.magic-flowchart__options button::before {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 1px;
+  height: 1.15rem;
+  background: rgb(251 146 60 / 0.3);
+  content: '';
+}
+.magic-flowchart__options button:hover {
+  border-color: rgb(251 146 60 / 0.45);
+  color: #ffedd5;
+}
+
+.magic-flowchart__nav {
+  justify-content: flex-start;
+  padding: 0 0.65rem 0.6rem;
+}
+
+.magic-flowchart__result { padding: 0.9rem 1rem; }
+.prose-notes .magic-flowchart__result h4 { margin: 0; color: #ffedd5; font-size: 0.9rem; }
+.prose-notes .magic-flowchart__result p {
+  margin: 0.65rem 0 0;
+  color: #d4d4d4;
+  white-space: pre-line;
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.magic-flowchart__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(0 0 0 / 0.78);
+}
+
+.magic-flowchart__modal-panel {
+  width: min(52rem, 100%);
+  max-height: min(90vh, 54rem);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 0.7rem;
+  background: #111;
+  overflow: hidden;
+}
+
+.magic-flowchart__modal-head {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+
+.prose-notes .magic-flowchart__modal-head h3 { margin: 0; font-size: 1rem; }
+.magic-flowchart__modal-head button { border: 0; color: #a3a3a3; background: transparent; font-size: 1.25rem; cursor: pointer; }
+.magic-flowchart__modal-list { max-height: calc(min(90vh, 54rem) - 3.3rem); overflow: auto; }
+.magic-flowchart__modal-list .magic-flowchart__result + .magic-flowchart__result { border-top: 1px solid rgb(255 255 255 / 0.07); }
+
+@media (max-width: 520px) {
+  .magic-flowchart__options { display: grid; }
+  .magic-flowchart__options button { width: 100%; }
+}
