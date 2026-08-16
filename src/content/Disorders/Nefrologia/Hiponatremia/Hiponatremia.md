@@ -63,13 +63,13 @@ Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|T
 ```hyponatremia-treatment
 ```
 
-#### Metas e monitorização
+### Metas e monitorização
 
 ```svg-diagram
 Disorders/Nefrologia/Hiponatremia/diagrams/targets-monitoring.svg|Metas e monitorização da correção da hiponatremia
 ```
 
-#### Tratamento dirigido à causa
+### Tratamento dirigido à causa
 
 ```svg-diagram
 Disorders/Nefrologia/Hiponatremia/diagrams/cause-directed-treatment.svg|Tratamento da hiponatremia conforme o mecanismo e a causa
