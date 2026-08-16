@@ -1,6 +1,6 @@
 import { Children, isValidElement, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { ListTree, PanelLeftClose } from 'lucide-react';
+import { ListTree, PanelLeftClose, WandSparkles } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
 import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
@@ -136,10 +136,11 @@ function CopyTreatmentBlock({ children }: { children: ReactNode }) {
     <pre><code>{text}</code></pre>
   </div>;
 }
-type TocItem = { depth: number; id: string; label: string };
+type TocItem = { depth: number; id: string; label: string; magic?: boolean };
 
 function markdownHeadings(body: string): TocItem[] {
   return body.split(/\r?\n/).flatMap((line) => {
+    if (line.includes('hyponatremia-treatment')) return [{ depth: 3, id: 'tratamento-de-hiponatremia', label: 'Tratamento de Hiponatremia', magic: true }];
     const match = /^(#{2,5})\s+(.+?)\s*$/.exec(line);
     if (!match) return [];
     const label = match[2].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`~]/g, '').trim();
@@ -150,6 +151,10 @@ function markdownHeadings(body: string): TocItem[] {
 function NoteToc({ items }: { items: TocItem[] }) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? '');
   const [collapsed, setCollapsed] = useState(true);
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('clinical-notes:toc-state', { detail: !collapsed }));
+    return () => { window.dispatchEvent(new CustomEvent('clinical-notes:toc-state', { detail: false })); };
+  }, [collapsed]);
   const goTo = (id: string) => {
     const target = document.getElementById(id);
     if (!target) return;
@@ -169,7 +174,7 @@ function NoteToc({ items }: { items: TocItem[] }) {
     </div>
     <nav>{items.map((item) => <button className={activeId === item.id ? 'is-active' : ''}
       key={`${item.depth}-${item.id}`} onClick={() => goTo(item.id)}
-      style={{ paddingLeft: `${0.65 + (item.depth - 2) * 0.8}rem` }} type="button">{item.label}</button>)}</nav>
+      style={{ paddingLeft: `${0.65 + (item.depth - 2) * 0.8}rem` }} type="button">{item.magic ? <WandSparkles className="note-toc-magic-icon" size={14} aria-hidden="true" /> : null}{item.label}</button>)}</nav>
   </aside>;
 }
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
@@ -179,12 +184,14 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
 
   useEffect(() => {
     const toggleAccordions = (event: Event) => {
-      const expand = (event as CustomEvent<'expand' | 'collapse'>).detail === 'expand';
-      articleRef.current?.querySelectorAll<HTMLDetailsElement>('details.note-accordion').forEach((item) => { item.open = expand; });
+      const accordions = Array.from(articleRef.current?.querySelectorAll<HTMLDetailsElement>('details.note-accordion') ?? []);
+      const expand = accordions.some((item) => !item.open);
+      accordions.forEach((item) => { item.open = expand; });
     };
     const resizeFont = (event: Event) => {
-      const delta = (event as CustomEvent<number>).detail;
-      setFontScale((current) => Math.min(1.3, Math.max(0.85, Number((current + delta).toFixed(2)))));
+      const detail = (event as CustomEvent<number | 'reset'>).detail;
+      if (detail === 'reset') setFontScale(1);
+      else setFontScale((current) => Math.min(1.3, Math.max(0.85, Number((current + detail).toFixed(2)))));
     };
     window.addEventListener('clinical-notes:accordions', toggleAccordions);
     window.addEventListener('clinical-notes:font-size', resizeFont);

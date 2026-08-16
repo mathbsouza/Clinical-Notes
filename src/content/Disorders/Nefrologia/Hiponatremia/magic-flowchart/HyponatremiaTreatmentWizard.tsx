@@ -76,9 +76,10 @@ export default function HyponatremiaTreatmentWizard() {
   const result = results.find((item) => item.id === resultId);
   const step = steps[current];
 
-  return <div className="magic-flowchart">
+  return <div className="magic-flowchart" id="tratamento-de-hiponatremia">
     <span className="magic-flowchart__badge">Magic Flowchart</span>
     <div className="magic-flowchart__top">
+      <h3>Tratamento de Hiponatremia</h3>
       <button type="button" onClick={() => setShowAll(true)}>Ver todas</button>
     </div>
     {result ? <TreatmentCard result={result} /> : <div className="magic-flowchart__question">

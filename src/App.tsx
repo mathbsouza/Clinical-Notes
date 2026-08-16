@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AArrowDown, AArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronsDownUp, ChevronsUpDown, FileText, Folder, Menu, Search, Tags } from 'lucide-react';
+import { AArrowDown, AArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronsUpDown, FileText, Folder, Menu, RotateCcw, Search, Tags, Type } from 'lucide-react';
 import MarkdownNote from './components/MarkdownNote';
 import { type Note, notes } from './lib/notes';
 
@@ -125,14 +125,21 @@ function validArticleSlugFromHash() {
 }
 
 function ReaderControls() {
-  const accordions = (detail: 'expand' | 'collapse') => window.dispatchEvent(new CustomEvent('clinical-notes:accordions', { detail }));
-  const fontSize = (detail: number) => window.dispatchEvent(new CustomEvent('clinical-notes:font-size', { detail }));
+  const [fontMenuOpen, setFontMenuOpen] = useState(false);
+  const toggleAccordions = () => window.dispatchEvent(new CustomEvent('clinical-notes:accordions', { detail: 'toggle' }));
+  const fontSize = (detail: number | 'reset') => {
+    window.dispatchEvent(new CustomEvent('clinical-notes:font-size', { detail }));
+    setFontMenuOpen(false);
+  };
   const buttonClass = 'inline-flex h-9 w-9 items-center justify-center rounded-md text-neutral-400 transition hover:bg-orange-300/10 hover:text-orange-200';
-  return <div className="reader-controls flex items-center gap-0.5" aria-label="Controles do artigo">
-    <button aria-label="Expandir todos os accordions" className={buttonClass} onClick={() => accordions('expand')} title="Expandir tudo" type="button"><ChevronsUpDown size={18} aria-hidden="true" /></button>
-    <button aria-label="Recolher todos os accordions" className={buttonClass} onClick={() => accordions('collapse')} title="Recolher tudo" type="button"><ChevronsDownUp size={18} aria-hidden="true" /></button>
-    <button aria-label="Aumentar tamanho da letra" className={buttonClass} onClick={() => fontSize(0.08)} title="Aumentar letra" type="button"><AArrowUp size={18} aria-hidden="true" /></button>
-    <button aria-label="Diminuir tamanho da letra" className={buttonClass} onClick={() => fontSize(-0.08)} title="Diminuir letra" type="button"><AArrowDown size={18} aria-hidden="true" /></button>
+  return <div className="reader-controls relative flex items-center gap-0.5" aria-label="Controles do artigo">
+    <button aria-label="Expandir ou recolher todos os accordions" className={buttonClass} onClick={toggleAccordions} title="Expandir ou recolher tudo" type="button"><ChevronsUpDown size={18} aria-hidden="true" /></button>
+    <button aria-label="Opções de tamanho da fonte" aria-expanded={fontMenuOpen} className={buttonClass} onClick={() => setFontMenuOpen((open) => !open)} title="Tamanho da fonte" type="button"><Type size={18} aria-hidden="true" /></button>
+    {fontMenuOpen ? <div className="reader-font-menu" role="menu" aria-label="Tamanho da fonte">
+      <button aria-label="Aumentar fonte" onClick={() => fontSize(0.08)} role="menuitem" title="Aumentar fonte" type="button"><AArrowUp size={18} aria-hidden="true" /></button>
+      <button aria-label="Restaurar tamanho original" onClick={() => fontSize('reset')} role="menuitem" title="Tamanho original" type="button"><RotateCcw size={17} aria-hidden="true" /></button>
+      <button aria-label="Diminuir fonte" onClick={() => fontSize(-0.08)} role="menuitem" title="Diminuir fonte" type="button"><AArrowDown size={18} aria-hidden="true" /></button>
+    </div> : null}
   </div>;
 }
 export default function App() {
@@ -141,7 +148,14 @@ export default function App() {
   const [activeSlug, setActiveSlug] = useState(validArticleSlugFromHash);
   const [view, setView] = useState<'home' | 'article'>(() => validArticleSlugFromHash() ? 'article' : 'home');
   const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 768px)').matches);
+  const [tocExpanded, setTocExpanded] = useState(false);
   const hasQuery = query.trim().length > 0;
+
+  useEffect(() => {
+    const syncToc = (event: Event) => setTocExpanded((event as CustomEvent<boolean>).detail);
+    window.addEventListener('clinical-notes:toc-state', syncToc);
+    return () => window.removeEventListener('clinical-notes:toc-state', syncToc);
+  }, []);
 
   const tree = useMemo(() => buildTree(notes), []);
   const searchResults = useMemo(
@@ -222,7 +236,8 @@ export default function App() {
   if (isDesktop) {
     return (
       <DesktopReader
-        activeNote={activeNote}
+        
+        tocExpanded={tocExpanded}activeNote={activeNote}
         menuColumns={visibleColumns}
         onOpenArticle={openArticle}
         onRetract={retractTo}
@@ -236,7 +251,7 @@ export default function App() {
 
   if (view === 'article') {
     return (
-      <main className="page-enter min-h-screen bg-neutral-950 text-neutral-100">
+      <main className={`page-enter min-h-screen bg-neutral-950 text-neutral-100${tocExpanded ? ' toc-is-open' : ''}`}>
         <header className="border-b border-orange-300/10 bg-neutral-950/95 backdrop-blur">
           <div className="mx-auto flex max-w-4xl items-center justify-between px-5 py-4">
             <button
@@ -258,7 +273,7 @@ export default function App() {
           </div>
         </header>
 
-        <article className="mx-auto max-w-4xl px-5 py-8 sm:py-10">
+        <article className="article-view mx-auto max-w-4xl px-5 py-8 sm:py-10">
           {activeNote ? (
             <>
               <div className="border-b border-orange-300/10 pb-5">
@@ -365,6 +380,7 @@ export default function App() {
 }
 
 type DesktopReaderProps = {
+  tocExpanded: boolean;
   activeNote?: Note;
   menuColumns: NavNode[];
   query: string;
@@ -376,6 +392,7 @@ type DesktopReaderProps = {
 };
 
 function DesktopReader({
+  tocExpanded,
   activeNote,
   menuColumns,
   query,
@@ -389,7 +406,7 @@ function DesktopReader({
   const menuStep = Math.max(menuColumns.length - 1, 0);
 
   return (
-    <main className={`flex h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100${sidebarOpen ? ' sidebar-is-open' : ''}`}>
+    <main className={`flex h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100${sidebarOpen ? ' sidebar-is-open' : ''}${tocExpanded ? ' toc-is-open' : ''}`}>
       <header className="relative z-10 grid h-16 shrink-0 grid-cols-[1fr_minmax(22rem,38rem)_1fr] items-center border-b border-orange-300/10 bg-neutral-950/95 px-4 backdrop-blur">
         <div className="flex items-center gap-3">
           <button
@@ -467,7 +484,7 @@ function DesktopReader({
 
       <section className="min-w-0 overflow-y-auto">
         {activeNote ? (
-          <article className="mx-auto max-w-[50rem] px-10 py-12 xl:px-12">
+          <article className="article-view mx-auto max-w-[50rem] px-10 py-12 xl:px-12">
             <header className="border-b border-white/[0.07] pb-4">
               <p className="text-[0.7rem] font-medium uppercase tracking-[0.14em] text-neutral-600">
                 {activeNote.pathSegments.slice(0, -1).join(' / ')}
