@@ -1411,7 +1411,33 @@ body {
     justify-content: space-between;
   }
 
-  .note-toc.is-collapsed { width: 2.4rem; }
+  .note-toc-toggle {
+    display: inline-flex;
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: 0 0 2.4rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(251 146 60 / 0.22);
+    border-radius: 0.5rem;
+    color: #d4d4d4;
+    background: rgb(23 23 23 / 0.94);
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.3);
+    cursor: pointer;
+    transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+  }
+
+  .note-toc-toggle:hover {
+    border-color: rgb(251 146 60 / 0.48);
+    color: #fdba74;
+    background: #171717;
+  }
+  .note-toc.is-collapsed {
+    width: 2.4rem;
+    border-left: 0;
+    overflow: visible;
+  }
+  .note-toc.is-collapsed .note-toc-head { justify-content: flex-start; }
   .note-toc.is-collapsed .note-toc-title,
   .note-toc.is-collapsed nav { display: none; }
   .note-toc-title {

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { AArrowDown, AArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronsDownUp, ChevronsUpDown, FileText, Folder, Menu, PanelLeftClose, Search, Tags } from 'lucide-react';
+import { AArrowDown, AArrowUp, ArrowLeft, ArrowRight, CalendarDays, ChevronsDownUp, ChevronsUpDown, FileText, Folder, Menu, Search, Tags } from 'lucide-react';
 import MarkdownNote from './components/MarkdownNote';
 import { type Note, notes } from './lib/notes';
 
@@ -127,10 +127,8 @@ function validArticleSlugFromHash() {
 function ReaderControls() {
   const accordions = (detail: 'expand' | 'collapse') => window.dispatchEvent(new CustomEvent('clinical-notes:accordions', { detail }));
   const fontSize = (detail: number) => window.dispatchEvent(new CustomEvent('clinical-notes:font-size', { detail }));
-  const toggleToc = () => window.dispatchEvent(new CustomEvent('clinical-notes:toc-toggle'));
   const buttonClass = 'inline-flex h-9 w-9 items-center justify-center rounded-md text-neutral-400 transition hover:bg-orange-300/10 hover:text-orange-200';
   return <div className="reader-controls flex items-center gap-0.5" aria-label="Controles do artigo">
-    <button aria-label="Recolher ou expandir sumário" className={buttonClass} onClick={toggleToc} title="Recolher ou expandir sumário" type="button"><PanelLeftClose size={18} aria-hidden="true" /></button>
     <button aria-label="Expandir todos os accordions" className={buttonClass} onClick={() => accordions('expand')} title="Expandir tudo" type="button"><ChevronsUpDown size={18} aria-hidden="true" /></button>
     <button aria-label="Recolher todos os accordions" className={buttonClass} onClick={() => accordions('collapse')} title="Recolher tudo" type="button"><ChevronsDownUp size={18} aria-hidden="true" /></button>
     <button aria-label="Aumentar tamanho da letra" className={buttonClass} onClick={() => fontSize(0.08)} title="Aumentar letra" type="button"><AArrowUp size={18} aria-hidden="true" /></button>
