@@ -21,7 +21,7 @@
     & |[junction] (causeFork)| {} & \\
     |[branch] (hypovolemia)| {\textbf{Hipovolemia}\ NaCl 0,9\% a 0,5--1 mL/kg/h; se choque, bolus de cristaloide conforme perfus{\~a}o} & & |[branch] (edema)| {\textbf{Edema/baixo volume arterial}\ Restritar l{\'i}quido, tratar IC/cirrose/DRC; diur{\'e}tico de al{\c c}a se congesto} \\
     & |[processwide] (highurine)| {Se Na urin{\'a}rio $>30$: excluir diur{\'e}tico, insufici{\^e}ncia adrenal/renal/tireoidiana. SIAD: tratar causa + restri{\c c}{\~a}o 500--1.000 mL/d; refrat{\'a}ria: ureia 0,25--0,50 g/kg/d ou al{\c c}a + NaCl oral} & \\
-    & |[decision] (overcorrect)| {Diurese aquosa ou proje{\c c}{\~a}o acima do limite?} & \\
+    & |[decision] (overcorrect)| {\textbf{EM QUALQUER RAMO}\ Diurese aquosa ou proje{\c c}{\~a}o acima do limite?} & \\
     & |[processwide] (rescue)| {\textbf{SIM: frear/rebaixar}\ Suspender terapia; desmopressina 2 $\mu$g IV/SC a cada 6--8 h. Se limite excedido, glicose 5\%: cerca de 3 mL/kg reduz Na em $\sim1$ mmol/L; medir Na a cada 2 h} & \\
   };
   \draw[arrow] (start.south) -- (symptoms.north);
@@ -41,9 +41,6 @@
   \draw[arrow] (causeFork) -| (edema.north);
   \draw[arrow] (urinesodium.east) -- ++(5mm,0) |- (highurine.east);
   \draw[arrow] (highurine.south) -- (overcorrect.north);
-  \draw[arrow] (hypovolemia.south) -- ++(0,-5mm) -| (overcorrect.north);
-  \draw[arrow] (edema.south) -- ++(0,-5mm) -| (overcorrect.north);
-  \draw[arrow] (water.south) -- ++(0,-5mm) |- (overcorrect.east);
   \draw[arrow] (overcorrect.south) -- (rescue.north);
 \end{tikzpicture}
 
