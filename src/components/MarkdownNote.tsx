@@ -2,7 +2,7 @@ import { Children, isValidElement, useEffect, useState, type ReactNode } from 'r
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
-import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Hiponatremia/fluxograma-interativo/HyponatremiaTreatmentWizard';
+import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
 
 type MarkdownNoteProps = { body: string };
 
