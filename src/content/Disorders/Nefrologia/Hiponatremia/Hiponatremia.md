@@ -46,16 +46,10 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 - A terapia nas primeiras seis horas depende da duração, dos sintomas, do valor do Na, da presença de patologia intracraniana e do risco de autocorreção. Choque ou instabilidade hemodinâmica exigem ressuscitação com cristaloide isotônico antes de seguir o protocolo do sódio.[^sfe-emergency][^uptodate-initial-hyponatremia]
 - Os esquemas americano (NaCl 3% 100 mL/10 min) e europeu (150 mL/20 min) são alternativas; deve-se escolher um protocolo institucional e não somar os dois. NaCl 3% pode ser administrado por veia periférica, sem atrasar a terapia para obter acesso central.[^sfe-emergency][^uptodate-initial-hyponatremia]
 
-### Hiponatremia aguda — primeiras seis horas
+### Fluxograma de tratamento — UpToDate
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/acute.svg|Tratamento inicial da hiponatremia aguda no adulto
-```
-
-### Hiponatremia crônica ou de duração desconhecida — primeiras seis horas
-
-```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/chronic.svg|Tratamento inicial da hiponatremia crônica ou de duração desconhecida no adulto
+Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada. * Sintomas graves: convulsões, torpor, coma e parada respiratória. ¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico. Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares. Fonte: UpToDate.
 ```
 
 #### Metas e monitorização

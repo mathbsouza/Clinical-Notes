@@ -732,6 +732,10 @@ body {
   filter: none;
 }
 
+.flowchart-preview .static-flowchart.is-raster .static-flowchart-image {
+  filter: none;
+}
+
 .static-flowchart.is-expanded { max-width: none; }
 
 .mermaid-flowchart {

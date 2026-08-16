@@ -5,7 +5,7 @@ import { headingId } from '../lib/headings';
 
 type MarkdownNoteProps = { body: string };
 
-const diagramSources = import.meta.glob<string>('../content/**/diagrams/*.svg', {
+const diagramSources = import.meta.glob<string>('../content/**/diagrams/*.{svg,png,jpg,jpeg,webp}', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -63,7 +63,7 @@ function StaticFlowchart({ source }: { source: string }) {
   if (!imageUrl) return <p className="flowchart-error">Diagrama não encontrado: {sourcePath}</p>;
 
   return <ZoomableFlowchart label={label}>{(expanded) =>
-    <figure className={`diagnostic-flowchart static-flowchart${expanded ? ' is-expanded' : ''}`} aria-label={label}>
+<figure className={`diagnostic-flowchart static-flowchart${/\.svg$/i.test(sourcePath) ? '' : ' is-raster'}${expanded ? ' is-expanded' : ''}`} aria-label={label}>
       <img className="static-flowchart-image" src={imageUrl} alt={label} />
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
