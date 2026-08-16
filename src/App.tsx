@@ -405,6 +405,11 @@ function DesktopReader({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const menuStep = Math.max(menuColumns.length - 1, 0);
 
+  useEffect(() => {
+    document.body.classList.toggle('entity-sidebar-is-open', sidebarOpen);
+    return () => document.body.classList.remove('entity-sidebar-is-open');
+  }, [sidebarOpen]);
+
   return (
     <main className={`flex h-screen flex-col overflow-hidden bg-neutral-950 text-neutral-100${sidebarOpen ? ' sidebar-is-open' : ''}${tocExpanded ? ' toc-is-open' : ''}`}>
       <header className="relative z-10 grid h-16 shrink-0 grid-cols-[1fr_minmax(22rem,38rem)_1fr] items-center border-b border-orange-300/10 bg-neutral-950/95 px-4 backdrop-blur">

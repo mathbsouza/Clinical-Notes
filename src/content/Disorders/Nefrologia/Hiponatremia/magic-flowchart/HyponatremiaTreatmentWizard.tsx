@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type Result = { id: string; title: string; text: string };
 type Choice = { label: string; next?: string; result?: string };
@@ -91,11 +92,11 @@ export default function HyponatremiaTreatmentWizard() {
       {(history.length > 0 || result) && <button type="button" onClick={back}>Voltar</button>}
       {(history.length > 0 || result) && <button type="button" onClick={reset}>Reiniciar</button>}
     </div>
-    {showAll && <div className="magic-flowchart__modal" role="dialog" aria-modal="true" aria-label="Todas as condutas" onClick={() => setShowAll(false)}>
+    {showAll && createPortal(<div className="magic-flowchart__modal" role="dialog" aria-modal="true" aria-label="Todas as condutas" onClick={() => setShowAll(false)}>
       <div className="magic-flowchart__modal-panel" onClick={(event) => event.stopPropagation()}>
         <div className="magic-flowchart__modal-head"><h3>Todas as condutas</h3><button type="button" onClick={() => setShowAll(false)} aria-label="Fechar">×</button></div>
         <div className="magic-flowchart__modal-list">{results.map((item) => <TreatmentCard key={item.id} result={item} />)}</div>
       </div>
-    </div>}
+    </div>, document.body)}
   </div>;
 }
