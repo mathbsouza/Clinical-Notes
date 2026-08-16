@@ -1103,3 +1103,40 @@ body {
     width: 0.85rem;
   }
 }
+
+.copy-treatment {
+  position: relative;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.copy-treatment pre {
+  margin: 0;
+  padding: 2.75rem 1rem 1rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.copy-treatment button {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  z-index: 1;
+  border: 1px solid rgb(251 146 60 / 0.28);
+  border-radius: 0.45rem;
+  padding: 0.3rem 0.65rem;
+  color: #ffedd5;
+  background: #171717;
+  cursor: pointer;
+}
+
+.copy-treatment button:hover {
+  border-color: #fb923c;
+}
+
+.static-flowchart figcaption {
+  white-space: pre-line;
+}
+
+.static-flowchart figcaption span {
+  display: block;
+}

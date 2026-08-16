@@ -58,18 +58,33 @@ function ZoomableFlowchart({ label, children }: { label: string; children: (expa
 }
 
 function StaticFlowchart({ source }: { source: string }) {
-  const [sourcePath, label = 'Fluxograma', caption = ''] = source.trim().split('|').map((part) => part.trim());
+  const [sourcePath, label = 'Fluxograma', captionRaw = ''] = source.trim().split('|').map((part) => part.trim());
+  const caption = captionRaw;
   const imageUrl = diagramSources[`../content/${sourcePath}`];
   if (!imageUrl) return <p className="flowchart-error">Diagrama não encontrado: {sourcePath}</p>;
 
   return <ZoomableFlowchart label={label}>{(expanded) =>
 <figure className={`diagnostic-flowchart static-flowchart${/\.svg$/i.test(sourcePath) ? '' : ' is-raster'}${expanded ? ' is-expanded' : ''}`} aria-label={label}>
       <img className="static-flowchart-image" src={imageUrl} alt={label} />
-      {caption && <figcaption>{caption}</figcaption>}
+      {caption && <figcaption>{caption.split('↵').map((line, index) => <span key={index}>{line}</span>)}</figcaption>}
     </figure>
   }</ZoomableFlowchart>;
 }
 
+function CopyTreatmentBlock({ children }: { children: ReactNode }) {
+  const text = getNodeText(children).replace(/\n$/, '');
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    await navigator.clipboard.writeText(text);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  };
+
+  return <div className="copy-treatment">
+    <button type="button" onClick={copy} aria-label="Copiar conduta">{copied ? 'Copiado!' : 'Copiar'}</button>
+    <pre><code>{text}</code></pre>
+  </div>;
+}
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
   return <article className="prose-notes">
     <ReactMarkdown components={{
@@ -83,6 +98,9 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         const child = Children.toArray(children)[0];
         if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-svg-diagram') {
           return <StaticFlowchart source={getNodeText(child.props.children)} />;
+        }
+        if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-copy-treatment') {
+          return <CopyTreatmentBlock>{child.props.children}</CopyTreatmentBlock>;
         }
         return <pre>{children}</pre>;
       },
