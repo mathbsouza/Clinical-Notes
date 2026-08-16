@@ -1,4 +1,4 @@
-import { Children, isValidElement, useEffect, useState, type ReactNode } from 'react';
+import { Children, isValidElement, useEffect, useMemo, useState, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
@@ -135,8 +135,38 @@ function CopyTreatmentBlock({ children }: { children: ReactNode }) {
     <pre><code>{text}</code></pre>
   </div>;
 }
+type TocItem = { depth: number; id: string; label: string };
+
+function markdownHeadings(body: string): TocItem[] {
+  return body.split(/\r?\n/).flatMap((line) => {
+    const match = /^(#{2,5})\s+(.+?)\s*$/.exec(line);
+    if (!match) return [];
+    const label = match[2].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`~]/g, '').trim();
+    return [{ depth: match[1].length, id: headingId(label), label }];
+  });
+}
+
+function NoteToc({ items }: { items: TocItem[] }) {
+  const [activeId, setActiveId] = useState(items[0]?.id ?? '');
+  const goTo = (id: string) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const accordion = target.closest('details');
+    if (accordion) accordion.open = true;
+    setActiveId(id);
+    window.requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
+  if (!items.length) return null;
+  return <aside className="note-toc" aria-label="Sumário do artigo">
+    <div className="note-toc-title">Sumário</div>
+    <nav>{items.map((item) => <button className={activeId === item.id ? 'is-active' : ''}
+      key={`${item.depth}-${item.id}`} onClick={() => goTo(item.id)}
+      style={{ paddingLeft: `${0.65 + (item.depth - 2) * 0.8}rem` }} type="button">{item.label}</button>)}</nav>
+  </aside>;
+}
 export default function MarkdownNote({ body }: MarkdownNoteProps) {
-  return <article className="prose-notes">
+  const tocItems = useMemo(() => markdownHeadings(body), [body]);
+  return <div className="note-layout"><article className="prose-notes">
     <ReactMarkdown components={{
       h1: ({ children }) => <h1 id={headingId(getNodeText(children))}>{children}</h1>,
       h2: ({ children }) => <h2 id={headingId(getNodeText(children))}>{children}</h2>,
@@ -173,5 +203,5 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         return <tr>{children}</tr>;
       },
     }} remarkPlugins={[remarkGfm, remarkH2Accordions]}>{body}</ReactMarkdown>
-  </article>;
+  </article><NoteToc items={tocItems} /></div>;
 }

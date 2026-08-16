@@ -1320,7 +1320,7 @@ body {
 }
 
 .note-accordion {
-  margin: 0.85rem 0;
+  margin: 0;
   border: 0;
   background: transparent;
   overflow: visible;
@@ -1385,3 +1385,51 @@ body {
 
 .footnotes-accordion-content > h2 { display: none; }
 .footnotes-accordion-content ol { margin-bottom: 0; padding-left: 1.25rem; }
+.note-layout { position: relative; }
+.note-accordion + .note-accordion > .note-accordion-summary { border-top: 0; }
+
+.note-toc { display: none; }
+
+@media (min-width: 1450px) {
+  .note-toc {
+    position: fixed;
+    top: 5.25rem;
+    right: 1.25rem;
+    display: block;
+    width: 13.5rem;
+    max-height: calc(100vh - 6.5rem);
+    border-left: 1px solid rgb(255 255 255 / 0.08);
+    overflow-y: auto;
+  }
+
+  .note-toc-title {
+    padding: 0 0.65rem 0.55rem;
+    color: #737373;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .note-toc nav { display: grid; }
+  .note-toc button {
+    border: 0;
+    border-left: 2px solid transparent;
+    padding-top: 0.32rem;
+    padding-right: 0.35rem;
+    padding-bottom: 0.32rem;
+    color: #8f8f8f;
+    background: transparent;
+    font: inherit;
+    font-size: 0.76rem;
+    line-height: 1.25;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .note-toc button:hover,
+  .note-toc button.is-active {
+    border-left-color: #fb923c;
+    color: #fed7aa;
+  }
+}

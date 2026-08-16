@@ -270,7 +270,7 @@ export default function App() {
                 <p className="mt-4 max-w-2xl text-[1.03rem] leading-7 text-neutral-400">{activeNote.summary}</p>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-0">
                 <MarkdownNote body={activeNote.body} />
               </div>
             </>
@@ -480,7 +480,7 @@ function DesktopReader({
                 ) : null}
               </div>
             </header>
-            <div className="pt-3">
+            <div className="pt-0">
               <MarkdownNote body={activeNote.body} />
             </div>
           </article>
