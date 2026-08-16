@@ -1,3 +1,4 @@
+import './HyponatremiaTreatmentWizard.css';
 import { useEffect, useState } from 'react';
 
 type Result = { id: string; title: string; text: string };
@@ -78,6 +79,7 @@ export default function HyponatremiaTreatmentWizard() {
 
   return <div className="treatment-wizard">
     <div className="treatment-wizard-top">
+      <strong>Tratamento inicial da hiponatremia</strong>
       <button type="button" onClick={() => setShowAll(true)}>Ver todas</button>
     </div>
     {result ? <TreatmentCard result={result} /> : <div className="treatment-question">
