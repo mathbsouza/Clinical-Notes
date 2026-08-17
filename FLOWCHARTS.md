@@ -23,6 +23,12 @@ npm run build
 
 Para um único arquivo: `npm run diagrams -- diagnosis.tikz`.
 
+Todo SVG clínico próprio deve ter um arquivo `.tikz` homônimo como fonte de
+verdade. SVG escrito manualmente não é aceito como fonte final: migre-o para
+TikZ e gere novamente o SVG pelo script. Imagens externas reproduzidas como
+documento original, como figuras de diretrizes ou artigos, são exceções e devem
+permanecer no formato publicado pela fonte, com atribuição explícita.
+
 ### Renderização e visualização
 
 - O SVG publicado deve ser autocontido: o renderizador incorpora somente as
@@ -52,7 +58,8 @@ Não calcule coordenadas absolutas manualmente, exceto em desvios locais e loops
   matrix of nodes,
   row sep=2.3cm,
   column sep=5.5cm,
-  nodes in empty cells
+  nodes in empty cells,
+  nodes={anchor=center}
 ] {
   & |[terminal] (start)| Início & \\
   & |[decision] (decision)| Decisão & \\
@@ -65,6 +72,7 @@ Regras da matriz:
 - construa primeiro a topologia: nós e conexões;
 - atribua cada nó a uma célula `row/column`;
 - declare a matriz inteira antes da primeira instrução `\draw`;
+- use obrigatoriamente `nodes={anchor=center}` na matriz;
 - nós do mesmo nível ficam na mesma linha da matriz;
 - nós da mesma coluna lógica ficam na mesma coluna da matriz;
 - preserve uma coluna central para o fluxo principal;
@@ -74,6 +82,26 @@ Regras da matriz:
 - use `row sep` e `column sep` globais e uniformes;
 - não use cascatas de `below=of`, `right=of` ou coordenadas `at (x,y)` como
   mecanismo principal.
+
+### Rows, alinhamento e cotovelos
+
+- Uma `row` representa um mesmo nível lógico e visual. Nós que devem compartilhar
+  uma conexão horizontal pertencem à mesma `row`.
+- Com `nodes={anchor=center}`, as âncoras `.east` e `.west` dos nós da mesma row
+  compartilham o mesmo eixo Y, mesmo quando losangos e retângulos têm alturas
+  diferentes.
+- Entre nós da mesma row, use conexão horizontal direta:
+  `(A.east) -- (B.west)`. Não crie um cotovelo para compensar diferença aparente
+  de altura, baseline ou formato do nó.
+- Entre nós da mesma coluna, use conexão vertical direta:
+  `(A.south) -- (B.north)`.
+- O cotovelo existe somente quando origem e destino ocupam simultaneamente rows
+  e colunas diferentes. Nesse caso, use uma row de corredor ou uma `junction`
+  pertencente à matriz.
+- Antes de acrescentar uma row, confirme que ela possui função lógica: nó,
+  fork, merge ou corredor ortogonal. Não crie rows apenas para gerar espaço.
+- Um acotovelamento desnecessário deve ser removido mesmo que seja ortogonal;
+  ortogonalidade não justifica geometria redundante.
 
 ### Algoritmo de compactação
 
@@ -97,16 +125,43 @@ A ordem é obrigatória: eliminar colunas supérfluas → calcular separação g
 renderizar → revisar colisões. A compactação nunca pode quebrar a simetria, mudar
 as colunas lógicas ou criar setas diagonais.
 
-## Nós e estilo acadêmico
+## Nós, cores e estilo acadêmico
 
 - Defina estilos reutilizáveis `terminal`, `process`, `decision` e `arrow`.
-- Fundo geral branco; nós com `fill=white`, borda preta fina e texto preto.
+- Fundo geral branco e texto preto. Processos neutros podem permanecer brancos,
+  mas decisões, alertas e desfechos usam cores semânticas discretas.
 - Fonte `\sffamily\small` ou `\sffamily\footnotesize`.
 - Use `text width` explícito e `align=center`.
 - Nós equivalentes têm largura e dimensões consistentes.
 - Processos são retângulos simples, decisões são losangos e terminais têm cantos
   discretamente arredondados.
 - Sem sombras, gradientes, cores saturadas ou efeitos decorativos.
+
+### Paleta semântica
+
+Use como padrão as cores consolidadas nos diagramas de hiponatremia:
+
+```tex
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowred}{RGB}{165,29,45}
+\definecolor{flowredfill}{RGB}{255,243,243}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+```
+
+- laranja/creme: decisões, mecanismos em avaliação e pontos de bifurcação;
+- vermelho/rosa: urgências, riscos, contraindicações e resgate;
+- verde: condutas, metas atingidas, ramos terapêuticos e desfechos favoráveis;
+- azul: início, contexto, informação laboratorial e nós de orientação;
+- branco/preto: processos neutros e informação sem prioridade semântica.
+
+A cor deve comunicar função. Não alterne cores apenas para decorar e não use a
+mesma cor para significados contraditórios dentro do mesmo diagrama. A prévia no
+tema escuro será invertida pelo frontend; por isso, valide tanto o SVG original
+quanto sua apresentação no artigo.
 
 ## Setas
 
@@ -127,6 +182,8 @@ as colunas lógicas ou criar setas diagonais.
 - Use `.east` e `.west` como origem apenas para fluxos realmente laterais no
   mesmo nível. Nesses casos, a entrada deve acompanhar a orientação, chegando em
   `.west` ou `.east`, nunca lateralmente em `.north`.
+- Em nós da mesma row com `anchor=center`, prefira a conexão horizontal direta;
+  não introduza `++(...,0)`, `|-` ou `-|` sem mudança real de row.
 - `--` entre nós só é permitido quando ambos compartilham exatamente o mesmo
   eixo horizontal ou vertical.
 - **Proibição absoluta de conexão oblíqua:** antes de usar `--`, confirme que origem e destino têm a mesma coordenada X ou a mesma coordenada Y. Se ambas variarem, a conexão é inválida, mesmo quando a inclinação for discreta.
@@ -188,13 +245,20 @@ matriz, nunca um `node` solto sobre uma conexão.
 
 Antes de versionar o SVG, confirme:
 
+- existe um `.tikz` homônimo para cada SVG próprio;
 - níveis e colunas estão alinhados pela matriz;
+- a matriz usa `nodes={anchor=center}`;
 - existe uma coluna principal clara;
 - ramos equivalentes estão simétricos;
 - não há diagonais, curvas, cruzamentos ou zigue-zagues;
+- nós da mesma row usam ligações diretas, sem cotovelos redundantes;
 - nenhuma seta atravessa um nó ou começa em outra seta;
 - espaçamento, larguras e tipografia são uniformes;
 - rótulos e textos estão legíveis.
+
+Depois de renderizar, abra o SVG ou faça uma captura da imagem final. A revisão
+somente do código TikZ não detecta diferenças visuais de âncora, texto cortado,
+quebra em múltiplas páginas ou conectores que atravessam nós.
 
 Se houver problema, reorganize primeiro as células da matriz. A geometria da
 matriz é a fonte de verdade; as setas não devem compensar um layout ruim.
