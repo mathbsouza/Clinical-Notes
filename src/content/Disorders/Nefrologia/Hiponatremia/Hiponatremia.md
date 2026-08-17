@@ -44,8 +44,9 @@ Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investiga�
 | Osmolaridade urinária | ≤ 100 mOsm/kg | ADH suprimido: excesso de água ou baixa ingestão de solutos, como polidipsia primária e potomania. |
 | Osmolaridade urinária | > 100 mOsm/kg | ADH ativo; interpretar sódio urinário. |
 | Sódio urinário | ≤ 30 mmol/L | Baixo volume arterial efetivo: mecanismo hipertonodepletivo nas perdas extrarrenais ou aquacumulativo por ADH não osmótico na insuficiência cardíaca/cirrose. |
-| Sódio urinário | > 30 mmol/L | Considerar SIAD, diurético, insuficiência adrenal, hipotireoidismo ou perda renal de sal. |
-| Nota: diuréticos, doença renal e coleta após expansão volêmica reduzem a confiabilidade do sódio urinário. SIAD, causa típica do fenótipo aquacumulativo, exige ausência de sinais de depleção ou edema, osmolaridade urinária > 100 mOsm/kg, sódio urinário > 30 mmol/L com ingestão habitual e exclusão de insuficiência adrenal, tireoidiana, renal e uso recente de diurético. |  |  |
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/high-urine-sodium.svg|Interpretação do sódio urinário acima de 30 mmol/L
+```
 
 - Na hiperglicemia, uma estimativa útil é: **Na corrigido = Na medido + 2,4 × [(glicose em mg/dL − 100)/100]**. A correção é aproximada e serve para reconhecer hiponatremia translocacional; o tratamento deve ser dirigido à hiperglicemia e à osmolaridade, não à infusão automática de sódio.[^hillier-corrected-na]
 
