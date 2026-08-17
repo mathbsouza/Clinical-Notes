@@ -10,33 +10,32 @@
 ]
   \matrix (flow) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells] {
     & |[terminal] (start)| {Adulto sem ingest{\~a}o oral/enteral suficiente} & \\
-    & |[decision] (shock)| {Choque ou hipoperfus{\~a}o?} & \\
-    |[process] (resuscitation)| {Ressuscita{\c c}{\~a}o: cristaloide isot{\^o}nico em bolus, guiado por perfus{\~a}o} & |[decision] (otherneed)| {H{\'a} d{\'e}ficit, perda em curso ou redistribui{\c c}{\~a}o?} & \\
-    & |[processwide] (separate)| {Calcular e tratar o componente adicional separadamente; manuten{\c c}{\~a}o cobre apenas a necessidade basal} & |[process] (replacement)| {Reposi{\c c}{\~a}o dirigida ao d{\'e}ficit/perda e tratamento da causa} \\
-    & |[processwide] (weight)| {Definir peso de c{\'a}lculo; na obesidade, usar peso ideal e raramente ultrapassar 3.000 mL/dia} & \\
+    |[process] (resuscitation)| {Ressuscita{\c c}{\~a}o: cristaloide isot{\^o}nico em bolus, guiado por perfus{\~a}o} & |[decision] (shock)| {Choque ou hipoperfus{\~a}o?} & \\
+    |[terminal] (shockend)| {Estabilizar primeiro; depois reavaliar a necessidade basal} & |[decision] (otherneed)| {H{\'a} d{\'e}ficit, perda em curso ou redistribui{\c c}{\~a}o?} & |[process] (replacement)| {Calcular reposi{\c c}{\~a}o dirigida, separada da manuten{\c c}{\~a}o basal} \\
+    & |[processwide] (weight)| {Definir peso de c{\'a}lculo; na obesidade, usar peso ideal e raramente ultrapassar 3.000 mL/dia} & |[junction] (replacementroute)| {} \\
     & |[decision] (restrict)| {Idoso/fr{\'a}gil, IC, disfun{\c c}{\~a}o renal ou risco de realimenta{\c c}{\~a}o?} & |[process] (reduced)| {Usar 20--25 mL/kg/dia} \\
-    & |[processwide] (standard)| {Usar 25--30 mL/kg/dia} & |[junction] (reducedroute)| {} \\
-    & |[junction] (merge)| {} & \\
-    & |[processwide] (targets)| {Metas iniciais em 24 h: Na, K e Cl $\sim1$ mEq/kg de cada; glicose 50--100 g} & \\
+    & |[processwide] (standard)| {Usar 25--30 mL/kg/dia} & \\
+    & |[junction] (merge)| {} & |[junction] (reducedroute)| {} \\
+    & |[processwide] (targets)| {Metas iniciais em 24 h: Na e Cl $\sim1$ mEq/kg de cada; K inicial at{\'e} 60 mEq, conforme rim, diurese e K s{\'e}rico; glicose 50--100 g} & \\
     & |[processwide] (subtract)| {Descontar dieta, nutri{\c c}{\~a}o, medicamentos dilu{\'i}dos e demais infus{\~o}es; repor perdas extras fora da manuten{\c c}{\~a}o} & \\
     & |[processwide] (safety)| {Antes do KCl: conferir K s{\'e}rico, creatinina e diurese; ajustar composi{\c c}{\~a}o ao laborat{\'o}rio e ao balan{\c c}o h{\'i}drico} & \\
     & |[terminal] (magic)| {Magic Flowchart: montar a prescri{\c c}{\~a}o e reavaliar em at{\'e} 24 h} & \\
   };
   \draw[arrow] (start.south) -- (shock.north);
-  \draw[arrow] (shock.west) -- node[above]{Sim} (resuscitation.east);
+  \draw[arrow] (shock.west) -- node[above]{Sim} ++(-4mm,0) |- (resuscitation.east);
+  \draw[arrow] (resuscitation.south) -- (shockend.north);
   \draw[arrow] (shock.south) -- node[left]{N{\~a}o} (otherneed.north);
-  \draw[arrow] (resuscitation.south) -- ++(0,-4mm) |- (separate.west);
-  \draw[arrow] (otherneed.east) -- node[above]{Sim} (replacement.west);
-  \draw[arrow] (otherneed.south) -- node[left]{N{\~a}o} (separate.north);
-  \draw[arrow] (replacement.south) -- ++(0,-4mm) |- (separate.east);
-  \draw[arrow] (separate.south) -- (weight.north);
+  \draw[arrow] (otherneed.east) -- node[above]{Sim} ++(4mm,0) |- (replacement.west);
+  \draw[arrow] (otherneed.south) -- node[left]{N{\~a}o} (weight.north);
+  \draw[trunk] (replacement.south) -- (replacementroute.center);
+  \draw[arrow] (replacementroute.center) |- (weight.east);
   \draw[arrow] (weight.south) -- (restrict.north);
-  \draw[arrow] (restrict.east) -- node[above]{Sim} (reduced.west);
+  \draw[arrow] (restrict.east) -- node[above]{Sim} ++(4mm,0) |- (reduced.west);
   \draw[arrow] (restrict.south) -- node[left]{N{\~a}o} (standard.north);
-  \draw[trunk] (standard.south) -- (merge);
-  \draw[trunk] (reduced.south) -- (reducedroute);
-  \draw[arrow] (reducedroute) |- (merge);
-  \draw[arrow] (merge) -- (targets.north);
+  \draw[trunk] (standard.south) -- (merge.center);
+  \draw[trunk] (reduced.south) -- (reducedroute.center);
+  \draw[arrow] (reducedroute.center) -- (merge.center);
+  \draw[arrow] (merge.center) -- (targets.north);
   \draw[arrow] (targets.south) -- (subtract.north);
   \draw[arrow] (subtract.south) -- (safety.north);
   \draw[arrow] (safety.south) -- (magic.north);

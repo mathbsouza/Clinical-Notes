@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-type Step = 'weight' | 'profile' | 'potassium' | 'losses';
+type Step = 'weight' | 'profile' | 'potassium' | 'potassium-product' | 'losses';
 type Profile = 'standard' | 'restricted';
 type PotassiumMode = 'with-k' | 'without-k';
+type PotassiumProduct = 'kcl-10' | 'kcl-19.1';
 type LossMode = 'none' | 'extra';
 
 type Snapshot = {
@@ -11,6 +12,7 @@ type Snapshot = {
   weight: string;
   profile?: Profile;
   potassium?: PotassiumMode;
+  potassiumProduct?: PotassiumProduct;
   losses?: LossMode;
 };
 
@@ -37,7 +39,7 @@ function formatNumber(value: number) {
   return value.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
 }
 
-function buildPrescription(weight: number, profile: Profile, potassium: PotassiumMode, losses: LossMode) {
+function buildPrescription(weight: number, profile: Profile, potassium: PotassiumMode, potassiumProduct: PotassiumProduct | undefined, losses: LossMode) {
   const lowPerKg = profile === 'restricted' ? 20 : 25;
   const highPerKg = profile === 'restricted' ? 25 : 30;
   const volumeLow = weight * lowPerKg;
@@ -60,10 +62,18 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
   const totalSodiumApprox = bagSodiumApprox * roundedBags;
   const glucoseFromD5 = finalDailyVolume * 0.05;
 
-  const potassiumPerBag = potassium === 'with-k'
-    ? finalDailyVolume <= 1500 ? 20 : 30
+  const potassiumTotal = potassium === 'with-k'
+    ? Math.min(60, Math.max(20, roundToNearest(weight, 10)))
     : 0;
-  const potassiumTotal = potassiumPerBag * roundedBags;
+  const potassiumPerBag = potassiumTotal / roundedBags;
+  const selectedKcl = potassiumProduct === 'kcl-10'
+    ? { label: 'KCl 10%', concentration: 1.34 }
+    : { label: 'KCl 19,1%', concentration: 2.56 };
+  const alternativeKcl = potassiumProduct === 'kcl-10'
+    ? { label: 'KCl 19,1%', concentration: 2.56 }
+    : { label: 'KCl 10%', concentration: 1.34 };
+  const selectedKclMlPerBag = potassiumPerBag / selectedKcl.concentration;
+  const alternativeKclMlPerBag = potassiumPerBag / alternativeKcl.concentration;
   const glucoseDeficit = Math.max(0, 50 - glucoseFromD5);
   const d50ExtraMl = Math.ceil(glucoseDeficit / 0.5 / 10) * 10;
 
@@ -72,7 +82,7 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
     `Programar ${roundedBags} bolsa(s) de SG 5% ${bagVolume.toLocaleString('pt-BR')} mL, uma a cada ${bagHours} h.`,
     `Adicionar NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL em cada bolsa (total diário ~${formatNumber(sodiumFromNaCl20TotalMl)} mL = ~${totalSodiumApprox} mEq de Na).`,
     potassium === 'with-k'
-      ? `Adicionar KCl ${potassiumPerBag} mEq em cada bolsa (total diário ~${potassiumTotal} mEq), se função renal, diurese e K sérico permitirem.`
+      ? `Prescrever ${formatNumber(potassiumPerBag)} mEq de K por bolsa (total ${potassiumTotal} mEq/24 h), preferencialmente em bolsa padronizada/premisturada. Se o protocolo institucional permitir preparo controlado, isso corresponde a ${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL por bolsa; alternativa equivalente: ${alternativeKcl.label} ${formatNumber(alternativeKclMlPerBag)} mL por bolsa. Nunca administrar KCl concentrado sem diluição.`
       : 'Não adicionar KCl de rotina; reavaliar conforme creatinina, diurese e K sérico.',
     glucoseFromD5 >= 50
       ? `A glicose do próprio SG 5% já fornece ~${Math.round(glucoseFromD5)} g/24 h.`
@@ -95,7 +105,7 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
       ? `Se quiser aproximar-se da meta de sódio de ~${sodiumTarget} mEq/dia, acrescentar ainda NaCl 20% total de ${formatNumber(extraNaCl20Alt)} mL/24 h.`
       : 'A meta de sódio já fica próxima com o glicofisiológico 1:1, sem necessidade adicional de NaCl 20%.',
     potassium === 'with-k'
-      ? `Adicionar KCl ${potassiumPerBag} mEq por bolsa ou fracionar para um total diário em torno de ${potassiumTotal} mEq.`
+      ? `Distribuir ${potassiumTotal} mEq de K em 24 h, preferindo bolsa premisturada: ${formatNumber(potassiumPerBag)} mEq por bolsa. Para preparo controlado conforme protocolo: ${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL por bolsa; alternativa, ${alternativeKcl.label} ${formatNumber(alternativeKclMlPerBag)} mL por bolsa.`
       : 'Sem KCl de rotina até nova avaliação laboratorial.',
     extraD50ForAltMl > 0
       ? `Como essa alternativa oferece menos glicose, complementar SG 50% ${extraD50ForAltMl} mL/24 h para atingir pelo menos 50 g/dia.`
@@ -115,7 +125,7 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
       `Volume prático adotado aqui: ${finalDailyVolume.toLocaleString('pt-BR')} mL/24 h.`,
       `Meta de Na/cloreto: ~${sodiumTarget} mEq/24 h.`,
       potassium === 'with-k'
-        ? `Meta de K: aproximadamente ${potassiumTarget} mEq/24 h; na prática inicial, o bloco monta ~${potassiumTotal} mEq/24 h.`
+        ? `Necessidade fisiológica estimada de K: ~${potassiumTarget} mEq/24 h. Por segurança, a prescrição inicial foi limitada a ${potassiumTotal} mEq/24 h até nova avaliação de K, função renal e diurese.`
         : 'Potássio retirado da prescrição inicial.',
       'Meta de glicose: pelo menos 50 g/24 h.',
       lossesLine,
@@ -149,6 +159,7 @@ export default function FluidMaintenanceWizard() {
   const [weightInput, setWeightInput] = useState('');
   const [profile, setProfile] = useState<Profile>();
   const [potassium, setPotassium] = useState<PotassiumMode>();
+  const [potassiumProduct, setPotassiumProduct] = useState<PotassiumProduct>();
   const [losses, setLosses] = useState<LossMode>();
   const [showRules, setShowRules] = useState(false);
 
@@ -163,7 +174,7 @@ export default function FluidMaintenanceWizard() {
   const validWeight = Number.isFinite(parsedWeight) && parsedWeight > 0;
 
   const pushHistory = () => {
-    setHistory((items) => [...items, { step: current, weight: weightInput, profile, potassium, losses }]);
+    setHistory((items) => [...items, { step: current, weight: weightInput, profile, potassium, potassiumProduct, losses }]);
   };
 
   const continueWeight = () => {
@@ -181,6 +192,13 @@ export default function FluidMaintenanceWizard() {
   const choosePotassium = (nextPotassium: PotassiumMode) => {
     pushHistory();
     setPotassium(nextPotassium);
+    setPotassiumProduct(undefined);
+    setCurrent(nextPotassium === 'with-k' ? 'potassium-product' : 'losses');
+  };
+
+  const choosePotassiumProduct = (nextProduct: PotassiumProduct) => {
+    pushHistory();
+    setPotassiumProduct(nextProduct);
     setCurrent('losses');
   };
 
@@ -197,6 +215,7 @@ export default function FluidMaintenanceWizard() {
     setWeightInput(previous.weight);
     setProfile(previous.profile);
     setPotassium(previous.potassium);
+    setPotassiumProduct(previous.potassiumProduct);
     setLosses(previous.losses);
   };
 
@@ -206,11 +225,12 @@ export default function FluidMaintenanceWizard() {
     setWeightInput('');
     setProfile(undefined);
     setPotassium(undefined);
+    setPotassiumProduct(undefined);
     setLosses(undefined);
   };
 
-  const result = validWeight && profile && potassium && losses
-    ? buildPrescription(parsedWeight, profile, potassium, losses)
+  const result = validWeight && profile && potassium && losses && (potassium === 'without-k' || potassiumProduct)
+    ? buildPrescription(parsedWeight, profile, potassium, potassiumProduct, losses)
     : undefined;
 
   return <div className="magic-flowchart" id="prescricao-de-fluidoterapia-de-manutencao">
@@ -261,6 +281,14 @@ export default function FluidMaintenanceWizard() {
           <button type="button" onClick={() => choosePotassium('without-k')}>Não</button>
         </div>
       </>}
+      {current === 'potassium-product' && <>
+        <h4>Qual apresentação de KCl está disponível?</h4>
+        <p>O Magic converterá a dose total diária para mL por bolsa.</p>
+        <div className="magic-flowchart__options">
+          <button type="button" onClick={() => choosePotassiumProduct('kcl-19.1')}>KCl 19,1% · 2,56 mEq/mL</button>
+          <button type="button" onClick={() => choosePotassiumProduct('kcl-10')}>KCl 10% · 1,34 mEq/mL</button>
+        </div>
+      </>}
       {current === 'losses' && <>
         <h4>Há perdas extras em curso?</h4>
         <p>Vômitos, diarreia, débito de sonda, poliúria ou febre importante.</p>
@@ -280,7 +308,7 @@ export default function FluidMaintenanceWizard() {
         <div className="magic-flowchart__modal-list">
           <RuleCard title="Faixa basal" text="Manutenção isolada no adulto: 25–30 mL/kg/dia de água, ~1 mEq/kg/dia de sódio, potássio e cloreto, e 50–100 g/dia de glicose." />
           <RuleCard title="Faixa reduzida" text="Usar 20–25 mL/kg/dia quando houver maior risco de sobrecarga, como em idosos, insuficiência cardíaca ou insuficiência renal." />
-          <RuleCard title="Potássio" text="Não repor K automaticamente sem conhecer creatinina, diurese e K sérico. Em oligúria importante, anúria ou hipercalemia, retirar K da manutenção." />
+          <RuleCard title="Potássio" text="A necessidade fisiológica é próxima de 1 mEq/kg/dia, mas o Magic limita a prescrição inicial a 60 mEq/24 h até reavaliação. KCl 10% fornece 1,34 mEq/mL; KCl 19,1%, 2,56 mEq/mL. Não repor automaticamente em oligúria, anúria, hipercalemia ou sem avaliação renal e laboratorial; preferir bolsas padronizadas/premisturadas." />
           <RuleCard title="Perdas em curso" text="Vômitos, diarreia, débito de sonda, poliúria e febre importante exigem reposição adicional à parte. Isso não deve ser embutido na manutenção basal." />
           <RuleCard title="Composições úteis" text="NaCl 20% contém ~3,4 mEq de sódio por mL. Glicofisiológico 1:1 pode ser preparado com 500 mL de SG 5% + 500 mL de SF 0,9%, gerando 1.000 mL com ~77 mEq de Na e 25 g de glicose." />
           <RuleCard title="Glicose" text="Quando a mistura escolhida não atingir 50 g/dia, o bloco sugere complementação com SG 50%. Como referência prática, 20 mL de SG 50% fornecem 10 g de glicose." />
