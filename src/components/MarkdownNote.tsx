@@ -5,6 +5,7 @@ import { ListTree, PanelLeftClose, WandSparkles } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
 import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
+import FluidMaintenanceWizard from '../content/Interventions/Fluidoterapia/Fluidoterapia de Manutenção/magic-flowchart/FluidMaintenanceWizard';
 
 type MarkdownNoteProps = { body: string };
 
@@ -222,6 +223,9 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         }
         if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hyponatremia-treatment') {
           return <HyponatremiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-fluid-maintenance-magic') {
+          return <FluidMaintenanceWizard />;
         }
         if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-copy-treatment') {
           return <CopyTreatmentBlock>{child.props.children}</CopyTreatmentBlock>;
