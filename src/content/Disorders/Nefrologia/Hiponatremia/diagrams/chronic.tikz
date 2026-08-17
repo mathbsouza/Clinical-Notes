@@ -5,6 +5,8 @@
   processwide/.style={process, text width=8.4cm},
   decision/.style={draw=black, fill=white, line width=.6pt, diamond, aspect=2.5, align=center, text width=3.9cm, inner sep=1.2mm},
   note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm, align=center, text width=5.2cm, inner sep=2mm},
+  junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt, minimum size=0pt, text width=0pt},
+  trunk/.style={draw=black, line width=.8pt, preaction={draw=white, line width=2.2pt}},
   arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt, preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
 ]
   \matrix (grid) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells] {

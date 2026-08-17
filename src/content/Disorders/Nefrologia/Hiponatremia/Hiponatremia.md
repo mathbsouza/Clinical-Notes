@@ -15,7 +15,9 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 
 ## Fisiopatologia
 
-- A concentração plasmática de sódio reflete a relação entre os cátions corporais trocáveis — sobretudo sódio e potássio — e a água corporal total. Na hiponatremia hipotônica, a ingestão ou retenção de água supera a capacidade renal de excretá-la, geralmente pela ação persistente da arginina-vasopressina, que mantém a urina inadequadamente concentrada. A redução da tonicidade desloca água para o compartimento intracelular e pode causar edema cerebral; após aproximadamente 48 horas, a extrusão neuronal de eletrólitos e osmólitos orgânicos limita o edema, mas aumenta a vulnerabilidade à desmielinização osmótica quando o sódio é corrigido rapidamente.[^ese-guideline]
+- A concentração plasmática de sódio reflete a relação entre os cátions corporais trocáveis — sobretudo sódio e potássio — e a água corporal total. 
+    - Na hiponatremia hipotônica, a ingestão ou retenção de água supera a capacidade renal de excretá-la, geralmente pela ação persistente da arginina-vasopressina, que mantém a urina inadequadamente concentrada. 
+    - A redução da tonicidade desloca água para o compartimento intracelular e pode causar edema cerebral; após aproximadamente 48 horas, a extrusão neuronal de eletrólitos e osmólitos orgânicos limita o edema, mas aumenta a vulnerabilidade à desmielinização osmótica quando o sódio é corrigido rapidamente.[^ese-guideline]
 
 | Fenótipo mecanístico | Mecanismo predominante | Exemplos típicos |
 | --- | --- | --- |
