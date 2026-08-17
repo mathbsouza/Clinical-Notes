@@ -79,15 +79,14 @@ function buildPrescription(weight: number, profile: Profile, solution: SolutionM
   const alternativeKclMlPerBag = potassiumPerBag / alternativeKcl.concentration;
   const glucoseDeficit = Math.max(0, 50 - glucoseFromBase);
   const d50ExtraMl = Math.ceil(glucoseDeficit / 0.5 / 10) * 10;
+  const d50ExtraPerBagMl = d50ExtraMl / roundedBags;
   const potassiumOrder = potassium === 'with-k'
     ? `${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL`
-    : undefined;
-  const glucoseOrder = glucoseFromBase < 50
-    ? `SG 50% ${d50ExtraMl} mL IV em 24 h.`
     : undefined;
   const additives = [
     ...(sodiumFromNaCl20TotalMl > 0 ? [`NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL`] : []),
     ...(potassiumOrder ? [potassiumOrder] : []),
+    ...(d50ExtraMl > 0 ? [`SG 50% ${formatNumber(d50ExtraPerBagMl)} mL`] : []),
   ];
   const solutionOrder = solution === 'd5'
     ? [`SG 5% ${bagVolume.toLocaleString('pt-BR')} mL IV — ${roundedBags} bolsa(s).`]
@@ -116,7 +115,7 @@ function buildPrescription(weight: number, profile: Profile, solution: SolutionM
       potassium === 'with-k'
         ? `${selectedKcl.label}: ${formatNumber(selectedKclMlPerBag)} mL/bolsa = ${formatNumber(potassiumPerBag)} mEq/bolsa. Equivalente com ${alternativeKcl.label}: ${formatNumber(alternativeKclMlPerBag)} mL/bolsa. Preferir bolsa premisturada; KCl concentrado nunca deve ser administrado sem diluição.`
         : 'Sem KCl na solução inicial.',
-      `${solution === 'd5' ? 'O SG 5%' : 'A solução 1:1'} fornece ~${Math.round(glucoseFromBase)} g de glicose/24 h${glucoseFromBase < 50 ? `; são necessários mais ${d50ExtraMl} mL de SG 50% para atingir 50 g/dia` : ', portanto já cobre a meta mínima de 50 g/dia'}.`,
+      `${solution === 'd5' ? 'O SG 5%' : 'A solução 1:1'} fornece ~${Math.round(glucoseFromBase)} g de glicose/24 h${glucoseFromBase < 50 ? `; complementar com ${d50ExtraMl} mL de SG 50% no total diário, distribuídos como ${formatNumber(d50ExtraPerBagMl)} mL em cada bolsa, para atingir 50 g/dia` : ', portanto já cobre a meta mínima de 50 g/dia'}.`,
       lossesLine,
     ],
     prescription: [
@@ -125,7 +124,6 @@ function buildPrescription(weight: number, profile: Profile, solution: SolutionM
       ...solutionOrder,
       ...(additives.length > 0 ? [`Adicionar em cada bolsa: ${additives.join(' + ')}.`] : []),
       `Infundir 1 bolsa em ${bagHours} h.`,
-      ...(glucoseOrder ? [glucoseOrder] : []),
       '',
       'Balanço hídrico e diurese.',
       'Controlar Na, K e creatinina; reavaliar em até 24 h.',
@@ -314,7 +312,7 @@ export default function FluidMaintenanceWizard() {
           <RuleCard title="Potássio" text="A necessidade fisiológica é próxima de 1 mEq/kg/dia, mas o Magic limita a prescrição inicial a 60 mEq/24 h até reavaliação. KCl 10% fornece 1,34 mEq/mL; KCl 19,1%, 2,56 mEq/mL. Não repor automaticamente em oligúria, anúria, hipercalemia ou sem avaliação renal e laboratorial; preferir bolsas padronizadas/premisturadas." />
           <RuleCard title="Perdas em curso" text="Vômitos, diarreia, débito de sonda, poliúria e febre importante exigem reposição adicional à parte. Isso não deve ser embutido na manutenção basal." />
           <RuleCard title="Composições úteis" text="NaCl 20% contém ~3,4 mEq de sódio por mL. Glicofisiológico 1:1 pode ser preparado com 500 mL de SG 5% + 500 mL de SF 0,9%, gerando 1.000 mL com ~77 mEq de Na e 25 g de glicose." />
-          <RuleCard title="Glicose" text="Quando a mistura escolhida não atingir 50 g/dia, o bloco sugere complementação com SG 50%. Como referência prática, 20 mL de SG 50% fornecem 10 g de glicose." />
+          <RuleCard title="Glicose" text="Quando a mistura escolhida não atingir 50 g/dia, o bloco distribui igualmente entre as bolsas o complemento calculado de SG 50%. Como referência prática, 20 mL de SG 50% fornecem 10 g de glicose." />
         </div>
       </div>
     </div>, document.body)}
