@@ -37,21 +37,9 @@ Disorders/Nefrologia/Hiponatremia/diagrams/etiology-by-mechanism.svg|Principais 
 
 ### Interpretação laboratorial
 
-| Parâmetro | Resultado | Interpretação prática |
-| --- | --- | --- |
-| Osmolaridade sérica | > 295 mOsm/kg | Hiponatremia hipertônica, em geral por hiperglicemia ou outro osmólito efetivo. |
-| Osmolaridade sérica | 275–295 mOsm/kg | Considerar pseudohiponatremia por hipertrigliceridemia/hiperproteinemia e método indireto do laboratório. |
-| Osmolaridade sérica | < 275 mOsm/kg | Hiponatremia hipotônica verdadeira; prosseguir com urina. |
-| Osmolaridade urinária | ≤ 100 mOsm/kg | ADH suprimido: excesso de água ou baixa ingestão de solutos, como polidipsia primária e potomania. |
-| Osmolaridade urinária | > 100 mOsm/kg | ADH ativo; interpretar sódio urinário. |
-| Sódio urinário | ≤ 30 mmol/L | Baixo volume arterial efetivo: mecanismo hipertonodepletivo nas perdas extrarrenais ou aquacumulativo por ADH não osmótico na insuficiência cardíaca/cirrose. |
-
-### Sódio urinário acima de 30 mmol/L
-
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/high-urine-sodium.svg|Interpretação do sódio urinário acima de 30 mmol/L
+Disorders/Nefrologia/Hiponatremia/diagrams/laboratory-interpretation.svg|Interpretação dos exames na hiponatremia
 ```
-
 ### Hiperglicemia
 
 - Uma estimativa útil é: **Na corrigido = Na medido + 2,4 × [(glicose em mg/dL − 100)/100]**. A correção é aproximada e serve para reconhecer hiponatremia translocacional; o tratamento deve ser dirigido à hiperglicemia e à osmolaridade, não à infusão automática de sódio.[^hillier-corrected-na]
