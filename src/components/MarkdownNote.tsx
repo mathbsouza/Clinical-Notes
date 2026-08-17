@@ -143,6 +143,7 @@ type TocItem = { depth: number; id: string; label: string; magic?: boolean };
 function markdownHeadings(body: string): TocItem[] {
   return body.split(/\r?\n/).flatMap((line) => {
     if (line.includes('hyponatremia-treatment')) return [{ depth: 3, id: 'tratamento-de-hiponatremia', label: 'Tratamento de Hiponatremia', magic: true }];
+    if (line.includes('fluid-maintenance-magic')) return [{ depth: 3, id: 'prescricao-de-fluidoterapia-de-manutencao', label: 'Prescrição de Fluidoterapia de Manutenção', magic: true }];
     const match = /^(#{2,5})\s+(.+?)\s*$/.exec(line);
     if (!match) return [];
     const label = match[2].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`~]/g, '').trim();
