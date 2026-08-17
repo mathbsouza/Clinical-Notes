@@ -108,8 +108,7 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
 
   return {
     title: 'Prescrição inicial',
-    text: [
-      'Fluidoterapia de manutenção',
+    rationale: [
       `Peso: ${weight.toLocaleString('pt-BR')} kg`,
       `Perfil: ${profileLabel}.`,
       `Meta hídrica: ${formatRange(volumeLow, volumeHigh)} mL/24 h (${Math.round(hourlyLow)}–${Math.round(hourlyHigh)} mL/h).`,
@@ -119,6 +118,10 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
         ? `Meta de K: aproximadamente ${potassiumTarget} mmol/24 h; na prática inicial, o bloco monta ~${potassiumTotal} mmol/24 h.`
         : 'Potássio retirado da prescrição inicial.',
       'Meta de glicose: pelo menos 50 g/24 h.',
+      lossesLine,
+    ],
+    prescription: [
+      'FLUIDOTERAPIA DE MANUTENÇÃO',
       '',
       optionA,
       '',
@@ -217,8 +220,15 @@ export default function FluidMaintenanceWizard() {
       <button type="button" onClick={() => setShowRules(true)}>Ver regras</button>
     </div>
     {result ? <section className="magic-flowchart__result">
-      <div className="magic-flowchart__result-head"><h4>{result.title}</h4><CopyButton text={result.text} /></div>
-      <p>{result.text}</p>
+      <div className="magic-flowchart__result-head"><h4>{result.title}</h4></div>
+      <div className="magic-flowchart__rationale">
+        <strong>Racional</strong>
+        <ul>{result.rationale.map((item) => <li key={item}>{item}</li>)}</ul>
+      </div>
+      <div className="magic-flowchart__copy-block">
+        <div className="magic-flowchart__result-head"><strong>Prescrição pronta</strong><CopyButton text={result.prescription} /></div>
+        <pre>{result.prescription}</pre>
+      </div>
     </section> : <div className="magic-flowchart__question">
       {current === 'weight' && <>
         <h4>Peso do paciente</h4>

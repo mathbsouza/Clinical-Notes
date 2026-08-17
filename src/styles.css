@@ -1291,6 +1291,44 @@ body {
   line-height: 1.55;
 }
 
+.magic-flowchart__rationale {
+  margin-top: 0.75rem;
+  color: #d4d4d4;
+  font-size: 0.86rem;
+}
+
+.prose-notes .magic-flowchart__rationale ul {
+  margin: 0.45rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.prose-notes .magic-flowchart__rationale li {
+  margin: 0.2rem 0;
+  line-height: 1.45;
+}
+
+.magic-flowchart__copy-block {
+  margin-top: 1rem;
+  border: 1px solid rgb(251 146 60 / 0.24);
+  border-radius: 0.6rem;
+  padding: 0.75rem;
+  background: rgb(255 255 255 / 0.025);
+}
+
+.prose-notes .magic-flowchart__copy-block pre {
+  max-height: 24rem;
+  margin: 0.65rem 0 0;
+  border: 0;
+  padding: 0;
+  color: #e5e5e5;
+  background: transparent;
+  white-space: pre-wrap;
+  overflow: auto;
+  font: inherit;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
 .magic-flowchart__modal {
   position: fixed;
   inset: 0;
