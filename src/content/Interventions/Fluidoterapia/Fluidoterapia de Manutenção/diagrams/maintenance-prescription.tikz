@@ -1,0 +1,43 @@
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  terminal/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm, align=center, text width=7.4cm, minimum height=10mm, inner sep=2.5mm, font=\sffamily\bfseries\small},
+  process/.style={draw=black, fill=white, line width=.6pt, rectangle, align=center, text width=5.1cm, minimum height=10mm, inner sep=2.5mm},
+  processwide/.style={process, text width=7.4cm},
+  decision/.style={draw=black, fill=white, line width=.6pt, diamond, aspect=2.5, align=center, text width=3.7cm, inner sep=1.2mm},
+  junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt, minimum size=0pt, text width=0pt},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt},
+  trunk/.style={draw=black, line width=.8pt}
+]
+  \matrix (flow) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells] {
+    & |[terminal] (start)| {Adulto sem ingest{\~a}o oral/enteral suficiente} & \\
+    & |[decision] (shock)| {Choque ou hipoperfus{\~a}o?} & \\
+    |[process] (resuscitation)| {Ressuscita{\c c}{\~a}o: cristaloide isot{\^o}nico em bolus, guiado por perfus{\~a}o} & |[decision] (otherneed)| {H{\'a} d{\'e}ficit, perda em curso ou redistribui{\c c}{\~a}o?} & \\
+    & |[processwide] (separate)| {Calcular e tratar o componente adicional separadamente; manuten{\c c}{\~a}o cobre apenas a necessidade basal} & |[process] (replacement)| {Reposi{\c c}{\~a}o dirigida ao d{\'e}ficit/perda e tratamento da causa} \\
+    & |[processwide] (weight)| {Definir peso de c{\'a}lculo; na obesidade, usar peso ideal e raramente ultrapassar 3.000 mL/dia} & \\
+    & |[decision] (restrict)| {Idoso/fr{\'a}gil, IC, disfun{\c c}{\~a}o renal ou risco de realimenta{\c c}{\~a}o?} & |[process] (reduced)| {Usar 20--25 mL/kg/dia} \\
+    & |[processwide] (standard)| {Usar 25--30 mL/kg/dia} & |[junction] (reducedroute)| {} \\
+    & |[junction] (merge)| {} & \\
+    & |[processwide] (targets)| {Metas iniciais em 24 h: Na, K e Cl $\sim1$ mEq/kg de cada; glicose 50--100 g} & \\
+    & |[processwide] (subtract)| {Descontar dieta, nutri{\c c}{\~a}o, medicamentos dilu{\'i}dos e demais infus{\~o}es; repor perdas extras fora da manuten{\c c}{\~a}o} & \\
+    & |[processwide] (safety)| {Antes do KCl: conferir K s{\'e}rico, creatinina e diurese; ajustar composi{\c c}{\~a}o ao laborat{\'o}rio e ao balan{\c c}o h{\'i}drico} & \\
+    & |[terminal] (magic)| {Magic Flowchart: montar a prescri{\c c}{\~a}o e reavaliar em at{\'e} 24 h} & \\
+  };
+  \draw[arrow] (start.south) -- (shock.north);
+  \draw[arrow] (shock.west) -- node[above]{Sim} (resuscitation.east);
+  \draw[arrow] (shock.south) -- node[left]{N{\~a}o} (otherneed.north);
+  \draw[arrow] (resuscitation.south) -- ++(0,-4mm) |- (separate.west);
+  \draw[arrow] (otherneed.east) -- node[above]{Sim} (replacement.west);
+  \draw[arrow] (otherneed.south) -- node[left]{N{\~a}o} (separate.north);
+  \draw[arrow] (replacement.south) -- ++(0,-4mm) |- (separate.east);
+  \draw[arrow] (separate.south) -- (weight.north);
+  \draw[arrow] (weight.south) -- (restrict.north);
+  \draw[arrow] (restrict.east) -- node[above]{Sim} (reduced.west);
+  \draw[arrow] (restrict.south) -- node[left]{N{\~a}o} (standard.north);
+  \draw[trunk] (standard.south) -- (merge);
+  \draw[trunk] (reduced.south) -- (reducedroute);
+  \draw[arrow] (reducedroute) |- (merge);
+  \draw[arrow] (merge) -- (targets.north);
+  \draw[arrow] (targets.south) -- (subtract.north);
+  \draw[arrow] (subtract.south) -- (safety.north);
+  \draw[arrow] (safety.south) -- (magic.north);
+\end{tikzpicture}

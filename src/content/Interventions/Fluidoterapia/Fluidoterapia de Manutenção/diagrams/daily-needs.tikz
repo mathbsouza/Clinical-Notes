@@ -1,0 +1,15 @@
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  title/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm, align=center, text width=13.8cm, minimum height=10mm, inner sep=2.5mm, font=\sffamily\bfseries\small},
+  card/.style={draw=black, fill=white, line width=.6pt, rectangle, align=center, text width=3.0cm, minimum height=19mm, inner sep=2.5mm},
+  note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm, align=center, text width=13.8cm, minimum height=9mm, inner sep=2.5mm}
+]
+  \matrix (needs) [matrix of nodes, row sep=6mm, column sep=5mm, nodes in empty cells] {
+    |[title] (heading)| {Necessidades basais do adulto em 24 horas} & & & \\
+    |[card] (water)| {\textbf{{\'A}GUA}\\[1mm]25--30 mL/kg/dia\\20--25 mL/kg/dia se risco de sobrecarga} &
+    |[card] (sodium)| {\textbf{S{\'O}DIO + CLORETO}\\[1mm]$\sim1$ mEq/kg/dia de cada} &
+    |[card] (potassium)| {\textbf{POT{\'A}SSIO}\\[1mm]$\sim1$ mEq/kg/dia\\somente ap{\'o}s checar K, rim e diurese} &
+    |[card] (glucose)| {\textbf{GLICOSE}\\[1mm]50--100 g/dia\\limita cetose de jejum; n{\~a}o {\'e} nutri{\c c}{\~a}o} \\
+    |[note] (context)| {Estas s{\~a}o metas iniciais de manuten{\c c}{\~a}o: subtrair toda oferta enteral/IV e somar separadamente d{\'e}ficits e perdas em curso.} & & & \\
+  };
+\end{tikzpicture}

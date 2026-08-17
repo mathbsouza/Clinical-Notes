@@ -70,9 +70,9 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
   const optionA = [
     'Opção preferencial',
     `Programar ${roundedBags} bolsa(s) de SG 5% ${bagVolume.toLocaleString('pt-BR')} mL, uma a cada ${bagHours} h.`,
-    `Adicionar NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL em cada bolsa (total diário ~${formatNumber(sodiumFromNaCl20TotalMl)} mL = ~${totalSodiumApprox} mmol de Na).`,
+    `Adicionar NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL em cada bolsa (total diário ~${formatNumber(sodiumFromNaCl20TotalMl)} mL = ~${totalSodiumApprox} mEq de Na).`,
     potassium === 'with-k'
-      ? `Adicionar KCl ${potassiumPerBag} mmol em cada bolsa (total diário ~${potassiumTotal} mmol), se função renal, diurese e K sérico permitirem.`
+      ? `Adicionar KCl ${potassiumPerBag} mEq em cada bolsa (total diário ~${potassiumTotal} mEq), se função renal, diurese e K sérico permitirem.`
       : 'Não adicionar KCl de rotina; reavaliar conforme creatinina, diurese e K sérico.',
     glucoseFromD5 >= 50
       ? `A glicose do próprio SG 5% já fornece ~${Math.round(glucoseFromD5)} g/24 h.`
@@ -90,12 +90,12 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
     'Alternativa sem depender de NaCl 20% em toda a prescrição',
     `Usar glicofisiológico 1:1 no volume diário planejado: metade SG 5% + metade SF 0,9%.`,
     `Preparo: para cada 1.000 mL finais, misturar 500 mL de SG 5% + 500 mL de SF 0,9%.`,
-    `Nesse esquema, o volume diário fornece ~${alternativeSodium} mmol de Na e ~${Math.round(finalDailyVolume / 1000 * 25)} g de glicose.`,
+    `Nesse esquema, o volume diário fornece ~${alternativeSodium} mEq de Na e ~${Math.round(finalDailyVolume / 1000 * 25)} g de glicose.`,
     extraNaCl20Alt > 0
-      ? `Se quiser aproximar-se da meta de sódio de ~${sodiumTarget} mmol/dia, acrescentar ainda NaCl 20% total de ${formatNumber(extraNaCl20Alt)} mL/24 h.`
+      ? `Se quiser aproximar-se da meta de sódio de ~${sodiumTarget} mEq/dia, acrescentar ainda NaCl 20% total de ${formatNumber(extraNaCl20Alt)} mL/24 h.`
       : 'A meta de sódio já fica próxima com o glicofisiológico 1:1, sem necessidade adicional de NaCl 20%.',
     potassium === 'with-k'
-      ? `Adicionar KCl ${potassiumPerBag} mmol por bolsa ou fracionar para um total diário em torno de ${potassiumTotal} mmol.`
+      ? `Adicionar KCl ${potassiumPerBag} mEq por bolsa ou fracionar para um total diário em torno de ${potassiumTotal} mEq.`
       : 'Sem KCl de rotina até nova avaliação laboratorial.',
     extraD50ForAltMl > 0
       ? `Como essa alternativa oferece menos glicose, complementar SG 50% ${extraD50ForAltMl} mL/24 h para atingir pelo menos 50 g/dia.`
@@ -113,9 +113,9 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
       `Perfil: ${profileLabel}.`,
       `Meta hídrica: ${formatRange(volumeLow, volumeHigh)} mL/24 h (${Math.round(hourlyLow)}–${Math.round(hourlyHigh)} mL/h).`,
       `Volume prático adotado aqui: ${finalDailyVolume.toLocaleString('pt-BR')} mL/24 h.`,
-      `Meta de Na/cloreto: ~${sodiumTarget} mmol/24 h.`,
+      `Meta de Na/cloreto: ~${sodiumTarget} mEq/24 h.`,
       potassium === 'with-k'
-        ? `Meta de K: aproximadamente ${potassiumTarget} mmol/24 h; na prática inicial, o bloco monta ~${potassiumTotal} mmol/24 h.`
+        ? `Meta de K: aproximadamente ${potassiumTarget} mEq/24 h; na prática inicial, o bloco monta ~${potassiumTotal} mEq/24 h.`
         : 'Potássio retirado da prescrição inicial.',
       'Meta de glicose: pelo menos 50 g/24 h.',
       lossesLine,
@@ -278,11 +278,11 @@ export default function FluidMaintenanceWizard() {
       <div className="magic-flowchart__modal-panel" onClick={(event) => event.stopPropagation()}>
         <div className="magic-flowchart__modal-head"><h3>Regras usadas</h3><button type="button" onClick={() => setShowRules(false)} aria-label="Fechar">×</button></div>
         <div className="magic-flowchart__modal-list">
-          <RuleCard title="Faixa basal" text="Manutenção isolada no adulto: 25–30 mL/kg/dia de água, ~1 mmol/kg/dia de sódio, potássio e cloreto, e 50–100 g/dia de glicose." />
+          <RuleCard title="Faixa basal" text="Manutenção isolada no adulto: 25–30 mL/kg/dia de água, ~1 mEq/kg/dia de sódio, potássio e cloreto, e 50–100 g/dia de glicose." />
           <RuleCard title="Faixa reduzida" text="Usar 20–25 mL/kg/dia quando houver maior risco de sobrecarga, como em idosos, insuficiência cardíaca ou insuficiência renal." />
           <RuleCard title="Potássio" text="Não repor K automaticamente sem conhecer creatinina, diurese e K sérico. Em oligúria importante, anúria ou hipercalemia, retirar K da manutenção." />
           <RuleCard title="Perdas em curso" text="Vômitos, diarreia, débito de sonda, poliúria e febre importante exigem reposição adicional à parte. Isso não deve ser embutido na manutenção basal." />
-          <RuleCard title="Composições úteis" text="NaCl 20% contém ~3,4 mmol de sódio por mL. Glicofisiológico 1:1 pode ser preparado com 500 mL de SG 5% + 500 mL de SF 0,9%, gerando 1.000 mL com ~77 mmol de Na e 25 g de glicose." />
+          <RuleCard title="Composições úteis" text="NaCl 20% contém ~3,4 mEq de sódio por mL. Glicofisiológico 1:1 pode ser preparado com 500 mL de SG 5% + 500 mL de SF 0,9%, gerando 1.000 mL com ~77 mEq de Na e 25 g de glicose." />
           <RuleCard title="Glicose" text="Quando a mistura escolhida não atingir 50 g/dia, o bloco sugere complementação com SG 50%. Como referência prática, 20 mL de SG 50% fornecem 10 g de glicose." />
         </div>
       </div>
