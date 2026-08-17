@@ -1,0 +1,20 @@
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  title/.style={draw=floworange, fill=floworangefill, line width=.9pt, rounded corners=1mm, align=center, text width=10cm, minimum height=11mm, inner sep=3mm, font=\sffamily\bfseries\small},
+  depletion/.style={draw=floworange, fill=floworangefill, line width=.8pt, rounded corners=1.2mm, align=left, text width=5.2cm, minimum height=86mm, inner sep=3.5mm},
+  water/.style={draw=flowblue, fill=flowbluefill, line width=.8pt, rounded corners=1.2mm, align=left, text width=5.2cm, minimum height=86mm, inner sep=3.5mm},
+  intake/.style={draw=flowgreen, fill=flowgreenfill, line width=.8pt, rounded corners=1.2mm, align=left, text width=5.2cm, minimum height=86mm, inner sep=3.5mm}
+]
+  \matrix (grid) [matrix of nodes, row sep=7mm, column sep=6mm, nodes={anchor=center}] {
+    & |[title] (heading)| {PRINCIPAIS CAUSAS POR MECANISMO} & \\
+    |[depletion] (depletion)| {\centering\textbf{HIPERTONODEPLETIVA}\\[-1mm]\scriptsize Perda de soluto proporcionalmente maior que a perda de {\'a}gua\par\raggedright\footnotesize\vspace{3mm}\textbf{Perdas extrarrenais}\\V{\^o}mitos, diarreia, f{\'i}stulas, drenagens, sudorese, queimaduras e terceiro espa{\c c}o.\\[2mm]\textbf{Perdas renais}\\Tiaz{\'i}dicos, nefropatia perdedora de sal, diurese osm{\'o}tica, bicarbonat{\'u}ria e perda cerebral de sal.\\[2mm]\textbf{Insufici{\^e}ncia adrenal prim{\'a}ria}\\Perda renal de Na + est{\'i}mulo de ADH; pode haver hipotens{\~a}o, hipercalemia e hipoglicemia.\\[2mm]\scriptsize Pista: Na urin{\'a}rio em geral $\leq30$ mEq/L nas perdas extrarrenais e frequentemente $>30$ mEq/L nas renais.} &
+    |[water] (water)| {\centering\textbf{AQUACUMULATIVA}\\[-1mm]\scriptsize Reten{\c c}{\~a}o renal de {\'a}gua por ADH\par\raggedright\footnotesize\vspace{3mm}\textbf{SIAD}\\F{\'a}rmacos; doen{\c c}as do SNC; pneumonia/TB/ventila{\c c}{\~a}o; carcinoma pulmonar de pequenas c{\'e}lulas; dor, n{\'a}usea e p{\'o}s-operat{\'o}rio.\\[2mm]\textbf{Baixo volume arterial efetivo}\\Insufici{\^e}ncia card{\'i}aca, cirrose, s{\'i}ndrome nefr{\'o}tica, hipoalbuminemia e doen{\c c}a renal avan{\c c}ada.\\[2mm]\textbf{Endocrinopatias}\\Insufici{\^e}ncia adrenal secund{\'a}ria e hipotireoidismo grave.\\[2mm]\scriptsize Pista: osmolaridade urin{\'a}ria $>100$ mOsm/kg. SIAD exige exclus{\~a}o adrenal, tireoidiana, renal e de diur{\'e}ticos.} &
+    |[intake] (intake)| {\centering\textbf{HIPOTONOCUMULATIVA}\\[-1mm]\scriptsize Entrada hipot{\^o}nica maior que a capacidade de elimina{\c c}{\~a}o\par\raggedright\footnotesize\vspace{3mm}\textbf{Excesso de {\'a}gua}\\Polidipsia prim{\'a}ria, ingest{\~a}o compulsiva, solu{\c c}{\~o}es IV hipot{\^o}nicas e excesso de {\'a}gua no exerc{\'i}cio prolongado.\\[2mm]\textbf{Baixa oferta de solutos}\\Potomania por cerveja, dieta ``ch{\'a} e torradas'', baixa ingest{\~a}o de prote{\'i}na/sal e desnutri{\c c}{\~a}o.\\[2mm]\textbf{Mecanismo misto}\\Baixa TFG, n{\'a}usea, dor ou est{\'i}mulo transit{\'o}rio de ADH reduzem ainda mais a excre{\c c}{\~a}o.\\[2mm]\scriptsize Pista: osmolaridade urin{\'a}ria $\leq100$ mOsm/kg quando o ADH est{\'a} completamente suprimido.} \\
+  };
+\end{tikzpicture}

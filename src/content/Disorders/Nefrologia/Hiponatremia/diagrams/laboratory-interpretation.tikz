@@ -1,0 +1,41 @@
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  title/.style={draw=floworange, fill=floworangefill, line width=.9pt, rounded corners=1mm, align=center, text width=10cm, minimum height=11mm, inner sep=3mm, font=\sffamily\bfseries\small},
+  exam/.style={draw=flowblue, fill=flowbluefill, line width=.8pt, rounded corners=1mm, align=center, text width=4.8cm, minimum height=13mm, inner sep=2.5mm, font=\sffamily\bfseries},
+  result/.style={draw=black, fill=white, line width=.6pt, rounded corners=.7mm, align=center, text width=4.8cm, minimum height=20mm, inner sep=2.5mm},
+  decision/.style={result, draw=floworange, fill=floworangefill},
+  endpoint/.style={result, draw=flowgreen, fill=flowgreenfill},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt}
+]
+  \matrix (grid) [matrix of nodes, row sep=6mm, column sep=6mm, nodes in empty cells, nodes={anchor=center}] {
+    & |[title] (title)| {INTERPRETA{\c C}{\~A}O LABORATORIAL DA HIPONATREMIA} & \\
+    |[exam] (serum)| {OSMOLARIDADE S{\'E}RICA\\[-1mm]\scriptsize Define a tonicidade} &
+    |[exam] (urine)| {OSMOLARIDADE URIN{\'A}RIA\\[-1mm]\scriptsize Avalia excre{\c c}{\~a}o de {\'a}gua livre} &
+    |[exam] (sodium)| {S{\'O}DIO URIN{\'A}RIO\\[-1mm]\scriptsize Volume arterial efetivo e perdas renais} \\
+    |[result] (serumhigh)| {$>295$ mOsm/kg\\\textbf{Hipert{\^o}nica}\\\scriptsize Hiperglicemia/outro osm{\'o}lito; calcular Na corrigido} &
+    |[endpoint] (urinelow)| {$\leq100$ mOsm/kg\\\textbf{ADH suprimido}\\\scriptsize Polidipsia, {\'a}gua hipot{\^o}nica, potomania ou baixo soluto} &
+    |[endpoint] (sodiumlow)| {$\leq30$ mEq/L\\\textbf{Baixo volume arterial efetivo}\\\scriptsize Perdas extrarrenais, IC ou cirrose; avaliar edema/perfus{\~a}o} \\
+    |[result] (serumnormal)| {$275$--$295$ mOsm/kg\\\textbf{Pseudohiponatremia}\\\scriptsize Triglicer{\'i}deos/prote{\'i}nas; confirmar com ISE direto} &
+    |[decision] (urinehigh)| {$>100$ mOsm/kg\\\textbf{ADH ativo}\\\scriptsize Prosseguir com Na urin{\'a}rio na mesma amostra} &
+    |[decision] (sodiumhigh)| {$>30$ mEq/L\\\textbf{Considerar}\\\scriptsize SIAD, diur{\'e}tico, perda renal de sal, adrenal ou tireoide} \\
+    |[decision] (serumlow)| {$<275$ mOsm/kg\\\textbf{Hipot{\^o}nica verdadeira}\\\scriptsize Prosseguir com urina; urg{\^e}ncia depende de sintomas e dura{\c c}{\~a}o} &
+    & |[result] (caveat)| {\textbf{Ressalva do Na urin{\'a}rio}\\\scriptsize Diur{\'e}ticos, DRC e coleta ap{\'o}s volume reduzem a confiabilidade; SIAD {\'e} diagn{\'o}stico de exclus{\~a}o} \\
+    & |[endpoint] (collection)| {Colher osmolaridade e Na urin{\'a}rios simultaneamente e, se poss{\'i}vel, antes de administrar volume. Sintomas graves n{\~a}o aguardam a investiga{\c c}{\~a}o.} & \\
+  };
+  \draw[arrow] (serum.south) -- (serumhigh.north);
+  \draw[arrow] (serumhigh.south) -- (serumnormal.north);
+  \draw[arrow] (serumnormal.south) -- (serumlow.north);
+  \draw[arrow] (urine.south) -- (urinelow.north);
+  \draw[arrow] (urinelow.south) -- (urinehigh.north);
+  \draw[arrow] (sodium.south) -- (sodiumlow.north);
+  \draw[arrow] (sodiumlow.south) -- (sodiumhigh.north);
+  \draw[arrow] (sodiumhigh.south) -- (caveat.north);
+  \draw[arrow] (urinehigh.south) -- (collection.north);
+  \draw[arrow] (caveat.south) -- ++(0,-4mm) |- (collection.east);
+\end{tikzpicture}

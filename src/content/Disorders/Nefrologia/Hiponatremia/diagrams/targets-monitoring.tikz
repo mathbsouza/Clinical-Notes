@@ -1,0 +1,62 @@
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowred}{RGB}{165,29,45}
+\definecolor{flowredfill}{RGB}{255,243,243}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+\begin{tikzpicture}[scale=.72, transform shape,
+  font=\sffamily\footnotesize,
+  terminal/.style={draw=flowblue, fill=flowbluefill, line width=.9pt, rounded corners=1mm, align=center, text width=8cm, minimum height=12mm, inner sep=3mm, font=\sffamily\bfseries\small},
+  process/.style={draw=black, fill=white, line width=.6pt, rounded corners=.7mm, align=center, text width=4.5cm, minimum height=23mm, inner sep=2.5mm},
+  processwide/.style={process, text width=8cm},
+  decision/.style={draw=floworange, fill=floworangefill, line width=.8pt, diamond, aspect=2.6, align=center, text width=3.9cm, inner sep=1.2mm},
+  goal/.style={processwide, draw=flowgreen, fill=flowgreenfill, line width=.8pt},
+  alert/.style={process, draw=flowred, fill=flowredfill, line width=.8pt},
+  junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt, minimum size=0pt, text width=0pt},
+  trunk/.style={draw=black, line width=.8pt},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt}
+]
+  \matrix (grid) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells, nodes={anchor=center}] {
+    & |[terminal] (start)| {METAS E MONITORIZA{\c C}{\~A}O\\[-1mm]\scriptsize In{\'i}cio da corre{\c c}{\~a}o da hiponatremia} & \\
+    & |[decision] (method)| {Como o paciente est{\'a} sendo tratado?} & \\
+    & |[junction] (methodfork)| {} & \\
+    |[process] (bolus)| {\textbf{Bolus de NaCl 3\%}\\Dosar Na ap{\'o}s cada dose\\Aguda: Na + sintomas a cada 1--2 h} &
+    |[process] (chronic)| {\textbf{Cr{\^o}nica com Na $<120$}\\Infus{\~a}o cont{\'i}nua ou risco de aquarese\\Na a cada 2--4 h + diurese hor{\'a}ria} &
+    |[process] (clamp)| {\textbf{Clamp est{\'a}vel com DDAVP}\\Ap{\'o}s estabilizar Na e diurese\\Na a cada 6 h} \\
+    |[junction] (leftmerge)| {} & |[junction] (monitoringmerge)| {} & |[junction] (rightmerge)| {} \\
+    & |[goal] (initialgoal)| {\textbf{META INICIAL: $\Delta$Na = 4--6 mmol/L}\\[-1mm]\scriptsize N{\~a}o normalizar o Na no primeiro dia} & \\
+    & |[decision] (risk)| {Alto risco de desmieliniza{\c c}{\~a}o?\\\scriptsize Na $\leq105$, hipocalemia, alcoolismo, desnutri{\c c}{\~a}o ou hepatopatia avan{\c c}ada} & \\
+    |[alert] (highrisk)| {\textbf{LIMITE CONSERVADOR}\\$\leq8$ mmol/L em qualquer per{\'i}odo m{\'o}vel de 24 h} & &
+    |[process] (usualrisk)| {\textbf{DEMAIS PACIENTES}\\Meta pr{\'a}tica: 6--8 mmol/L/24 h\\M{\'a}x. 10/24 h e 18/48 h} \\
+    |[junction] (riskleft)| {} & |[junction] (riskmerge)| {} & |[junction] (riskright)| {} \\
+    & |[decision] (overcorrection)| {Diurese aquosa s{\'u}bita ou proje{\c c}{\~a}o acima do limite?} & \\
+    |[alert] (brake)| {\textbf{SIM, PROJE{\c C}{\~A}O}\\Suspender terapias que elevem o Na\\Considerar desmopressina 2 $\mu$g IV/SC a cada 6--8 h} & &
+    |[alert] (relower)| {\textbf{LIMITE EXCEDIDO}\\Desmopressina + glicose 5\% IV\\$\sim3$ mL/kg reduz Na em $\sim1$ mmol/L\\Na a cada 2 h} \\
+    & |[goal] (final)| {Corrigir K com cautela; suspender tiaz{\'i}dicos/f{\'a}rmacos causais; envolver nefrologia/terapia intensiva quando necess{\'a}rio.} & \\
+  };
+  \draw[arrow] (start.south) -- (method.north);
+  \draw[trunk] (method.south) -- (methodfork.center);
+  \draw[arrow] (methodfork.center) -| (bolus.north);
+  \draw[arrow] (methodfork.center) -- (chronic.north);
+  \draw[arrow] (methodfork.center) -| (clamp.north);
+  \draw[trunk] (bolus.south) -- (leftmerge.center);
+  \draw[trunk] (chronic.south) -- (monitoringmerge.center);
+  \draw[trunk] (clamp.south) -- (rightmerge.center);
+  \draw[trunk] (leftmerge.center) -- (monitoringmerge.center);
+  \draw[trunk] (rightmerge.center) -- (monitoringmerge.center);
+  \draw[arrow] (monitoringmerge.center) -- (initialgoal.north);
+  \draw[arrow] (initialgoal.south) -- (risk.north);
+  \draw[arrow] (risk.west) -- node[above]{Sim} ++(-6mm,0) -| (highrisk.north);
+  \draw[arrow] (risk.east) -- node[above]{N{\~a}o} ++(6mm,0) -| (usualrisk.north);
+  \draw[trunk] (highrisk.south) -- (riskleft.center);
+  \draw[trunk] (usualrisk.south) -- (riskright.center);
+  \draw[trunk] (riskleft.center) -- (riskmerge.center);
+  \draw[trunk] (riskright.center) -- (riskmerge.center);
+  \draw[arrow] (riskmerge.center) -- (overcorrection.north);
+  \draw[arrow] (overcorrection.west) -- node[above]{Sim} ++(-6mm,0) -| (brake.north);
+  \draw[arrow] (overcorrection.east) -- node[above]{Excedido} ++(6mm,0) -| (relower.north);
+  \draw[arrow] (brake.south) -- ++(0,-5mm) -| (final.north);
+  \draw[arrow] (relower.south) -- ++(0,-5mm) -| (final.north);
+\end{tikzpicture}

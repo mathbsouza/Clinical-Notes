@@ -77,40 +77,17 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
   const glucoseDeficit = Math.max(0, 50 - glucoseFromD5);
   const d50ExtraMl = Math.ceil(glucoseDeficit / 0.5 / 10) * 10;
 
-  const optionA = [
-    'Opção preferencial',
-    `Programar ${roundedBags} bolsa(s) de SG 5% ${bagVolume.toLocaleString('pt-BR')} mL, uma a cada ${bagHours} h.`,
-    `Adicionar NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL em cada bolsa (total diário ~${formatNumber(sodiumFromNaCl20TotalMl)} mL = ~${totalSodiumApprox} mEq de Na).`,
-    potassium === 'with-k'
-      ? `Prescrever ${formatNumber(potassiumPerBag)} mEq de K por bolsa (total ${potassiumTotal} mEq/24 h), preferencialmente em bolsa padronizada/premisturada. Se o protocolo institucional permitir preparo controlado, isso corresponde a ${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL por bolsa; alternativa equivalente: ${alternativeKcl.label} ${formatNumber(alternativeKclMlPerBag)} mL por bolsa. Nunca administrar KCl concentrado sem diluição.`
-      : 'Não adicionar KCl de rotina; reavaliar conforme creatinina, diurese e K sérico.',
-    glucoseFromD5 >= 50
-      ? `A glicose do próprio SG 5% já fornece ~${Math.round(glucoseFromD5)} g/24 h.`
-      : `A glicose do SG 5% fornece ~${Math.round(glucoseFromD5)} g/24 h; complementar SG 50% ${d50ExtraMl} mL ao longo de 24 h para atingir pelo menos 50 g/dia.`,
-  ].join('\n');
-
   const alternativeMixLiters = finalDailyVolume / 1000;
   const alternativeSodium = Math.round(alternativeMixLiters * 77);
-  const alternativeGlucose = Math.round(alternativeMixLiters * 25 + Math.max(0, 50 - alternativeMixLiters * 25));
   const extraD50ForAlt = Math.max(0, 50 - finalDailyVolume / 1000 * 25);
   const extraD50ForAltMl = Math.ceil(extraD50ForAlt / 0.5 / 10) * 10;
   const extraNaCl20Alt = Math.max(0, Number(((sodiumTarget - alternativeSodium) / 3.4).toFixed(1)));
-
-  const optionB = [
-    'Alternativa sem depender de NaCl 20% em toda a prescrição',
-    `Usar glicofisiológico 1:1 no volume diário planejado: metade SG 5% + metade SF 0,9%.`,
-    `Preparo: para cada 1.000 mL finais, misturar 500 mL de SG 5% + 500 mL de SF 0,9%.`,
-    `Nesse esquema, o volume diário fornece ~${alternativeSodium} mEq de Na e ~${Math.round(finalDailyVolume / 1000 * 25)} g de glicose.`,
-    extraNaCl20Alt > 0
-      ? `Se quiser aproximar-se da meta de sódio de ~${sodiumTarget} mEq/dia, acrescentar ainda NaCl 20% total de ${formatNumber(extraNaCl20Alt)} mL/24 h.`
-      : 'A meta de sódio já fica próxima com o glicofisiológico 1:1, sem necessidade adicional de NaCl 20%.',
-    potassium === 'with-k'
-      ? `Distribuir ${potassiumTotal} mEq de K em 24 h, preferindo bolsa premisturada: ${formatNumber(potassiumPerBag)} mEq por bolsa. Para preparo controlado conforme protocolo: ${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL por bolsa; alternativa, ${alternativeKcl.label} ${formatNumber(alternativeKclMlPerBag)} mL por bolsa.`
-      : 'Sem KCl de rotina até nova avaliação laboratorial.',
-    extraD50ForAltMl > 0
-      ? `Como essa alternativa oferece menos glicose, complementar SG 50% ${extraD50ForAltMl} mL/24 h para atingir pelo menos 50 g/dia.`
-      : `A glicose desta alternativa já atinge a faixa mínima desejada (~${alternativeGlucose} g/24 h).`,
-  ].join('\n');
+  const potassiumOrder = potassium === 'with-k'
+    ? `${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL por bolsa.`
+    : undefined;
+  const glucoseOrder = glucoseFromD5 < 50
+    ? `SG 50% ${d50ExtraMl} mL IV em 24 h.`
+    : undefined;
 
   const lossesLine = losses === 'extra'
     ? 'Há perdas extras em curso: prescrever a reposição à parte, além da manutenção.'
@@ -127,21 +104,23 @@ function buildPrescription(weight: number, profile: Profile, potassium: Potassiu
       potassium === 'with-k'
         ? `Necessidade fisiológica estimada de K: ~${potassiumTarget} mEq/24 h. Por segurança, a prescrição inicial foi limitada a ${potassiumTotal} mEq/24 h até nova avaliação de K, função renal e diurese.`
         : 'Potássio retirado da prescrição inicial.',
-      'Meta de glicose: pelo menos 50 g/24 h.',
+      potassium === 'with-k'
+        ? `${selectedKcl.label}: ${formatNumber(selectedKclMlPerBag)} mL/bolsa = ${formatNumber(potassiumPerBag)} mEq/bolsa. Equivalente com ${alternativeKcl.label}: ${formatNumber(alternativeKclMlPerBag)} mL/bolsa. Preferir bolsa premisturada; KCl concentrado nunca deve ser administrado sem diluição.`
+        : 'Sem KCl na solução inicial.',
+      `O SG 5% fornece ~${Math.round(glucoseFromD5)} g de glicose/24 h${glucoseFromD5 < 50 ? `; são necessários mais ${d50ExtraMl} mL de SG 50% para atingir 50 g/dia` : ', portanto já cobre a meta mínima de 50 g/dia'}.`,
+      `Alternativa: glicofisiológico 1:1, preparado com partes iguais de SG 5% e SF 0,9%; no volume calculado fornece ~${alternativeSodium} mEq de Na e exige ${formatNumber(extraNaCl20Alt)} mL adicionais de NaCl 20%/24 h e ${extraD50ForAltMl} mL de SG 50%/24 h para aproximar as mesmas metas.`,
       lossesLine,
     ],
     prescription: [
       'FLUIDOTERAPIA DE MANUTENÇÃO',
       '',
-      optionA,
+      `SG 5% ${bagVolume.toLocaleString('pt-BR')} mL IV — ${roundedBags} bolsa(s).`,
+      `Em cada bolsa: NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL${potassiumOrder ? ` + ${potassiumOrder}` : '.'}`,
+      `Infundir 1 bolsa em ${bagHours} h.`,
+      ...(glucoseOrder ? [glucoseOrder] : []),
       '',
-      optionB,
-      '',
-      'Observações:',
-      '1. Descontar dieta, medicações diluídas, antibióticos, nutrição e outras infusões do volume total.',
-      `2. ${lossesLine}`,
-      '3. Monitorar balanço hídrico, diurese, Na, K e creatinina.',
-      '4. Reavaliar a prescrição em 24 h ou antes se houver instabilidade clínica ou laboratorial.',
+      'Balanço hídrico e diurese.',
+      'Controlar Na, K e creatinina; reavaliar em até 24 h.',
     ].join('\n'),
   };
 }
