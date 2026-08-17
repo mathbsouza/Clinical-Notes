@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-type Step = 'source' | 'weight' | 'profile' | 'solution' | 'potassium' | 'potassium-product' | 'losses';
+type Step = 'source' | 'weight' | 'profile' | 'potassium' | 'potassium-product' | 'losses';
 type SourceMode = 'nice' | 'uptodate';
 type Profile = 'standard' | 'restricted';
-type SolutionMode = 'd5' | 'half-and-half';
 type PotassiumMode = 'with-k' | 'without-k';
 type PotassiumProduct = 'kcl-10' | 'kcl-19.1';
 type LossMode = 'none' | 'extra';
@@ -14,7 +13,6 @@ type Snapshot = {
   source?: SourceMode;
   weight: string;
   profile?: Profile;
-  solution?: SolutionMode;
   potassium?: PotassiumMode;
   potassiumProduct?: PotassiumProduct;
   losses?: LossMode;
@@ -48,7 +46,6 @@ function buildPrescription(
   source: SourceMode,
   weight: number,
   profile: Profile,
-  solution: SolutionMode,
   potassium: PotassiumMode,
   potassiumProduct: PotassiumProduct | undefined,
   losses: LossMode,
@@ -65,23 +62,20 @@ function buildPrescription(
   const finalDailyVolume = bagVolume * roundedBags;
   const bagHours = Math.round(24 / roundedBags);
 
-  const niceSodiumTarget = Math.round(weight);
-  const uptodateSodiumTarget = Math.round(finalDailyVolume * 0.077);
-  const sodiumTarget = source === 'uptodate' ? uptodateSodiumTarget : niceSodiumTarget;
-  const potassiumTarget = Math.round(weight);
-
   const sourceLabel = source === 'nice' ? 'NICE' : 'UpToDate';
   const profileLabel = profile === 'restricted'
     ? 'restrição relativa de volume (idoso, IC, DRC ou risco de sobrecarga)'
     : 'manutenção basal habitual';
 
-  const sodiumFromBase = solution === 'half-and-half' ? finalDailyVolume * 0.077 : 0;
-  const sodiumToAdd = Math.max(0, sodiumTarget - sodiumFromBase);
-  const sodiumFromNaCl20TotalMl = Number((sodiumToAdd / 3.4).toFixed(1));
+  const sodiumTarget = source === 'uptodate'
+    ? Math.round(finalDailyVolume * 0.077)
+    : Math.round(weight);
+  const sodiumFromNaCl20TotalMl = Number((sodiumTarget / 3.4).toFixed(1));
   const sodiumFromNaCl20PerBagMl = Number((sodiumFromNaCl20TotalMl / roundedBags).toFixed(1));
-  const totalSodiumApprox = Math.round(sodiumFromBase + sodiumFromNaCl20PerBagMl * 3.4 * roundedBags);
-  const glucoseFromBase = finalDailyVolume * (solution === 'd5' ? 0.05 : 0.025);
+  const totalSodiumApprox = Math.round(sodiumFromNaCl20PerBagMl * 3.4 * roundedBags);
+  const glucoseFromBase = finalDailyVolume * 0.05;
 
+  const potassiumTarget = Math.round(weight);
   const potassiumTotal = potassium === 'with-k'
     ? source === 'uptodate'
       ? roundToNearest((finalDailyVolume / 1000) * 20, 10)
@@ -102,22 +96,11 @@ function buildPrescription(
   const d50ExtraMl = Math.ceil(glucoseDeficit / 0.5 / 10) * 10;
   const d50ExtraPerBagMl = d50ExtraMl / roundedBags;
 
-  const potassiumOrder = potassium === 'with-k'
-    ? `${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL`
-    : undefined;
-
   const additives = [
-    ...(sodiumFromNaCl20TotalMl > 0 ? [`NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL`] : []),
-    ...(potassiumOrder ? [potassiumOrder] : []),
+    `NaCl 20% ${formatNumber(sodiumFromNaCl20PerBagMl)} mL`,
+    ...(potassium === 'with-k' ? [`${selectedKcl.label} ${formatNumber(selectedKclMlPerBag)} mL`] : []),
     ...(d50ExtraMl > 0 ? [`SG 50% ${formatNumber(d50ExtraPerBagMl)} mL`] : []),
   ];
-
-  const solutionOrder = solution === 'd5'
-    ? [`SG 5% ${bagVolume.toLocaleString('pt-BR')} mL IV - ${roundedBags} bolsa(s).`]
-    : [
-      `Solução glicofisiológica 1:1 ${bagVolume.toLocaleString('pt-BR')} mL IV - ${roundedBags} bolsa(s).`,
-      `Preparar cada bolsa: SG 5% ${formatNumber(bagVolume / 2)} mL + SF 0,9% ${formatNumber(bagVolume / 2)} mL.`,
-    ];
 
   const lossesLine = losses === 'extra'
     ? 'Há perdas extras em curso: prescrever a reposição à parte, além da manutenção.'
@@ -132,11 +115,9 @@ function buildPrescription(
       `Meta hídrica: ${formatRange(volumeLow, volumeHigh)} mL/24 h (${Math.round(hourlyLow)}-${Math.round(hourlyHigh)} mL/h).`,
       `Volume prático adotado aqui: ${finalDailyVolume.toLocaleString('pt-BR')} mL/24 h.`,
       source === 'uptodate'
-        ? 'Nesta via, o alvo de sódio segue a lógica da salina 1/2 isotônica em SG 5% (~77 mEq/L da solução final).'
-        : 'Nesta via, o alvo de sódio segue a lógica basal aproximada de ~1 mEq/kg/dia.',
-      solution === 'd5'
-        ? `Solução-base: SG 5%. NaCl 20% acrescentado para ofertar ~${totalSodiumApprox} mEq de Na/24 h, próximo da meta estimada de ~${sodiumTarget} mEq/24 h${source === 'uptodate' ? ', aproximando D5 + salina 1/2 isotônica' : ''}.`
-        : `Solução-base: glicofisiológico 1:1. A própria mistura oferta ~${totalSodiumApprox} mEq de Na/24 h para uma meta basal estimada de ~${sodiumTarget} mEq/24 h${totalSodiumApprox > sodiumTarget ? '; a oferta excede a meta calculada e deve ser confirmada conforme o contexto clínico' : ''}${source === 'uptodate' ? '; lembrar que esta alternativa não é idêntica ao esquema D5 + salina 1/2 isotônica' : ''}.`,
+        ? 'O alvo de sódio segue a lógica da salina 1/2 isotônica em SG 5% (~77 mEq/L da solução final).'
+        : 'O alvo de sódio segue a lógica basal aproximada de ~1 mEq/kg/dia.',
+      `Solução-base: SG 5%. NaCl 20% acrescentado para ofertar ~${totalSodiumApprox} mEq de Na/24 h, próximo da meta estimada de ~${sodiumTarget} mEq/24 h${source === 'uptodate' ? ', aproximando D5 + salina 1/2 isotônica' : ''}.`,
       potassium === 'with-k'
         ? source === 'uptodate'
           ? `Pelo UpToDate, o alvo inicial de K foi calculado como 20 mEq/L da solução final, totalizando ${potassiumTotal} mEq/24 h.`
@@ -145,14 +126,14 @@ function buildPrescription(
       potassium === 'with-k'
         ? `${selectedKcl.label}: ${formatNumber(selectedKclMlPerBag)} mL/bolsa = ${formatNumber(potassiumPerBag)} mEq/bolsa. Equivalente com ${alternativeKcl.label}: ${formatNumber(alternativeKclMlPerBag)} mL/bolsa. Preferir bolsa premisturada; KCl concentrado nunca deve ser administrado sem diluição.`
         : 'Sem KCl na solução inicial.',
-      `${solution === 'd5' ? 'O SG 5%' : 'A solução 1:1'} fornece ~${Math.round(glucoseFromBase)} g de glicose/24 h${glucoseFromBase < 50 ? `; complementar com ${d50ExtraMl} mL de SG 50% no total diário, distribuídos como ${formatNumber(d50ExtraPerBagMl)} mL em cada bolsa, para atingir 50 g/dia` : ', portanto já cobre a meta mínima de 50 g/dia'}.`,
+      `O SG 5% fornece ~${Math.round(glucoseFromBase)} g de glicose/24 h${glucoseFromBase < 50 ? `; complementar com ${d50ExtraMl} mL de SG 50% no total diário, distribuídos como ${formatNumber(d50ExtraPerBagMl)} mL em cada bolsa, para atingir 50 g/dia` : ', portanto já cobre a meta mínima de 50 g/dia'}.`,
       lossesLine,
     ],
     prescription: [
       'FLUIDOTERAPIA DE MANUTENÇÃO',
       '',
-      ...solutionOrder,
-      ...(additives.length > 0 ? [`Adicionar em cada bolsa: ${additives.join(' + ')}.`] : []),
+      `SG 5% ${bagVolume.toLocaleString('pt-BR')} mL IV - ${roundedBags} bolsa(s).`,
+      `Adicionar em cada bolsa: ${additives.join(' + ')}.`,
       `Infundir 1 bolsa de ${bagHours} em ${bagHours} horas.`,
       '',
       'Balanço hídrico e diurese.',
@@ -174,7 +155,6 @@ export default function FluidMaintenanceWizard() {
   const [source, setSource] = useState<SourceMode>();
   const [weightInput, setWeightInput] = useState('');
   const [profile, setProfile] = useState<Profile>();
-  const [solution, setSolution] = useState<SolutionMode>();
   const [potassium, setPotassium] = useState<PotassiumMode>();
   const [potassiumProduct, setPotassiumProduct] = useState<PotassiumProduct>();
   const [losses, setLosses] = useState<LossMode>();
@@ -191,7 +171,7 @@ export default function FluidMaintenanceWizard() {
   const validWeight = Number.isFinite(parsedWeight) && parsedWeight > 0;
 
   const pushHistory = () => {
-    setHistory((items) => [...items, { step: current, source, weight: weightInput, profile, solution, potassium, potassiumProduct, losses }]);
+    setHistory((items) => [...items, { step: current, source, weight: weightInput, profile, potassium, potassiumProduct, losses }]);
   };
 
   const chooseSource = (nextSource: SourceMode) => {
@@ -209,12 +189,6 @@ export default function FluidMaintenanceWizard() {
   const chooseProfile = (nextProfile: Profile) => {
     pushHistory();
     setProfile(nextProfile);
-    setCurrent('solution');
-  };
-
-  const chooseSolution = (nextSolution: SolutionMode) => {
-    pushHistory();
-    setSolution(nextSolution);
     setCurrent('potassium');
   };
 
@@ -244,7 +218,6 @@ export default function FluidMaintenanceWizard() {
     setSource(previous.source);
     setWeightInput(previous.weight);
     setProfile(previous.profile);
-    setSolution(previous.solution);
     setPotassium(previous.potassium);
     setPotassiumProduct(previous.potassiumProduct);
     setLosses(previous.losses);
@@ -256,14 +229,13 @@ export default function FluidMaintenanceWizard() {
     setSource(undefined);
     setWeightInput('');
     setProfile(undefined);
-    setSolution(undefined);
     setPotassium(undefined);
     setPotassiumProduct(undefined);
     setLosses(undefined);
   };
 
-  const result = source && validWeight && profile && solution && potassium && losses && (potassium === 'without-k' || potassiumProduct)
-    ? buildPrescription(source, parsedWeight, profile, solution, potassium, potassiumProduct, losses)
+  const result = source && validWeight && profile && potassium && losses && (potassium === 'without-k' || potassiumProduct)
+    ? buildPrescription(source, parsedWeight, profile, potassium, potassiumProduct, losses)
     : undefined;
 
   return <div className="magic-flowchart" id="prescricao-de-fluidoterapia-de-manutencao">
@@ -314,13 +286,6 @@ export default function FluidMaintenanceWizard() {
           <button type="button" onClick={() => chooseProfile('restricted')}>20-25 mL/kg/dia</button>
         </div>
       </>}
-      {current === 'solution' && <>
-        <h4>Solução-base</h4>
-        <div className="magic-flowchart__options">
-          <button type="button" onClick={() => chooseSolution('d5')}>SG 5%</button>
-          <button type="button" onClick={() => chooseSolution('half-and-half')}>Glicofisiológico 1:1</button>
-        </div>
-      </>}
       {current === 'potassium' && <>
         <h4>Repor potássio de rotina?</h4>
         <p>Depende de creatinina, diurese e K sérico.</p>
@@ -354,16 +319,16 @@ export default function FluidMaintenanceWizard() {
       <div className="magic-flowchart__modal-panel" onClick={(event) => event.stopPropagation()}>
         <div className="magic-flowchart__modal-head"><h3>Regras usadas</h3><button type="button" onClick={() => setShowRules(false)} aria-label="Fechar">×</button></div>
         <div className="magic-flowchart__modal-list">
+          <RuleCard title="Solução-base" text="O Magic usa apenas SG 5% como base. O sódio é acrescentado com NaCl 20% para aproximar a tonicidade desejada." />
           <RuleCard title="NICE" text="Manutenção isolada no adulto: 25-30 mL/kg/dia de água, ~1 mEq/kg/dia de sódio, potássio e cloreto, e 50-100 g/dia de glicose." />
           <RuleCard title="Faixa reduzida" text="Usar 20-25 mL/kg/dia quando houver maior risco de sobrecarga, como em idosos, insuficiência cardíaca ou insuficiência renal." />
-          <RuleCard title="UpToDate" text="No paciente estável com função renal normal ou quase normal, a referência prática inicial é 2 L/dia de salina 1/2 isotônica em SG 5%, com 20 mEq de KCl por litro; o Magic traduz essa lógica para o volume final escolhido." />
+          <RuleCard title="UpToDate" text="No paciente estável com função renal normal ou quase normal, a referência prática inicial é uma solução equivalente a salina 1/2 isotônica em SG 5%, com 20 mEq de KCl por litro; o Magic traduz essa lógica para o volume final escolhido." />
           <RuleCard title="Monitorização" text="Sódio sérico guia o balanço de água; peso diário, balanço hídrico e exame clínico ajudam mais a julgar ganho ou perda de volume." />
           <RuleCard title="Potássio" text="Se a base escolhida for NICE, o Magic usa alvo fisiológico e limita a prescrição inicial a 60 mEq/24 h até reavaliação. Se a base escolhida for UpToDate, usa 20 mEq/L como referência inicial. Não repor automaticamente em oligúria, anúria, hipercalemia ou sem avaliação renal e laboratorial." />
           <RuleCard title="Velocidade com K" text="Se a bolsa contiver KCl, em geral não exceder 10 mEq/h; até 20 mEq/h só em hipocalemia ameaçadora à vida, com monitorização adequada." />
           <RuleCard title="Perdas em curso" text="Vômitos, diarreia, débito de sonda, poliúria e febre importante exigem reposição adicional à parte. Isso não deve ser embutido na manutenção basal." />
-          <RuleCard title="Composições úteis" text="NaCl 20% contém ~3,4 mEq de sódio por mL. Glicofisiológico 1:1 pode ser preparado com 500 mL de SG 5% + 500 mL de SF 0,9%, gerando 1.000 mL com ~77 mEq de Na e 25 g de glicose." />
+          <RuleCard title="Composições úteis" text="NaCl 20% contém ~3,4 mEq de sódio por mL. O SG 50% contém 50 g por 100 mL e só entra como complemento quando o SG 5% não atingir a meta mínima diária de glicose." />
           <RuleCard title="Ajustes" text="Se o Na começar a cair, concentrar a solução; se o Na subir, diluir. Se o K cair, acrescentar potássio; se subir, retirar." />
-          <RuleCard title="Glicose" text="Quando a mistura escolhida não atingir 50 g/dia, o bloco distribui igualmente entre as bolsas o complemento calculado de SG 50%. Como referência prática, 20 mL de SG 50% fornecem 10 g de glicose." />
           <RuleCard title="Dextrose" text="Soluções com dextrose ajudam em hipoglicemia e cetose de jejum, mas pedem cautela em diabetes descompensado e hipocalemia." />
         </div>
       </div>
