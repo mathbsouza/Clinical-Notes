@@ -237,8 +237,10 @@ export default function App() {
     return (
       <DesktopReader
         
-        tocExpanded={tocExpanded}activeNote={activeNote}
+        tocExpanded={tocExpanded}
+        activeNote={activeNote}
         menuColumns={visibleColumns}
+        onHome={returnHome}
         onOpenArticle={openArticle}
         onRetract={retractTo}
         onSelectNode={selectNode}
@@ -386,6 +388,7 @@ type DesktopReaderProps = {
   query: string;
   searchResults: Note[];
   setQuery: (query: string) => void;
+  onHome: () => void;
   onOpenArticle: (slug: string) => void;
   onRetract: (index: number) => void;
   onSelectNode: (node: NavNode) => void;
@@ -398,11 +401,12 @@ function DesktopReader({
   query,
   searchResults,
   setQuery,
+  onHome,
   onOpenArticle,
   onRetract,
   onSelectNode,
 }: DesktopReaderProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const menuStep = Math.max(menuColumns.length - 1, 0);
 
   useEffect(() => {
@@ -423,7 +427,7 @@ function DesktopReader({
           >
             <Menu size={21} aria-hidden="true" />
           </button>
-          <span className="text-xl font-semibold tracking-tight text-neutral-100">Clinical Notes</span>
+          <button className="text-xl font-semibold tracking-tight text-neutral-100 transition hover:text-orange-200" onClick={onHome} type="button">Clinical Notes</button>
         </div>
 
         <label className="search-shell group relative block w-full">

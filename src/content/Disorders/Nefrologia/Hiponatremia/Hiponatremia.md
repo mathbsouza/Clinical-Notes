@@ -29,14 +29,15 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 Disorders/Nefrologia/Hiponatremia/diagrams/etiology-by-mechanism.svg|Principais causas de hiponatremia conforme o mecanismo
 ```
 ## Diagnóstico
-```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
-```
 
-- Confirmar o resultado em nova amostra quando ele for inesperado, medir glicose e osmolaridade sérica e colher **osmolaridade urinária e sódio urinário simultaneamente**, antes de administrar volume sempre que isso não atrasar o tratamento de uma emergência. 
+### Confirmação e exames iniciais
+
+- Confirmar o resultado em nova amostra quando ele for inesperado, medir glicose e osmolaridade sérica e colher **osmolaridade urinária e sódio urinário simultaneamente**, antes de administrar volume sempre que isso não atrasar o tratamento de uma emergência.
 - Solicitar função renal, potássio, TSH e cortisol matinal.[^ese-guideline]
 
-| Etapa | Resultado | Interpretação prática |
+### Interpretação laboratorial
+
+| Parâmetro | Resultado | Interpretação prática |
 | --- | --- | --- |
 | Osmolaridade sérica | > 295 mOsm/kg | Hiponatremia hipertônica, em geral por hiperglicemia ou outro osmólito efetivo. |
 | Osmolaridade sérica | 275–295 mOsm/kg | Considerar pseudohiponatremia por hipertrigliceridemia/hiperproteinemia e método indireto do laboratório. |
@@ -44,12 +45,22 @@ Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investiga�
 | Osmolaridade urinária | ≤ 100 mOsm/kg | ADH suprimido: excesso de água ou baixa ingestão de solutos, como polidipsia primária e potomania. |
 | Osmolaridade urinária | > 100 mOsm/kg | ADH ativo; interpretar sódio urinário. |
 | Sódio urinário | ≤ 30 mmol/L | Baixo volume arterial efetivo: mecanismo hipertonodepletivo nas perdas extrarrenais ou aquacumulativo por ADH não osmótico na insuficiência cardíaca/cirrose. |
+
+### Sódio urinário acima de 30 mmol/L
+
 ```svg-diagram
 Disorders/Nefrologia/Hiponatremia/diagrams/high-urine-sodium.svg|Interpretação do sódio urinário acima de 30 mmol/L
 ```
 
-- Na hiperglicemia, uma estimativa útil é: **Na corrigido = Na medido + 2,4 × [(glicose em mg/dL − 100)/100]**. A correção é aproximada e serve para reconhecer hiponatremia translocacional; o tratamento deve ser dirigido à hiperglicemia e à osmolaridade, não à infusão automática de sódio.[^hillier-corrected-na]
+### Hiperglicemia
 
+- Uma estimativa útil é: **Na corrigido = Na medido + 2,4 × [(glicose em mg/dL − 100)/100]**. A correção é aproximada e serve para reconhecer hiponatremia translocacional; o tratamento deve ser dirigido à hiperglicemia e à osmolaridade, não à infusão automática de sódio.[^hillier-corrected-na]
+
+### Investigação etiológica
+
+```svg-diagram
+Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
+```
 ## Tratamento
 
 - A terapia nas primeiras seis horas depende da duração, dos sintomas, do valor do Na, da presença de patologia intracraniana e do risco de autocorreção. Choque ou instabilidade hemodinâmica exigem ressuscitação com cristaloide isotônico antes de seguir o protocolo do sódio.[^sfe-emergency][^uptodate-initial-hyponatremia]
