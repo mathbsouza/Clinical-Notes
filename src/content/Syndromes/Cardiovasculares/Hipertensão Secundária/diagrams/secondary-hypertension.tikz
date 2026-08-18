@@ -1,0 +1,334 @@
+\usetikzlibrary{matrix,positioning,arrows.meta,shapes.geometric,calc}
+
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowred}{RGB}{165,29,45}
+\definecolor{flowredfill}{RGB}{255,243,243}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+
+\begin{tikzpicture}[
+  font=\sffamily\footnotesize,
+  line cap=round,
+  line join=round,
+  arrow/.style={draw=black, line width=0.55pt, -{Stealth[scale=1.0]}},
+  trunk/.style={draw=black, line width=0.55pt},
+  junction/.style={inner sep=0pt, minimum width=0pt, minimum height=0pt, draw=none, fill=none},
+  process/.style={
+    rectangle, rounded corners=1.5mm, draw=black, line width=0.55pt,
+    fill=white, text=black, text width=5.8cm, align=center,
+    inner xsep=2.5mm, inner ysep=2.1mm
+  },
+  processgreen/.style={
+    process, draw=flowgreen, fill=flowgreenfill
+  },
+  processblue/.style={
+    process, draw=flowblue, fill=flowbluefill
+  },
+  decision/.style={
+    diamond, aspect=2.15, draw=black, line width=0.55pt,
+    fill=floworangefill, text=black, text width=5.4cm, align=center,
+    inner xsep=1.6mm, inner ysep=1.1mm
+  },
+  terminal/.style={
+    rectangle, rounded corners=1.8mm, draw=flowblue, line width=0.7pt,
+    fill=flowbluefill, text=black, text width=7.2cm, align=center,
+    inner xsep=2.8mm, inner ysep=2.5mm
+  },
+  infowide/.style={
+    rectangle, rounded corners=2mm, draw=flowblue, line width=0.65pt,
+    fill=flowbluefill, text=black, text width=18.7cm, align=left,
+    inner xsep=3.2mm, inner ysep=2.8mm
+  },
+  sideblue/.style={
+    rectangle, rounded corners=1.8mm, draw=flowblue, line width=0.55pt,
+    fill=white, text=black, text width=6.1cm, align=left,
+    inner xsep=2.6mm, inner ysep=2.2mm
+  },
+  sideorange/.style={
+    rectangle, rounded corners=1.8mm, draw=floworange, line width=0.55pt,
+    fill=floworangefill, text=black, text width=6.1cm, align=left,
+    inner xsep=2.6mm, inner ysep=2.2mm
+  },
+  sidenote/.style={
+    rectangle, rounded corners=1.8mm, draw=flowblue, line width=0.55pt,
+    fill=flowbluefill, text=black, text width=5.6cm, align=left,
+    inner xsep=2.6mm, inner ysep=2.3mm
+  },
+  sidetitle/.style={
+    rectangle, rounded corners=1.8mm, draw=flowblue, line width=0.55pt,
+    fill=flowblue, text=white, text width=6.1cm, align=center,
+    inner xsep=2.5mm, inner ysep=2.4mm, font=\sffamily\bfseries\small
+  },
+  footbox/.style={
+    rectangle, rounded corners=2mm, draw=flowblue, line width=0.55pt,
+    fill=flowbluefill, text=black, text width=27.8cm, align=center,
+    inner xsep=3mm, inner ysep=2.3mm
+  }
+]
+
+% -----------------------------------------------------------------------------
+% Matriz principal do fluxo.
+% Coluna 2 = fluxo principal.
+% Coluna 1 = ramos laterais esquerdos.
+% Coluna 3 = ramos laterais direitos.
+% -----------------------------------------------------------------------------
+\matrix (flow) [
+  matrix of nodes,
+  row sep=6mm,
+  column sep=7mm,
+  nodes in empty cells,
+  nodes={anchor=center}
+] {
+  & |[processblue] (confirm)| {\textbf{Confirmar hipertens\~ao e excluir pseudorresist\^encia}\newline MAPA/MRPA $\;\bullet\;$ ades\~ao $\;\bullet\;$ doses adequadas $\;\bullet\;$ t\'ecnica correta} & \\
+  & |[decision] (dMeds)| {\textbf{Uso de medicamentos ou subst\^ancias que elevam PA?}\newline (ver lista ao lado)} &
+  |[processgreen] (medAdjust)| {Suspender/ajustar quando poss\'ivel, reavaliar PA e revisar a exposi\c c\~ao} \\
+  |[processblue] (medOutcome)| {\textbf{Desfecho compat\'vel com causa medicamentosa}\newline $\rightarrow$ Manter ajuste/suspens\~ao e seguir monitorando PA} &
+  |[decision] (dMedResolved)| {\textbf{PA normalizou ou suspeita foi explicada?}} &
+  |[junction] (medReturn)| {} \\
+  |[processgreen] (paScreen)| {\textbf{Rastrear hiperaldosteronismo prim\'ario}\newline\raggedright
+    $\bullet$ Aldosterona plasm\'atica e renina (rela\c c\~ao aldosterona/renina)\par
+    $\bullet$ Confirmat\'orio: teste salino oral, captopril, fludrocortisona ou carga de s\'odio\par
+    $\bullet$ TC de adrenais (ap\'os confirma\c c\~ao bioqu\'imica)
+  } &
+  |[decision] (dHypo)| {\textbf{Hipocalemia?}\newline (espont\^anea ou induzida por diur\'etico)} & \\
+  |[processblue] (paConfirm)| {\textbf{Aldosteronismo prim\'ario confirmado}\newline $\rightarrow$ TC adrenal + encaminhar para acordo end\'ocrino/cir\'urgico} &
+  |[decision] (dOsa)| {\textbf{Apneia obstrutiva do sono?}\newline (ronco alto, pausas, sonol\^encia diurna, obesidade, $\uparrow$ circunfer\^encia cervical)} &
+  |[processgreen] (osaTest)| {Polissonografia (ou oximetria noturna) e encaminhar para tratamento} \\
+  &
+  |[decision] (dRenal)| {\textbf{Doen\c ca renal parenquimatosa?}\newline ($\uparrow$ creatinina, hemat\'uria, protein\'uria, DRC)} &
+  |[processgreen] (renalTests)| {EAS + rela\c c\~ao albumina/creatinina\newline USG de rins e vias urin\'arias} \\
+  &
+  |[junction] (gapRenal)| {} &
+  |[processblue] (renalFollow)| {Nefropatia parenquimatosa $\rightarrow$ seguimento com Nefrologia} \\
+  &
+  |[decision] (dReno)| {\textbf{Evid\^encia cl\'inica de doen\c ca renovascular?}\newline (sopro abdominal, assimetria renal, piora da fun\c c\~ao renal ap\'os IECA/BRA, edema agudo de pulm\~ao)} &
+  |[processgreen] (renoTests)| {Doppler de art\'erias renais (1\textsuperscript{a} escolha)\newline ou AngioTC/RM de art\'erias renais} \\
+  &
+  |[junction] (gapReno)| {} &
+  |[processblue] (renoFollow)| {Estenose de art\'eria renal $\rightarrow$ encaminhar para Nefrologia/Cirurgia Vascular} \\
+  &
+  |[decision] (dEndo)| {\textbf{Suspeita de doen\c ca end\'ocrina?}\newline (quadro cl\'inico sugestivo)} &
+  |[processgreen] (endoTests)| {\raggedright
+    $\bullet$ Tireoide: TSH e T4 livre\par
+    $\bullet$ Hiperparatireoidismo: c\'alcio, PTH, 25(OH)D\par
+    $\bullet$ Feocromocitoma/paraganglioma: metanefrinas plasm\'aticas livres (ou urin\'arias 24 h)\par
+    $\bullet$ Cushing: cortisol livre urin\'ario 24 h ou teste de supress\~ao com 1 mg de dexametasona\par
+    $\bullet$ Acromegalia: IGF-1\par
+    $\bullet$ Hipo/hipertireoidismo: TSH, T4 livre
+  } \\
+  &
+  |[decision] (dRare)| {\textbf{Suspeita de causa rara ou gen\'etica?}\newline (idade jovem, hist\'oria familiar forte, achados sugestivos)} &
+  |[processgreen] (rareTests)| {Investigar causas gen\'eticas e raras (ver quadro ao lado) e encaminhar para servi\c co especializado} \\
+  & |[terminal] (primary)| {\textbf{\large Hipertens\~ao prim\'aria mais prov\'avel}\newline Manter tratamento e reavaliar periodicamente.\newline Investigar outras causas secund\'arias apenas se surgirem novos achados.} & \\
+};
+
+% -----------------------------------------------------------------------------
+% CritÃ©rios de entrada.
+% -----------------------------------------------------------------------------
+\matrix (criteriaMatrix) [
+  matrix of nodes,
+  nodes={anchor=center},
+  above=6mm of flow.north
+] {
+  |[infowide] (criteria)| {\centering\bfseries\large Quando suspeitar? (crit\'erios de entrada)\par\vspace{1.5mm}\normalfont\sffamily\footnotesize\raggedright
+    \parbox[t]{8.75cm}{
+      $\bullet$ In\'icio antes dos 30 anos\par
+      $\bullet$ Hipertens\~ao grau 3 ou resistente (uso de $\geq 3$ anti-hipertensivos, incluindo diur\'etico)\par
+      $\bullet$ Eleva\c c\~ao s\'ubita ou r\'apida da PA\par
+      $\bullet$ Hipertens\~ao e les\~ao de \'org\~ao-alvo desproporcional
+    }\hfill
+    \parbox[t]{8.75cm}{
+      $\bullet$ Hipocalemia espont\^anea ou induzida por diur\'etico\par
+      $\bullet$ Assimetria renal/sopro abdominal\par
+      $\bullet$ Apneia do sono ou sintomas sugestivos\par
+      $\bullet$ Hist\'oria familiar de causa gen\'etica/end\'ocrina\par
+      $\bullet$ Piora da fun\c c\~ao renal ap\'os IECA/BRA
+    }
+  } \\
+};
+
+% -----------------------------------------------------------------------------
+% CabeÃ§alho.
+% -----------------------------------------------------------------------------
+\matrix (header) [
+  matrix of nodes,
+  row sep=1.5mm,
+  nodes={anchor=center},
+  above=5mm of criteriaMatrix.north
+] {
+  |[draw=none, fill=none, text width=24cm, align=center, font=\rmfamily\bfseries\Huge]|
+    Investiga\c c\~ao de Hipertens\~ao Secund\'aria \\
+  |[draw=none, fill=none, text width=24cm, align=center, font=\rmfamily\Large]|
+    Abordagem dirigida pelo pr\'e-teste: do mais prevalente ao menos prevalente \\
+};
+
+% -----------------------------------------------------------------------------
+% Barra lateral direita.
+% -----------------------------------------------------------------------------
+\matrix (rightbar) [
+  matrix of nodes,
+  row sep=3.8mm,
+  nodes={anchor=center},
+  at={($(criteria.north east)+(14mm,0)$)},
+  anchor=north west
+] {
+  |[sidetitle] (specialTitle)| {Situa\c c\~oes especiais\newline (realidade brasileira)} \\
+  |[sideblue] (specialPreg)| {\textbf{Gravidez}\par\vspace{0.8mm}
+    $\bullet$ Investigar em toda hipertens\~ao $<20$ semanas ou com protein\'uria importante\par
+    $\bullet$ Exames: urina tipo I, rela\c c\~ao albumina/creatinina, fun\c c\~ao renal, plaquetas, TGO/TGP, \'acido \'urico
+  } \\
+  |[sideblue] (specialSubst)| {\textbf{Medica\c c\~oes e subst\^ancias}\par\vspace{0.8mm}
+    $\bullet$ AINEs, corticoides, anticoncepcionais\par
+    $\bullet$ Descongestionantes, eritropoetina\par
+    $\bullet$ Coca\'ina, anfetaminas, alca\c cuz\par
+    $\bullet$ Revis\~ao completa da farmacoterapia
+  } \\
+  |[sideblue] (specialSalt)| {\textbf{Alta ingest\~ao de sal}\par\vspace{0.8mm}
+    $\bullet$ Muito prevalente\par
+    $\bullet$ Dieta rica em sal ainda comum\par
+    $\bullet$ Aconselhar redu\c c\~ao do sal e alimentos ultraprocessados
+  } \\
+  |[sideblue] (specialChagas)| {\textbf{Doen\c ca de Chagas}\par\vspace{0.8mm}
+    $\bullet$ Pode cursar com disfun\c c\~ao auton\^omica e altera\c c\~oes card\'iacas/renais que agravam hipertens\~ao\par
+    $\bullet$ Considerar na hist\'oria epidemiol\'ogica
+  } \\
+  |[sideblue] (specialOsa)| {\textbf{Apneia do sono}\par\vspace{0.8mm}
+    $\bullet$ Muito prevalente, especialmente em obesos, homens e idosos\par
+    $\bullet$ Pesquisa ativa \'e recomendada
+  } \\
+  |[sideblue] (specialAccess)| {\textbf{Acesso limitado a exames}\par\vspace{0.8mm}
+    $\bullet$ Priorizar exames de maior rendimento\par
+    $\bullet$ Usar USG e Doppler quando dispon\'iveis\par
+    $\bullet$ Encaminhar para servi\c cos de refer\^encia quando necess\'ario
+  } \\
+  |[sideorange] (medList)| {\centering\textbf{\color{floworange}Medicamentos e subst\^ancias associados \`a hipertens\~ao}\par\vspace{1mm}\raggedright
+    $\bullet$ AINEs, corticoides, ciclosporina, tacrolimo\par
+    $\bullet$ Anticoncepcionais hormonais, eritropoetina\par
+    $\bullet$ Descongestionantes (pseudoefedrina)\par
+    $\bullet$ Coca\'ina, anfetaminas, ecstasy\par
+    $\bullet$ Alca\c cuz (licorice), ginseng, efedra\par
+    $\bullet$ Inibidores de calcineurina, bevacizumabe\par
+    $\bullet$ Excesso de \'alcool\par
+    $\bullet$ Esteroides anabolizantes
+  } \\
+  |[sideorange] (rareList)| {\centering\textbf{\color{floworange}Causas gen\'eticas e raras}\newline \small (considerar conforme contexto)\par\vspace{1mm}\raggedright
+    $\bullet$ Hiperaldosteronismo familiar (formas gen\'eticas)\par
+    $\bullet$ S\'indrome de Liddle\par
+    $\bullet$ S\'indrome de Gordon (pseudohipoaldosteronismo II)\par
+    $\bullet$ Feocromocitoma/paraganglioma familiar (VHL, RET, NF1, SDHB/D, entre outros)\par
+    $\bullet$ S\'indrome de Cushing ACTH-dependente rara\par
+    $\bullet$ Acromegalia\par
+    $\bullet$ Coarta\c c\~ao da aorta\par
+    $\bullet$ Displasia fibromuscular (jovens, mulheres)\par
+    $\bullet$ Vasculites (ex.: arterite de Takayasu)\par
+    $\bullet$ Doen\c cas infiltrativas renais raras
+  } \\
+};
+
+% -----------------------------------------------------------------------------
+% Barra lateral esquerda.
+% -----------------------------------------------------------------------------
+\matrix (leftbar) [
+  matrix of nodes,
+  row sep=4.5mm,
+  nodes={anchor=center},
+  at={($(dReno.west)+(-10mm,0)$)},
+  anchor=north east
+] {
+  |[sidenote] (howto)| {\centering\textbf{\large Como investigar?}\par\vspace{1.2mm}\raggedright
+    \textbf{1.} Estimar probabilidade pr\'e-teste (mais alta quando houver crit\'erios de entrada)\par\vspace{0.8mm}
+    \textbf{2.} Confirmar hipertens\~ao e excluir pseudorresist\^encia\par\vspace{0.8mm}
+    \textbf{3.} Revisar exposi\c c\~ao a medicamentos e subst\^ancias que elevam PA\par\vspace{0.8mm}
+    \textbf{4.} Investigar causas conforme probabilidade (do mais prevalente ao menos prevalente)\par\vspace{0.8mm}
+    \textbf{5.} Tratar a causa espec\'ifica quando identificada\par\vspace{0.8mm}
+    \textbf{6.} Reavaliar e monitorar resposta
+  } \\
+  |[sidenote] (basicTests)| {\centering\textbf{\large Exames iniciais b\'asicos}\newline \small (para a maioria dos pacientes)\par\vspace{1mm}\raggedright
+    $\bullet$ Creatinina, ureia, s\'odio, pot\'assio, c\'alcio\par
+    $\bullet$ Glicemia de jejum, perfil lip\'idico\par
+    $\bullet$ Urina tipo I e rela\c c\~ao albumina/creatinina\par
+    $\bullet$ Hemograma\par
+    $\bullet$ TSH (se suspeita cl\'inica)\par
+    $\bullet$ Eletrocardiograma\par\vspace{0.9mm}
+    \textbf{Obs.:} Solicitar outros exames conforme suspeita cl\'inica.
+  } \\
+};
+
+% -----------------------------------------------------------------------------
+% RodapÃ©.
+% -----------------------------------------------------------------------------
+\matrix (footer) [
+  matrix of nodes,
+  row sep=2mm,
+  nodes={anchor=center},
+  below=7mm of primary.south
+] {
+  |[footbox] (principles)| {\textbf{Princ\'ipios-chave}\hspace{7mm}
+    $\surd$ Sempre estimar a probabilidade pr\'e-teste\hspace{7mm}
+    $\surd$ Revisar precocemente medicamentos e subst\^ancias\hspace{7mm}
+    $\surd$ Investigar de forma dirigida e custo-efetiva\hspace{7mm}
+    $\surd$ Priorizar causas mais prevalentes na pr\'atica brasileira\hspace{7mm}
+    $\surd$ Reavaliar periodicamente e ajustar a investiga\c c\~ao conforme evolu\c c\~ao
+  } \\
+  |[draw=none, fill=none, text width=27.8cm, align=right, font=\sffamily\scriptsize]|
+    Refer\^encias: Diretrizes Brasileiras de Hipertens\~ao Arterial - SBC 2020/2024; UpToDate: Secondary Hypertension: Clinical Manifestations and Diagnosis (acesso 2024). \\
+};
+
+% -----------------------------------------------------------------------------
+% ConexÃµes do fluxo.
+% -----------------------------------------------------------------------------
+\draw[arrow] (criteria.south) -- (confirm.north);
+
+% Confirmacao -> medicacoes
+\draw[arrow] (confirm.south) -- (dMeds.north);
+
+% dMeds -> medAdjust
+\draw[arrow] (dMeds.east) -- node[above, font=\sffamily\scriptsize]{Sim} (medAdjust.west);
+
+% medAdjust -> reavaliacao central
+\draw[trunk] (medAdjust.south) -- (medReturn);
+\draw[arrow] (medReturn) -- (dMedResolved.east);
+
+% dMedResolved -> desfecho medicamentoso
+\draw[arrow] (dMedResolved.west) -- node[above, font=\sffamily\scriptsize]{Sim} (medOutcome.east);
+
+% dMedResolved -> hipocalemia
+\draw[arrow] (dMedResolved.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (dHypo.north);
+
+% Bypass local: dMeds = Nao contorna o no central e reencontra o fluxo em dHypo
+\coordinate (medNoA) at ($(dMeds.south)+(0,-3.5mm)$);
+\coordinate (medNoB) at ($(dHypo.east)+(8mm,0)$);
+\draw[trunk] (dMeds.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (medNoA) -| (medNoB);
+\draw[arrow] (medNoB) -- (dHypo.east);
+
+% Hipocalemia
+\draw[arrow] (dHypo.west) -- node[above, font=\sffamily\scriptsize]{Sim} (paScreen.east);
+\draw[arrow] (paScreen.south) -- (paConfirm.north);
+\draw[arrow] (dHypo.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (dOsa.north);
+
+% AOS
+\draw[arrow] (dOsa.east) -- node[above, font=\sffamily\scriptsize]{Sim} (osaTest.west);
+\draw[arrow] (dOsa.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (dRenal.north);
+
+% Renal parenquimatosa
+\draw[arrow] (dRenal.east) -- node[above, font=\sffamily\scriptsize]{Sim} (renalTests.west);
+\draw[arrow] (renalTests.south) -- (renalFollow.north);
+\draw[arrow] (dRenal.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (dReno.north);
+
+% Renovascular
+\draw[arrow] (dReno.east) -- node[above, font=\sffamily\scriptsize]{Sim} (renoTests.west);
+\draw[arrow] (renoTests.south) -- (renoFollow.north);
+\draw[arrow] (dReno.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (dEndo.north);
+
+% Endocrina
+\draw[arrow] (dEndo.east) -- node[above, font=\sffamily\scriptsize]{Sim} (endoTests.west);
+\draw[arrow] (dEndo.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (dRare.north);
+
+% Rara/genetica
+\draw[arrow] (dRare.east) -- node[above, font=\sffamily\scriptsize]{Sim} (rareTests.west);
+\draw[arrow] (dRare.south) -- node[right, font=\sffamily\scriptsize]{N\~ao} (primary.north);
+
+\end{tikzpicture}
