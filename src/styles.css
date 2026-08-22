@@ -1367,8 +1367,6 @@ body {
 .note-accordion {
   position: relative;
   margin: 0;
-  border-right: 1px solid rgb(255 255 255 / 0.1);
-  border-left: 1px solid rgb(255 255 255 / 0.1);
   background: transparent;
   overflow: clip;
 }
@@ -1432,7 +1430,6 @@ body {
   padding: 1rem 1.1rem;
   color: #fff7ed;
   background: linear-gradient(180deg, rgb(251 146 60 / 0.095), rgb(251 146 60 / 0.035));
-  box-shadow: inset 3px 0 0 rgb(251 146 60 / 0.72);
   font-size: 1.22rem;
 }
 

@@ -17,8 +17,8 @@
     & & |[decision] (polyuria)| {Poli{\'u}ria?} & & \\
     & & |[junction] (polyFork)| {} & & \\
     |[process] (di)| {Diabetes insipidus central ou nefrog{\^e}nico} &
-    |[process] (osmotic)| {Diurese osm{\'o}tica, diur{\'e}ticos ou fase poli{\'u}rica de IRA} &
-    & |[process] (insensible)| {Perdas insens{\'i}veis ou baixa ingest{\~a}o dominam} & \\
+    & |[process] (osmotic)| {Diurese osm{\'o}tica, diur{\'e}ticos ou fase poli{\'u}rica de IRA} &
+    & |[process] (insensible)| {Perdas insens{\'i}veis ou baixa ingest{\~a}o dominam} \\
   };
 
   \draw[arrow] (start.south) -- (initial.north);
