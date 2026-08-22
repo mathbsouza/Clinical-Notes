@@ -28,7 +28,7 @@ Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/etio
 
 | Fenótipo mecanístico | Mecanismo predominante | Pistas clínicas | Exemplos |
 | --- | --- | --- | --- |
-| **Aquadepletiva / aquarestritiva** | Déficit predominante de água livre por perda de água ou por restrição de entrada, sem perda proporcional de sódio. | Poliúria hipotônica, perdas insensíveis sem reposição ou incapacidade de beber. | Diabetes insipidus central ou nefrogênico, febre, ventilação mecânica, sedação, idoso frágil sem acesso à água. |
+| **Aquadepletiva / aquarestritiva** | <div><strong>Aquadepletiva:</strong> perda predominante de água livre, sem perda proporcional de sódio.</div><div><strong>Aquarestritiva:</strong> restrição de entrada de água, geralmente por limitação de sede, acesso ou dependência funcional.</div> | Poliúria hipotônica, perdas insensíveis sem reposição ou incapacidade de beber. | <div><strong>Aquadepletiva:</strong> diabetes insipidus central ou nefrogênico, febre, ventilação mecânica, perdas insensíveis.</div><div><strong>Aquarestritiva:</strong> idoso frágil, delirium, sedação, lactentes, ausência de oferta de água.</div> |
 | **Hipotonodepletiva** | Perda de fluido hipotônico, com perda de água maior que a perda de sódio. | Hipovolemia, urina concentrada quando a perda é extrarrenal, história de perdas gastrointestinais ou cutâneas. | Diarreia, sudorese, queimaduras, diurese osmótica, diuréticos, fase poliúrica de injúria renal. |
 | **Hipertonoacumulativa** | Ganho hipertônico de sódio, com expansão de soluto efetivo. | Aumento rápido do Na, hipervolemia ou exposição iatrogênica. | NaCl hipertônico, bicarbonato hipertônico, intoxicação por sal, fórmulas enterais hipertônicas sem água suficiente. |
 

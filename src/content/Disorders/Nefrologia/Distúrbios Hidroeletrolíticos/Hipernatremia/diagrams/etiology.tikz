@@ -8,23 +8,23 @@
   ] {
     & & |[terminal] (title)| {HIPERNATREMIA: Na $>145$ mmol/L} & & \\
     & & |[junction] (fork)| {} & & \\
-    |[infonode] (aquadep)| {\textbf{Aquadepletiva / aquarestritiva}\\d{\'e}ficit ou restri{\c c}{\~a}o de {\'a}gua livre} &
-    |[infonode] (hypotono)| {\textbf{Hipotonodepletiva}\\perda de fluido hipot{\^o}nico} &
-    |[alertnode] (hypertono)| {\textbf{Hipertonoacumulativa}\\ganho hipert{\^o}nico de s{\'o}dio} &
-    |[process] (access)| {\textbf{Fator permissivo}\\acesso reduzido a {\'a}gua} & \\
-    |[note] (aquadepEx)| {Diabetes insipidus central ou nefrog{\^e}nico; perdas insens{\'i}veis sem reposi{\c c}{\~a}o} &
+    |[infonode] (aquagroup)| {\textbf{Aquadepletiva / aquarestritiva}\\altera{\c c}{\~a}o predominante de {\'a}gua livre} &
+    & |[infonode] (hypotono)| {\textbf{Hipotonodepletiva}\\perda de fluido hipot{\^o}nico} &
+    & |[alertnode] (hypertono)| {\textbf{Hipertonoacumulativa}\\ganho hipert{\^o}nico de s{\'o}dio} \\
+    |[junction] (aquaFork)| {} & & & & \\
+    |[note] (aquadepEx)| {\textbf{Aquadepletiva}\\perda de {\'a}gua livre: DI, febre, perdas insens{\'i}veis} &
+    |[note] (aquarestEx)| {\textbf{Aquarestritiva}\\entrada restrita: idoso fr{\'a}gil, delirium, seda{\c c}{\~a}o, lactentes} &
     |[note] (hypotonoEx)| {Diarreia, sudorese, queimaduras, diurese osm{\'o}tica, diur{\'e}ticos} &
-    |[note] (hypertonoEx)| {NaCl hipert{\^o}nico, bicarbonato hipert{\^o}nico, intoxica{\c c}{\~a}o por sal} &
-    |[note] (accessEx)| {Idoso fr{\'a}gil, delirium, seda{\c c}{\~a}o, ventila{\c c}{\~a}o mec{\^a}nica, lactentes} & \\
+    & |[note] (hypertonoEx)| {NaCl hipert{\^o}nico, bicarbonato hipert{\^o}nico, intoxica{\c c}{\~a}o por sal} \\
   };
 
   \draw[trunk] (title.south) -- (fork);
-  \draw[arrow] (fork) -| (aquadep.north);
-  \draw[arrow] (fork) -| (hypotono.north);
+  \draw[arrow] (fork) -| (aquagroup.north);
+  \draw[arrow] (fork) -- (hypotono.north);
   \draw[arrow] (fork) -| (hypertono.north);
-  \draw[arrow] (fork) -| (access.north);
-  \draw[arrow] (aquadep.south) -- (aquadepEx.north);
+  \draw[trunk] (aquagroup.south) -- (aquaFork);
+  \draw[arrow] (aquaFork) -- (aquadepEx.north);
+  \draw[arrow] (aquaFork) -| (aquarestEx.north);
   \draw[arrow] (hypotono.south) -- (hypotonoEx.north);
   \draw[arrow] (hypertono.south) -- (hypertonoEx.north);
-  \draw[arrow] (access.south) -- (accessEx.north);
 \end{tikzpicture}
