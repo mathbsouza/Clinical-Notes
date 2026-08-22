@@ -6,6 +6,7 @@ const tex2svg = tikzjax.default;
 
 const contentRoot = path.resolve('src/content');
 const fontRoot = path.resolve('node_modules/node-tikzjax/css/bakoma/ttf');
+const sharedStylesPath = path.join(contentRoot, 'diagrams', 'flowchart-styles.tex');
 
 async function embedUsedFonts(svg) {
   const families = [...new Set(
@@ -48,9 +49,11 @@ if (files.length === 0) {
   throw new Error(`Nenhum diagrama encontrado para: ${filters.join(', ')}`);
 }
 
+const sharedStyles = await readFile(sharedStylesPath, 'utf8').catch(() => '');
+
 for (const inputPath of files) {
   const source = await readFile(inputPath, 'utf8');
-  const svg = await tex2svg(`\\begin{document}\n${source}\n\\end{document}`, {
+  const svg = await tex2svg(`\\begin{document}\n${sharedStyles}\n${source}\n\\end{document}`, {
     showConsole: process.env.DIAGRAM_DEBUG === '1',
     tikzLibraries: 'matrix,positioning,arrows.meta,shapes.geometric,calc',
     embedFontCss: true,

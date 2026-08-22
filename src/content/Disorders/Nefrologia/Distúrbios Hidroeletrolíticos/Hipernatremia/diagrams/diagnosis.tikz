@@ -1,29 +1,36 @@
-\begin{tikzpicture}[
-  font=\sffamily\small,
-  title/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
-    align=center, text width=9cm, minimum height=10mm, inner sep=3mm,
-    font=\sffamily\bfseries\normalsize},
-  box/.style={draw=black, fill=white, line width=.6pt, rectangle,
-    align=center, text width=4.7cm, minimum height=12mm, inner sep=3mm},
-  decision/.style={draw=black, fill=white, line width=.6pt, diamond,
-    aspect=2.2, align=center, text width=3.4cm, inner sep=1.5mm},
-  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
-    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
-]
-  \node[title] (start) {Na $>145$ mmol/L confirmado};
-  \node[box, below=10mm of start] (initial) {Glicose, osmolaridade serica, funcao renal, diurese, osmolaridade urinaria};
-  \node[decision, below=10mm of initial] (uosm) {Osm urinaria alta?};
-  \node[box, below left=13mm and 30mm of uosm] (extra) {\textbf{Sim}\\perda extrarrenal ou baixa ingesta de agua};
-  \node[box, below right=13mm and 30mm of uosm] (poly) {\textbf{Nao/inadequada}\\avaliar poliuria e perda renal de agua};
-  \node[decision, below=12mm of poly] (polyuria) {Poliuria?};
-  \node[box, below left=12mm and 20mm of polyuria] (di) {Diabetes insipidus central ou nefrogenico};
-  \node[box, below right=12mm and 20mm of polyuria] (osm) {Diurese osmotica, diureticos ou fase poliurica de IRA};
+\begin{tikzpicture}[clinicalflowchart]
+  \matrix (flow) [
+    matrix of nodes,
+    row sep=8mm,
+    column sep=7mm,
+    nodes in empty cells,
+    nodes={anchor=center}
+  ] {
+    & & |[terminal] (start)| {Na $>145$ mmol/L confirmado} & & \\
+    & & |[infonode] (initial)| {Glicose, osmolaridade s{\'e}rica, fun{\c c}{\~a}o renal, diurese, osmolaridade urin{\'a}ria} & & \\
+    & & |[decision] (uosm)| {Osm urin{\'a}ria $>600$ mOsm/kg?} & & \\
+    & & |[junction] (uosmFork)| {} & & \\
+    |[resultnode] (extra)| {\textbf{Sim}\\rim conserva {\'a}gua} &
+    |[process] (extraNext)| {Pensar em hipotonodeple{\c c}{\~a}o extrarrenal ou baixo acesso a {\'a}gua} &
+    & |[alertnode] (renal)| {\textbf{N{\~a}o}\\urina inadequadamente dilu{\'i}da} &
+    |[process] (renalNext)| {Pesquisar perda renal de {\'a}gua ou soluto} \\
+    & & |[decision] (polyuria)| {Poli{\'u}ria?} & & \\
+    & & |[junction] (polyFork)| {} & & \\
+    |[process] (di)| {Diabetes insipidus central ou nefrog{\^e}nico} &
+    |[process] (osmotic)| {Diurese osm{\'o}tica, diur{\'e}ticos ou fase poli{\'u}rica de IRA} &
+    & |[process] (insensible)| {Perdas insens{\'i}veis ou baixa ingest{\~a}o dominam} & \\
+  };
 
   \draw[arrow] (start.south) -- (initial.north);
   \draw[arrow] (initial.south) -- (uosm.north);
-  \draw[arrow] (uosm.south) -- ++(0,-4mm) -| (extra.north);
-  \draw[arrow] (uosm.south) -- ++(0,-4mm) -| (poly.north);
-  \draw[arrow] (poly.south) -- (polyuria.north);
-  \draw[arrow] (polyuria.south) -- ++(0,-4mm) -| (di.north);
-  \draw[arrow] (polyuria.south) -- ++(0,-4mm) -| (osm.north);
+  \draw[trunk] (uosm.south) -- (uosmFork);
+  \draw[arrow] (uosmFork) -| (extra.north);
+  \draw[arrow] (extra.east) -- (extraNext.west);
+  \draw[arrow] (uosmFork) -| (renal.north);
+  \draw[arrow] (renal.east) -- (renalNext.west);
+  \draw[arrow] (renalNext.south) |- (polyuria.east);
+  \draw[trunk] (polyuria.south) -- (polyFork);
+  \draw[arrow] (polyFork) -| (di.north);
+  \draw[arrow] (polyFork) -- (osmotic.north);
+  \draw[arrow] (polyFork) -| (insensible.north);
 \end{tikzpicture}

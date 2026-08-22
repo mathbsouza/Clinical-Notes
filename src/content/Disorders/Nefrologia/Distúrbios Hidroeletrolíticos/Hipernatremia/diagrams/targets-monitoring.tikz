@@ -1,20 +1,23 @@
-\begin{tikzpicture}[
-  font=\sffamily\small,
-  box/.style={draw=black, fill=white, line width=.6pt, rectangle,
-    align=center, text width=5.2cm, minimum height=14mm, inner sep=3mm},
-  title/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
-    align=center, text width=9cm, minimum height=10mm, inner sep=3mm,
-    font=\sffamily\bfseries\normalsize},
-  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
-    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
-]
-  \node[title] (top) {METAS E MONITORIZACAO};
-  \node[box, below left=12mm and 18mm of top] (acute) {\textbf{Aguda}\\queda mais rapida pode ser necessaria se carga hipertonica e sintomas};
-  \node[box, below right=12mm and 18mm of top] (chronic) {\textbf{Cronica/desconhecida}\\corrigir gradualmente para evitar edema cerebral};
-  \node[box, below=14mm of top, yshift=-28mm] (monitor) {Na seriado, diurese, perdas em curso, glicose, funcao renal e estado neurologico};
+\begin{tikzpicture}[clinicalflowchart]
+  \matrix (flow) [
+    matrix of nodes,
+    row sep=8mm,
+    column sep=8mm,
+    nodes in empty cells,
+    nodes={anchor=center}
+  ] {
+    & |[terminal] (top)| {METAS E MONITORIZA{\c C}{\~A}O} & \\
+    & |[decision] (duration)| {Aguda por carga hipert{\^o}nica?} & \\
+    |[alertnode] (acute)| {Corre{\c c}{\~a}o mais r{\'a}pida pode ser necess{\'a}ria se sintomas neurol{\'o}gicos} &
+    |[resultnode] (chronic)| {Cr{\^o}nica ou desconhecida: queda gradual para evitar edema cerebral} & \\
+    & |[infonode] (labs)| {Na a cada 2--4 h no in{\'i}cio se grave, IV, aguda ou com perdas altas} & \\
+    & |[processwide] (adjust)| {Ajustar prescri{\c c}{\~a}o por Na observado, diurese, perdas cont{\'i}nuas, glicose, fun{\c c}{\~a}o renal e exame neurol{\'o}gico} & \\
+  };
 
-  \draw[arrow] (top.south) -- ++(0,-4mm) -| (acute.north);
-  \draw[arrow] (top.south) -- ++(0,-4mm) -| (chronic.north);
-  \draw[arrow] (acute.south) -- ++(0,-6mm) |- (monitor.west);
-  \draw[arrow] (chronic.south) -- ++(0,-6mm) |- (monitor.east);
+  \draw[arrow] (top.south) -- (duration.north);
+  \draw[arrow] (duration.west) -| node[above] {Sim} (acute.north);
+  \draw[arrow] (duration.south) -- node[right] {N{\~a}o} (chronic.north);
+  \draw[arrow] (acute.east) -- (chronic.west);
+  \draw[arrow] (chronic.south) -- (labs.north);
+  \draw[arrow] (labs.south) -- (adjust.north);
 \end{tikzpicture}

@@ -1365,28 +1365,56 @@ body {
 }
 
 .note-accordion {
+  position: relative;
   margin: 0;
-  border: 0;
-  background: transparent;
-  overflow: visible;
+  border-right: 1px solid rgb(255 255 255 / 0.1);
+  border-left: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(255 255 255 / 0.018);
+  overflow: clip;
+}
+
+.note-accordion:first-of-type {
+  border-top: 1px solid rgb(251 146 60 / 0.28);
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+.note-accordion:first-of-type::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(251 146 60 / 0.68), rgb(251 146 60 / 0.08));
+  content: '';
+  pointer-events: none;
+}
+
+.note-accordion:last-of-type {
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 0.75rem;
 }
 
 .note-accordion-summary {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  border: 1px solid rgb(255 255 255 / 0.12);
+  border: 0;
+  border-top: 1px solid rgb(255 255 255 / 0.075);
   border-radius: 0;
-  padding: 0.8rem 1rem;
+  padding: 0.86rem 1rem;
   color: #e5e5e5;
-  background: rgb(255 255 255 / 0.025);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0.035), rgb(255 255 255 / 0.018));
   font-size: 1.05rem;
   font-weight: 650;
   cursor: pointer;
   list-style: none;
   user-select: none;
-  transition: padding 180ms ease, font-size 180ms ease, color 180ms ease, background 180ms ease, border-color 180ms ease;
+  transition: padding 180ms ease, font-size 180ms ease, color 180ms ease, background 180ms ease, box-shadow 180ms ease;
 }
+
+.note-accordion:first-of-type > .note-accordion-summary { border-top: 0; }
 
 .note-accordion-summary::-webkit-details-marker { display: none; }
 .note-accordion-summary::before {
@@ -1402,9 +1430,9 @@ body {
 
 .note-accordion[open] > .note-accordion-summary {
   padding: 1rem 1.1rem;
-  border-color: rgb(251 146 60 / 0.35);
   color: #fff7ed;
-  background: rgb(251 146 60 / 0.055);
+  background: linear-gradient(180deg, rgb(251 146 60 / 0.095), rgb(251 146 60 / 0.035));
+  box-shadow: inset 3px 0 0 rgb(251 146 60 / 0.72);
   font-size: 1.22rem;
 }
 
@@ -1431,7 +1459,7 @@ body {
 .footnotes-accordion-content > h2 { display: none; }
 .footnotes-accordion-content ol { margin-bottom: 0; padding-left: 1.25rem; }
 .note-layout { position: relative; }
-.note-accordion + .note-accordion > .note-accordion-summary { border-top: 0; }
+.note-accordion + .note-accordion { border-top: 0; }
 
 .note-toc { display: none; }
 

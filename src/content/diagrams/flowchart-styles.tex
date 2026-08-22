@@ -1,0 +1,52 @@
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowred}{RGB}{165,29,45}
+\definecolor{flowredfill}{RGB}{255,243,243}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+
+\tikzset{
+  clinicalflowchart/.style={font=\sffamily\small},
+  terminal/.style={
+    draw=flowblue, fill=flowbluefill, line width=.7pt, rounded corners=1mm,
+    align=center, text width=9.2cm, minimum height=10mm, inner sep=3mm,
+    font=\sffamily\bfseries\normalsize
+  },
+  process/.style={
+    draw=black, fill=white, line width=.6pt, rectangle,
+    align=center, text width=4.4cm, minimum height=11mm, inner sep=3mm
+  },
+  processwide/.style={process, text width=5.8cm},
+  decision/.style={
+    draw=floworange, fill=floworangefill, line width=.7pt, diamond,
+    aspect=2.2, align=center, text width=3.5cm, inner sep=1.5mm
+  },
+  infonode/.style={process, draw=flowblue, fill=flowbluefill},
+  alertnode/.style={process, draw=flowred, fill=flowredfill},
+  resultnode/.style={process, draw=flowgreen, fill=flowgreenfill},
+  note/.style={
+    draw=black, fill=white, line width=.5pt, rounded corners=.6mm,
+    align=center, text width=4.2cm, inner sep=2.5mm,
+    font=\sffamily\footnotesize
+  },
+  branchlabel/.style={
+    draw=floworange, fill=floworangefill, line width=.5pt, rounded corners=.6mm,
+    align=center, text width=2.7cm, minimum height=8mm, inner sep=1.5mm,
+    font=\sffamily\footnotesize
+  },
+  junction/.style={
+    draw=none, fill=none, inner sep=0pt, outer sep=0pt,
+    minimum size=0pt, text width=0pt
+  },
+  arrow/.style={
+    draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
+    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}
+  },
+  trunk/.style={
+    draw=black, line width=.8pt,
+    preaction={draw=white, line width=2.2pt}
+  },
+  surveillance/.style={draw=black, densely dotted, line width=.7pt}
+}

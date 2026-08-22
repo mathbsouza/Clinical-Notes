@@ -1,27 +1,31 @@
-\begin{tikzpicture}[
-  font=\sffamily\small,
-  title/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
-    align=center, text width=9cm, minimum height=10mm, inner sep=3mm,
-    font=\sffamily\bfseries\normalsize},
-  box/.style={draw=black, fill=white, line width=.6pt, rectangle,
-    align=center, text width=4.5cm, minimum height=13mm, inner sep=3mm},
-  decision/.style={draw=black, fill=white, line width=.6pt, diamond,
-    aspect=2.2, align=center, text width=3.2cm, inner sep=1.5mm},
-  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
-    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
-]
-  \node[title] (start) {HIPERNATREMIA};
-  \node[decision, below=10mm of start] (shock) {Choque ou hipoperfusao?};
-  \node[box, below left=13mm and 26mm of shock] (saline) {Cristaloide isotonico ate perfusao adequada};
-  \node[box, below right=13mm and 26mm of shock] (water) {Calcular deficit de agua e perdas em curso};
-  \node[box, below=14mm of saline] (after) {Depois de estabilizar: agua livre enteral ou glicose 5\% IV};
-  \node[box, below=14mm of water, xshift=-28mm] (di) {Poliuria/DI: repor agua e tratar mecanismo; desmopressina se DI central};
-  \node[box, below=14mm of water, xshift=28mm] (overload) {Hipervolemia: glicose 5\% + diuretico; considerar dialise};
+\begin{tikzpicture}[clinicalflowchart]
+  \matrix (flow) [
+    matrix of nodes,
+    row sep=8mm,
+    column sep=7mm,
+    nodes in empty cells,
+    nodes={anchor=center}
+  ] {
+    & & |[terminal] (start)| {HIPERNATREMIA} & & \\
+    & & |[decision] (shock)| {Choque ou hipoperfus{\~a}o?} & & \\
+    |[alertnode] (resus)| {Cristaloide isot{\^o}nico at{\'e} perfus{\~a}o adequada} & & |[infonode] (calc)| {Calcular d{\'e}ficit de {\'a}gua, perdas em curso e meta de corre{\c c}{\~a}o} & & \\
+    |[resultnode] (after)| {Depois de estabilizar: entrar no plano de {\'a}gua livre} & & |[junction] (mechanismFork)| {} & & \\
+    |[resultnode] (aquadep)| {\textbf{Aquadepletiva}\\{\'a}gua enteral ou glicose 5\% IV; tratar DI se presente} &
+    |[resultnode] (hypotono)| {\textbf{Hipotonodepletiva}\\repor volume e {\'a}gua livre conforme perfus{\~a}o} &
+    |[alertnode] (hypertono)| {\textbf{Hipertonoacumulativa}\\interromper s{\'o}dio; glicose 5\%; diur{\'e}tico ou di{\'a}lise se hipervolemia} & & \\
+    & & |[infonode] (monitor)| {Monitorar Na, diurese, glicose, fun{\c c}{\~a}o renal e estado neurol{\'o}gico} & & \\
+  };
 
   \draw[arrow] (start.south) -- (shock.north);
-  \draw[arrow] (shock.south) -- ++(0,-4mm) -| (saline.north);
-  \draw[arrow] (shock.south) -- ++(0,-4mm) -| (water.north);
-  \draw[arrow] (saline.south) -- (after.north);
-  \draw[arrow] (water.south) -- ++(0,-4mm) -| (di.north);
-  \draw[arrow] (water.south) -- ++(0,-4mm) -| (overload.north);
+  \draw[arrow] (shock.west) -| node[above] {Sim} (resus.north);
+  \draw[arrow] (shock.south) -- node[right] {N{\~a}o} (calc.north);
+  \draw[arrow] (resus.south) -- (after.north);
+  \draw[arrow] (after.east) -- (calc.west);
+  \draw[trunk] (calc.south) -- (mechanismFork);
+  \draw[arrow] (mechanismFork) -| (aquadep.north);
+  \draw[arrow] (mechanismFork) -| (hypotono.north);
+  \draw[arrow] (mechanismFork) -- (hypertono.north);
+  \draw[surveillance] (aquadep.south) |- (monitor.west);
+  \draw[surveillance] (hypotono.south) -- (monitor.north);
+  \draw[surveillance] (hypertono.south) |- (monitor.east);
 \end{tikzpicture}

@@ -18,6 +18,7 @@ tags: hipernatremia, sódio, água livre, diabetes insipidus, desidratação, di
 - O aumento da tonicidade extracelular desloca água para fora das células e pode causar retração cerebral, ruptura vascular e sintomas neurológicos.
 - Após exposição sustentada, o encéfalo acumula osmólitos intracelulares para limitar a perda de água. Por isso, a correção rápida de hipernatremia crônica pode causar edema cerebral.
 - A defesa fisiológica depende de sede preservada e rim capaz de concentrar urina. Hipernatremia persistente costuma indicar limitação de acesso à água, alteração do mecanismo de sede, perda renal de água ou perda extrarrenal não reposta.
+- Do ponto de vista mecanístico, a hipernatremia pode ser descrita como **aquadepletiva**, **hipotonodepletiva** ou **hipertonoacumulativa**. Essa nomenclatura separa déficit de água livre, perda de fluido hipotônico e ganho hipertônico de sódio.
 
 ## Etiologia
 
@@ -25,12 +26,11 @@ tags: hipernatremia, sódio, água livre, diabetes insipidus, desidratação, di
 Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/etiology.svg|Principais mecanismos de hipernatremia
 ```
 
-| Mecanismo | Pistas clínicas | Exemplos |
-| --- | --- | --- |
-| Perda extrarrenal de água | Urina concentrada, perdas insensíveis ou gastrointestinais | Febre, sudorese, queimaduras, diarreia, lactulose |
-| Perda renal de água | Poliúria, urina inadequadamente diluída | Diabetes insipidus central ou nefrogênico, diurese osmótica, fase poliúrica de injúria renal |
-| Ganho hipertônico de sódio | Aumento rápido do Na, hipervolemia ou exposição iatrogênica | NaCl hipertônico, bicarbonato hipertônico, intoxicação por sal, fórmulas enterais hipertônicas sem água |
-| Baixa ingestão de água | Dependência funcional ou barreira de acesso | Idoso frágil, delirium, sedação, ventilação mecânica, lactentes |
+| Fenótipo mecanístico | Mecanismo predominante | Pistas clínicas | Exemplos |
+| --- | --- | --- | --- |
+| **Aquadepletiva** | Déficit predominante de água livre, sem perda proporcional de sódio. | Poliúria hipotônica, perdas insensíveis sem reposição ou incapacidade de beber. | Diabetes insipidus central ou nefrogênico, febre, ventilação mecânica, sedação, idoso frágil sem acesso à água. |
+| **Hipotonodepletiva** | Perda de fluido hipotônico, com perda de água maior que a perda de sódio. | Hipovolemia, urina concentrada quando a perda é extrarrenal, história de perdas gastrointestinais ou cutâneas. | Diarreia, sudorese, queimaduras, diurese osmótica, diuréticos, fase poliúrica de injúria renal. |
+| **Hipertonoacumulativa** | Ganho hipertônico de sódio, com expansão de soluto efetivo. | Aumento rápido do Na, hipervolemia ou exposição iatrogênica. | NaCl hipertônico, bicarbonato hipertônico, intoxicação por sal, fórmulas enterais hipertônicas sem água suficiente. |
 
 ## Diagnóstico
 
@@ -74,10 +74,10 @@ Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/UpTo
 ```hypernatremia-treatment
 ```
 
-### Conduta conforme volemia e mecanismo
+### Conduta conforme mecanismo
 
 ```svg-diagram
-Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/treatment.svg|Tratamento da hipernatremia conforme volemia e mecanismo
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/treatment.svg|Tratamento da hipernatremia conforme mecanismo
 ```
 
 ### Metas e monitorização
@@ -88,10 +88,9 @@ Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/targ
 
 | Situação | Conduta central | Observação |
 | --- | --- | --- |
-| Hipovolêmica | Cristaloide isotônico até perfusão adequada; depois água livre | Não priorizar solução hipotônica antes de corrigir choque |
-| Euvolêmica com poliúria | Água livre e investigação de diabetes insipidus | Desmopressina se DI central provável ou confirmado |
-| Hipervolêmica | Água livre + diurético de alça; considerar diálise | Comum em ganho hipertônico de sódio ou insuficiência renal |
-| Diurese osmótica | Tratar hiperglicemia/carga osmótica e repor perdas | A queda do Na pode acelerar quando a diurese melhora |
+| Aquadepletiva | Água enteral ou glicose 5% IV; tratar diabetes insipidus quando presente | Desmopressina se DI central provável ou confirmado |
+| Hipotonodepletiva | Restaurar perfusão com cristaloide isotônico se hipovolêmica; depois repor água livre | Não priorizar solução hipotônica antes de corrigir choque |
+| Hipertonoacumulativa | Interromper sódio hipertônico; usar água livre e remover sódio quando necessário | Diurético de alça ou diálise se hipervolemia, insuficiência renal ou carga maciça |
 
 [^adrogue-madias]: Adrogué HJ, Madias NE. *Hypernatremia*. New England Journal of Medicine. 2000;342:1493-1499. Revisão clássica sobre fisiopatologia, cálculo de água corporal e abordagem terapêutica. https://doi.org/10.1056/NEJM200005183422006
 
