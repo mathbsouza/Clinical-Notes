@@ -5,6 +5,15 @@ import { ListTree, PanelLeftClose, WandSparkles } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
 import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
+import HypernatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/magic-flowchart/HypernatremiaTreatmentWizard';
+import HypokalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipocalemia/magic-flowchart/HypokalemiaTreatmentWizard';
+import HyperkalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipercalemia/magic-flowchart/HyperkalemiaTreatmentWizard';
+import HypocalcemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipocalcemia/magic-flowchart/HypocalcemiaTreatmentWizard';
+import HypercalcemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipercalcemia/magic-flowchart/HypercalcemiaTreatmentWizard';
+import HypomagnesemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipomagnesemia/magic-flowchart/HypomagnesemiaTreatmentWizard';
+import HypermagnesemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipermagnesemia/magic-flowchart/HypermagnesemiaTreatmentWizard';
+import HypophosphatemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipofosfatemia/magic-flowchart/HypophosphatemiaTreatmentWizard';
+import HyperphosphatemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiperfosfatemia/magic-flowchart/HyperphosphatemiaTreatmentWizard';
 import FluidMaintenanceWizard from '../content/Interventions/Fluidoterapia/Fluidoterapia de Manutenção/magic-flowchart/FluidMaintenanceWizard';
 
 type MarkdownNoteProps = { body: string };
@@ -143,6 +152,15 @@ type TocItem = { depth: number; id: string; label: string; magic?: boolean };
 function markdownHeadings(body: string): TocItem[] {
   return body.split(/\r?\n/).flatMap((line) => {
     if (line.includes('hyponatremia-treatment')) return [{ depth: 3, id: 'tratamento-de-hiponatremia', label: 'Tratamento de Hiponatremia', magic: true }];
+    if (line.includes('hypernatremia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipernatremia', label: 'Tratamento de Hipernatremia', magic: true }];
+    if (line.includes('hypokalemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipocalemia', label: 'Tratamento de Hipocalemia', magic: true }];
+    if (line.includes('hyperkalemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipercalemia', label: 'Tratamento de Hipercalemia', magic: true }];
+    if (line.includes('hypocalcemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipocalcemia', label: 'Tratamento de Hipocalcemia', magic: true }];
+    if (line.includes('hypercalcemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipercalcemia', label: 'Tratamento de Hipercalcemia', magic: true }];
+    if (line.includes('hypomagnesemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipomagnesemia', label: 'Tratamento de Hipomagnesemia', magic: true }];
+    if (line.includes('hypermagnesemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipermagnesemia', label: 'Tratamento de Hipermagnesemia', magic: true }];
+    if (line.includes('hypophosphatemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipofosfatemia', label: 'Tratamento de Hipofosfatemia', magic: true }];
+    if (line.includes('hyperphosphatemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hiperfosfatemia', label: 'Tratamento de Hiperfosfatemia', magic: true }];
     if (line.includes('fluid-maintenance-magic')) return [{ depth: 3, id: 'prescricao-de-fluidoterapia-de-manutencao', label: 'Prescrição de Fluidoterapia de Manutenção', magic: true }];
     const match = /^(#{2,5})\s+(.+?)\s*$/.exec(line);
     if (!match) return [];

@@ -1,0 +1,51 @@
+\definecolor{floworange}{RGB}{194,91,0}
+\definecolor{floworangefill}{RGB}{255,248,239}
+\definecolor{flowred}{RGB}{165,29,45}
+\definecolor{flowredfill}{RGB}{255,243,243}
+\definecolor{flowgreen}{RGB}{39,103,73}
+\definecolor{flowgreenfill}{RGB}{241,250,245}
+\definecolor{flowblue}{RGB}{45,86,130}
+\definecolor{flowbluefill}{RGB}{242,247,252}
+\begin{tikzpicture}[scale=.72, transform shape,
+  font=\sffamily\footnotesize,
+  terminal/.style={draw=flowblue, fill=flowbluefill, line width=.9pt, rounded corners=1mm, align=center, text width=8cm, minimum height=12mm, inner sep=3mm, font=\sffamily\bfseries\small},
+  process/.style={draw=black, fill=white, line width=.6pt, rounded corners=.7mm, align=center, text width=4.7cm, minimum height=25mm, inner sep=2.5mm},
+  processwide/.style={process, text width=8cm},
+  decision/.style={draw=floworange, fill=floworangefill, line width=.8pt, diamond, aspect=2.6, align=center, text width=3.9cm, inner sep=1.2mm},
+  decisionbox/.style={process, draw=floworange, fill=floworangefill, line width=.8pt},
+  endpoint/.style={process, draw=flowgreen, fill=flowgreenfill, line width=.8pt},
+  alert/.style={processwide, draw=flowred, fill=flowredfill, line width=.8pt},
+  junction/.style={draw=none, fill=none, inner sep=0pt, outer sep=0pt, minimum size=0pt, text width=0pt},
+  trunk/.style={draw=black, line width=.8pt},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt}
+]
+  \matrix (grid) [matrix of nodes, row sep=7mm, column sep=7mm, nodes in empty cells, nodes={anchor=center}] {
+    & |[terminal] (start)| {INVESTIGA{\c C}{\~A}O ETIOL{\'O}GICA\\[-1mm]\scriptsize Na $<135$ mmol/L confirmado} & \\
+    & |[decisionbox] (serum)| {\textbf{Osmolaridade s{\'e}rica}\\Colher glicose; urina antes de volume, se poss{\'i}vel} & \\
+    & |[junction] (serumfork)| {} & \\
+    |[endpoint] (hypertonic)| {$>295$ mOsm/kg\\\textbf{Hipert{\^o}nica/translocacional}\\Hiperglicemia, manitol, contraste, glicina ou maltose; tratar osm{\'o}lito e calcular Na corrigido} &
+    |[decisionbox] (hypotonic)| {$<275$ mOsm/kg\\\textbf{Hipot{\^o}nica verdadeira}\\Prosseguir com urina da mesma coleta} &
+    |[endpoint] (pseudo)| {$275$--$295$ mOsm/kg\\\textbf{Pseudohiponatremia}\\Triglicer{\'i}deos/prote{\'i}nas; confirmar por ISE direto/gasometria} \\
+    & |[decision] (urineosm)| {Osmolaridade urin{\'a}ria $\leq100$ mOsm/kg?} & \\
+    |[endpoint] (suppressed)| {\textbf{ADH suprimido}\\Polidipsia/{\'a}gua iatrog{\^e}nica; potomania ou dieta pobre em prote{\'i}na/sal; distinguir pela ingest{\~a}o e excre{\c c}{\~a}o de osm{\'o}is} & & \\
+    & |[decision] (urinesodium)| {Com OsmU $>100$, Na urin{\'a}rio $\leq30$ mEq/L?} & |[process] (interference)| {\textbf{NaU $>30$ mEq/L}\\Revisar tiaz{\'i}dicos/diur{\'e}ticos, fun{\c c}{\~a}o renal e ingest{\~a}o de sal; cortisol 8 h $\pm$ ACTH; TSH + T4L} \\
+    & |[decision] (edema)| {Com NaU $\leq30$, h{\'a} edema cl{\'i}nico?} & |[decision] (othercause)| {Outra causa adrenal, tireoidiana, renal ou medicamentosa foi identificada?} & |[alert, text width=4.7cm] (siad)| {\textbf{SIAD: diagn{\'o}stico de exclus{\~a}o}\\Osm s{\'e}rica $<275$; OsmU $>100$; NaU $>30$; sem deple{\c c}{\~a}o/edema; fun{\c c}{\~o}es adrenal, tireoidiana e renal adequadas; sem diur{\'e}tico recente} \\
+    |[endpoint] (depletion)| {\textbf{Sem edema: deple{\c c}{\~a}o verdadeira}\\V{\^o}mitos/diarreia, hemorragia, terceiro espa{\c c}o; Cl urin{\'a}rio pode ajudar nos v{\^o}mitos; considerar adrenal prim{\'a}ria} & |[endpoint] (edematous)| {\textbf{Com edema: baixo volume arterial efetivo}\\Insufici{\^e}ncia card{\'i}aca, cirrose, s{\'i}ndrome nefr{\'o}tica ou DRC avan{\c c}ada} & |[endpoint] (demonstrated)| {\textbf{Tratar a causa demonstrada}\\Corticoide na insufici{\^e}ncia adrenal; suspender tiaz{\'i}dico; antecipar aquarese ap{\'o}s revers{\~a}o} & \\
+    & |[alert] (emergency)| {Sintomas graves: tratar imediatamente; a investiga{\c c}{\~a}o etiolo{\'o}gica n{\~a}o deve atrasar NaCl 3\%.} & \\
+  };
+  \draw[arrow] (start.south) -- (serum.north);
+  \draw[trunk] (serum.south) -- (serumfork.center);
+  \draw[arrow] (serumfork.center) -| node[above]{ $>295$ } (hypertonic.north);
+  \draw[arrow] (serumfork.center) -- node[right]{ $<275$ } (hypotonic.north);
+  \draw[arrow] (serumfork.center) -| node[above]{ $275$--$295$ } (pseudo.north);
+  \draw[arrow] (hypotonic.south) -- (urineosm.north);
+  \draw[arrow] (urineosm.west) -- node[above]{Sim} ++(-6mm,0) -| (suppressed.north);
+  \draw[arrow] (urineosm.south) -- node[left]{N{\~a}o} (urinesodium.north);
+  \draw[arrow] (urinesodium.east) -- node[above]{N{\~a}o} (interference.west);
+  \draw[arrow] (urinesodium.south) -- node[left]{Sim} (edema.north);
+  \draw[arrow] (interference.south) -- (othercause.north);
+  \draw[arrow] (edema.west) -- node[above]{N{\~a}o} ++(-6mm,0) -| (depletion.north);
+  \draw[arrow] (edema.south) -- node[left]{Sim} (edematous.north);
+  \draw[arrow] (othercause.south) -- node[right]{Sim} (demonstrated.north);
+  \draw[arrow] (othercause.east) -- node[above]{N{\~a}o} (siad.west);
+\end{tikzpicture}
