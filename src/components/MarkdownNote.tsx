@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import { ListTree, PanelLeftClose, WandSparkles } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
-import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
+import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
 import HypernatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/magic-flowchart/HypernatremiaTreatmentWizard';
 import HypokalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipocalemia/magic-flowchart/HypokalemiaTreatmentWizard';
 import HyperkalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipercalemia/magic-flowchart/HyperkalemiaTreatmentWizard';
@@ -242,6 +242,33 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         }
         if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hyponatremia-treatment') {
           return <HyponatremiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypernatremia-treatment') {
+          return <HypernatremiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypokalemia-treatment') {
+          return <HypokalemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hyperkalemia-treatment') {
+          return <HyperkalemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypocalcemia-treatment') {
+          return <HypocalcemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypercalcemia-treatment') {
+          return <HypercalcemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypomagnesemia-treatment') {
+          return <HypomagnesemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypermagnesemia-treatment') {
+          return <HypermagnesemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hypophosphatemia-treatment') {
+          return <HypophosphatemiaTreatmentWizard />;
+        }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-hyperphosphatemia-treatment') {
+          return <HyperphosphatemiaTreatmentWizard />;
         }
         if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-fluid-maintenance-magic') {
           return <FluidMaintenanceWizard />;

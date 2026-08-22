@@ -1,4 +1,4 @@
-import ElectrolyteTreatmentWizard from '../../_shared/magic-flowchart/ElectrolyteTreatmentWizard';
+import ElectrolyteTreatmentWizard from '../../../../../../components/ElectrolyteTreatmentWizard';
 
 export default function HyperkalemiaTreatmentWizard() {
   return <ElectrolyteTreatmentWizard kind="hyperkalemia" />;

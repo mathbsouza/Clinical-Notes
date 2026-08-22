@@ -28,7 +28,7 @@ tags: hiponatremia, sódio, SIAD, solução salina hipertônica
 ## Etiologia
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/etiology-by-mechanism.svg|Principais causas de hiponatremia conforme o mecanismo
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/diagrams/etiology-by-mechanism.svg|Principais causas de hiponatremia conforme o mecanismo
 ```
 ## Diagnóstico
 
@@ -40,7 +40,7 @@ Disorders/Nefrologia/Hiponatremia/diagrams/etiology-by-mechanism.svg|Principais 
 ### Interpretação laboratorial
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/laboratory-interpretation.svg|Interpretação dos exames na hiponatremia
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/diagrams/laboratory-interpretation.svg|Interpretação dos exames na hiponatremia
 ```
 ### Hiperglicemia
 
@@ -49,7 +49,7 @@ Disorders/Nefrologia/Hiponatremia/diagrams/laboratory-interpretation.svg|Interpr
 ### Investigação etiológica
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/diagrams/etiology-investigation.svg|Investigação etiológica da hiponatremia
 ```
 ## Tratamento
 
@@ -59,7 +59,7 @@ Disorders/Nefrologia/Hiponatremia/diagrams/etiology-investigation.svg|Investiga�
 ### Fluxograma de tratamento — UpToDate
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada.↵* Sintomas graves: convulsões, torpor, coma e parada respiratória.↵¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico.↵Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares.↵Fonte: UpToDate.
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|Tratamento inicial da hiponatremia no adulto — UpToDate|IV: intravenoso; SIAD: síndrome da antidiurese inapropriada.↵* Sintomas graves: convulsões, torpor, coma e parada respiratória.↵¶ Há autocorreção quando o sódio sérico aumenta espontaneamente, sem intervenção; suspeitá-la diante de causa rapidamente reversível com diurese vigorosa ou crescente e concentração urinária de cátions (NaU + KU) menor que o sódio sérico.↵Δ Vômitos, náusea, fadiga, letargia, confusão, esquecimento, cefaleia, tontura, alteração da marcha e cãibras musculares.↵Fonte: UpToDate.
 ```
 
 ```hyponatremia-treatment
@@ -68,13 +68,13 @@ Disorders/Nefrologia/Hiponatremia/diagrams/UpToDate-Treatment-Hyponatremia.png|T
 ### Metas e monitorização
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/targets-monitoring.svg|Metas e monitorização da correção da hiponatremia
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/diagrams/targets-monitoring.svg|Metas e monitorização da correção da hiponatremia
 ```
 
 ### Tratamento dirigido à causa
 
 ```svg-diagram
-Disorders/Nefrologia/Hiponatremia/diagrams/cause-directed-treatment.svg|Tratamento da hiponatremia conforme o mecanismo e a causa
+Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/diagrams/cause-directed-treatment.svg|Tratamento da hiponatremia conforme o mecanismo e a causa
 ```
 
 [^ese-guideline]: Spasovski G et al. *Clinical practice guideline on diagnosis and treatment of hyponatraemia*. European Journal of Endocrinology. 2014;170:G1–G47. Diretriz conjunta ESE/ESICM/ERA-EDTA com algoritmo diagnóstico por osmolaridade urinária e sódio urinário, classificação e recomendações terapêuticas. https://doi.org/10.1530/EJE-13-1020

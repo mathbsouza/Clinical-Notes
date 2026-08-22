@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  title/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
+    align=center, text width=9cm, minimum height=10mm, inner sep=3mm,
+    font=\sffamily\bfseries\normalsize},
+  box/.style={draw=black, fill=white, line width=.6pt, rectangle,
+    align=center, text width=4.4cm, minimum height=13mm, inner sep=3mm},
+  note/.style={draw=black, fill=white, line width=.5pt, rounded corners=.6mm,
+    align=center, text width=4.4cm, inner sep=2.5mm},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
+    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
+]
+  \node[title] (top) {HIPERNATREMIA: Na $>145$ mmol/L};
+  \node[box, below left=14mm and 40mm of top] (lowwater) {\textbf{Baixa entrada de agua}\\idoso fragil; delirium; sedacao; dependencia; lactente};
+  \node[box, below=14mm of top] (loss) {\textbf{Perda de agua}\\renal ou extrarrenal};
+  \node[box, below right=14mm and 40mm of top] (sodium) {\textbf{Ganho de sodio}\\NaCl hipertonico; bicarbonato; intoxicacao por sal};
+  \node[note, below=11mm of loss, xshift=-33mm] (extra) {Extrarrenal: febre, suor, queimadura, diarreia};
+  \node[note, below=11mm of loss, xshift=33mm] (renal) {Renal: diabetes insipidus, diurese osmotica, diureticos};
+
+  \draw[arrow] (top.south) -- ++(0,-5mm) -| (lowwater.north);
+  \draw[arrow] (top.south) -- (loss.north);
+  \draw[arrow] (top.south) -- ++(0,-5mm) -| (sodium.north);
+  \draw[arrow] (loss.south) -- ++(0,-4mm) -| (extra.north);
+  \draw[arrow] (loss.south) -- ++(0,-4mm) -| (renal.north);
+\end{tikzpicture}

@@ -1,0 +1,20 @@
+\begin{tikzpicture}[
+  font=\sffamily\small,
+  box/.style={draw=black, fill=white, line width=.6pt, rectangle,
+    align=center, text width=5.2cm, minimum height=14mm, inner sep=3mm},
+  title/.style={draw=black, fill=white, line width=.7pt, rounded corners=1mm,
+    align=center, text width=9cm, minimum height=10mm, inner sep=3mm,
+    font=\sffamily\bfseries\normalsize},
+  arrow/.style={draw=black, -{Stealth[scale=1.0]}, line width=.8pt,
+    preaction={draw=white, -{Stealth[scale=1.0]}, line width=2.2pt}}
+]
+  \node[title] (top) {METAS E MONITORIZACAO};
+  \node[box, below left=12mm and 18mm of top] (acute) {\textbf{Aguda}\\queda mais rapida pode ser necessaria se carga hipertonica e sintomas};
+  \node[box, below right=12mm and 18mm of top] (chronic) {\textbf{Cronica/desconhecida}\\corrigir gradualmente para evitar edema cerebral};
+  \node[box, below=14mm of top, yshift=-28mm] (monitor) {Na seriado, diurese, perdas em curso, glicose, funcao renal e estado neurologico};
+
+  \draw[arrow] (top.south) -- ++(0,-4mm) -| (acute.north);
+  \draw[arrow] (top.south) -- ++(0,-4mm) -| (chronic.north);
+  \draw[arrow] (acute.south) -- ++(0,-6mm) |- (monitor.west);
+  \draw[arrow] (chronic.south) -- ++(0,-6mm) |- (monitor.east);
+\end{tikzpicture}
