@@ -8,10 +8,10 @@
   ] {
     & & |[terminal] (title)| {HIPERNATREMIA: Na $>145$ mmol/L} & & \\
     & & |[junction] (fork)| {} & & \\
-    |[infonode] (aquadep)| {\textbf{Aquadepletiva}\\d{\'e}ficit predominante de {\'a}gua livre} &
+    |[infonode] (aquadep)| {\textbf{Aquadepletiva / aquarestritiva}\\d{\'e}ficit ou restri{\c c}{\~a}o de {\'a}gua livre} &
     |[infonode] (hypotono)| {\textbf{Hipotonodepletiva}\\perda de fluido hipot{\^o}nico} &
     |[alertnode] (hypertono)| {\textbf{Hipertonoacumulativa}\\ganho hipert{\^o}nico de s{\'o}dio} &
-    |[process] (access)| {\textbf{Acesso reduzido a {\'a}gua}\\fator permissivo frequente} & \\
+    |[process] (access)| {\textbf{Fator permissivo}\\acesso reduzido a {\'a}gua} & \\
     |[note] (aquadepEx)| {Diabetes insipidus central ou nefrog{\^e}nico; perdas insens{\'i}veis sem reposi{\c c}{\~a}o} &
     |[note] (hypotonoEx)| {Diarreia, sudorese, queimaduras, diurese osm{\'o}tica, diur{\'e}ticos} &
     |[note] (hypertonoEx)| {NaCl hipert{\^o}nico, bicarbonato hipert{\^o}nico, intoxica{\c c}{\~a}o por sal} &

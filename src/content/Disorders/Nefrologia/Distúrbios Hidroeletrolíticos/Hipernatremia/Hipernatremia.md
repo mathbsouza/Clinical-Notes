@@ -18,7 +18,7 @@ tags: hipernatremia, sódio, água livre, diabetes insipidus, desidratação, di
 - O aumento da tonicidade extracelular desloca água para fora das células e pode causar retração cerebral, ruptura vascular e sintomas neurológicos.
 - Após exposição sustentada, o encéfalo acumula osmólitos intracelulares para limitar a perda de água. Por isso, a correção rápida de hipernatremia crônica pode causar edema cerebral.
 - A defesa fisiológica depende de sede preservada e rim capaz de concentrar urina. Hipernatremia persistente costuma indicar limitação de acesso à água, alteração do mecanismo de sede, perda renal de água ou perda extrarrenal não reposta.
-- Do ponto de vista mecanístico, a hipernatremia pode ser descrita como **aquadepletiva**, **hipotonodepletiva** ou **hipertonoacumulativa**. Essa nomenclatura separa déficit de água livre, perda de fluido hipotônico e ganho hipertônico de sódio.
+- Do ponto de vista mecanístico, a hipernatremia pode ser descrita como **aquadepletiva/aquarestritiva**, **hipotonodepletiva** ou **hipertonoacumulativa**. Essa nomenclatura separa déficit ou restrição de água livre, perda de fluido hipotônico e ganho hipertônico de sódio.
 
 ## Etiologia
 
@@ -28,7 +28,7 @@ Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/diagrams/etio
 
 | Fenótipo mecanístico | Mecanismo predominante | Pistas clínicas | Exemplos |
 | --- | --- | --- | --- |
-| **Aquadepletiva** | Déficit predominante de água livre, sem perda proporcional de sódio. | Poliúria hipotônica, perdas insensíveis sem reposição ou incapacidade de beber. | Diabetes insipidus central ou nefrogênico, febre, ventilação mecânica, sedação, idoso frágil sem acesso à água. |
+| **Aquadepletiva / aquarestritiva** | Déficit predominante de água livre por perda de água ou por restrição de entrada, sem perda proporcional de sódio. | Poliúria hipotônica, perdas insensíveis sem reposição ou incapacidade de beber. | Diabetes insipidus central ou nefrogênico, febre, ventilação mecânica, sedação, idoso frágil sem acesso à água. |
 | **Hipotonodepletiva** | Perda de fluido hipotônico, com perda de água maior que a perda de sódio. | Hipovolemia, urina concentrada quando a perda é extrarrenal, história de perdas gastrointestinais ou cutâneas. | Diarreia, sudorese, queimaduras, diurese osmótica, diuréticos, fase poliúrica de injúria renal. |
 | **Hipertonoacumulativa** | Ganho hipertônico de sódio, com expansão de soluto efetivo. | Aumento rápido do Na, hipervolemia ou exposição iatrogênica. | NaCl hipertônico, bicarbonato hipertônico, intoxicação por sal, fórmulas enterais hipertônicas sem água suficiente. |
 
