@@ -6,7 +6,7 @@ const tex2svg = tikzjax.default;
 
 const contentRoot = path.resolve('src/content');
 const fontRoot = path.resolve('node_modules/node-tikzjax/css/bakoma/ttf');
-const sharedStylesPath = path.join(contentRoot, 'diagrams', 'flowchart-styles.tex');
+const sharedStylesPath = path.resolve('scripts/diagrams/flowchart-styles.tex');
 
 async function embedUsedFonts(svg) {
   const families = [...new Set(

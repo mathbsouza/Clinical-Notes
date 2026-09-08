@@ -1,20 +1,21 @@
-import { Children, isValidElement, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+﻿import { Children, isValidElement, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { createPortal } from 'react-dom';
 import { ListTree, PanelLeftClose, WandSparkles } from 'lucide-react';
 import remarkGfm from 'remark-gfm';
 import { headingId } from '../lib/headings';
-import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
-import HypernatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipernatremia/magic-flowchart/HypernatremiaTreatmentWizard';
-import HypokalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipocalemia/magic-flowchart/HypokalemiaTreatmentWizard';
-import HyperkalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipercalemia/magic-flowchart/HyperkalemiaTreatmentWizard';
-import HypocalcemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipocalcemia/magic-flowchart/HypocalcemiaTreatmentWizard';
-import HypercalcemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipercalcemia/magic-flowchart/HypercalcemiaTreatmentWizard';
-import HypomagnesemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipomagnesemia/magic-flowchart/HypomagnesemiaTreatmentWizard';
-import HypermagnesemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipermagnesemia/magic-flowchart/HypermagnesemiaTreatmentWizard';
-import HypophosphatemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hipofosfatemia/magic-flowchart/HypophosphatemiaTreatmentWizard';
-import HyperphosphatemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Hiperfosfatemia/magic-flowchart/HyperphosphatemiaTreatmentWizard';
+import HyponatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Sódio/Hiponatremia/magic-flowchart/HyponatremiaTreatmentWizard';
+import HypernatremiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Sódio/Hipernatremia/magic-flowchart/HypernatremiaTreatmentWizard';
+import HypokalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Potássio/Hipocalemia/magic-flowchart/HypokalemiaTreatmentWizard';
+import HyperkalemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Potássio/Hipercalemia/magic-flowchart/HyperkalemiaTreatmentWizard';
+import HypocalcemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Cálcio/Hipocalcemia/magic-flowchart/HypocalcemiaTreatmentWizard';
+import HypercalcemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Cálcio/Hipercalcemia/magic-flowchart/HypercalcemiaTreatmentWizard';
+import HypomagnesemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Magnésio/Hipomagnesemia/magic-flowchart/HypomagnesemiaTreatmentWizard';
+import HypermagnesemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Magnésio/Hipermagnesemia/magic-flowchart/HypermagnesemiaTreatmentWizard';
+import HypophosphatemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Fósforo/Hipofosfatemia/magic-flowchart/HypophosphatemiaTreatmentWizard';
+import HyperphosphatemiaTreatmentWizard from '../content/Disorders/Nefrologia/Distúrbios Hidroeletrolíticos/Distúrbios do Fósforo/Hiperfosfatemia/magic-flowchart/HyperphosphatemiaTreatmentWizard';
 import FluidMaintenanceWizard from '../content/Interventions/Fluidoterapia/Fluidoterapia de Manutenção/magic-flowchart/FluidMaintenanceWizard';
+import NsteAcsPrescriptionWizard from '../content/Syndromes/Cardiovasculares/Síndrome Coronariana Aguda sem Supra de ST/magic-flowchart/NsteAcsPrescriptionWizard';
 
 type MarkdownNoteProps = { body: string };
 
@@ -162,6 +163,7 @@ function markdownHeadings(body: string): TocItem[] {
     if (line.includes('hypophosphatemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hipofosfatemia', label: 'Tratamento de Hipofosfatemia', magic: true }];
     if (line.includes('hyperphosphatemia-treatment')) return [{ depth: 3, id: 'tratamento-de-hiperfosfatemia', label: 'Tratamento de Hiperfosfatemia', magic: true }];
     if (line.includes('fluid-maintenance-magic')) return [{ depth: 3, id: 'prescricao-de-fluidoterapia-de-manutencao', label: 'Prescrição de Fluidoterapia de Manutenção', magic: true }];
+    if (line.includes('nste-acs-prescription-magic')) return [{ depth: 3, id: 'prescricao-de-sca-sem-supra-de-st', label: 'Prescrição de SCA sem Supra de ST', magic: true }];
     const match = /^(#{2,5})\s+(.+?)\s*$/.exec(line);
     if (!match) return [];
     const label = match[2].replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`~]/g, '').trim();
@@ -273,6 +275,9 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
         if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-fluid-maintenance-magic') {
           return <FluidMaintenanceWizard />;
         }
+        if (isValidElement<{ className?: string }>(child) && child.props.className === 'language-nste-acs-prescription-magic') {
+          return <NsteAcsPrescriptionWizard />;
+        }
         if (isValidElement<{ className?: string; children?: ReactNode }>(child) && child.props.className === 'language-copy-treatment') {
           return <CopyTreatmentBlock>{child.props.children}</CopyTreatmentBlock>;
         }
@@ -291,3 +296,5 @@ export default function MarkdownNote({ body }: MarkdownNoteProps) {
     }} remarkPlugins={[remarkGfm, remarkH2Accordions]}>{body}</ReactMarkdown>
   </article><NoteToc items={tocItems} /></div>;
 }
+
+

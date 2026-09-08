@@ -23,6 +23,11 @@ npm run build
 
 Para um único arquivo: `npm run diagrams -- diagnosis.tikz`.
 
+Os estilos TikZ compartilhados pelo renderizador ficam em
+`scripts/diagrams/flowchart-styles.tex`. Esse arquivo é infraestrutura de
+geração e não deve ser colocado em `src/content`; somente fontes e imagens
+pertencentes a uma entidade ficam dentro da árvore de conteúdo.
+
 Todo SVG clínico próprio deve ter um arquivo `.tikz` homônimo como fonte de
 verdade. SVG escrito manualmente não é aceito como fonte final: migre-o para
 TikZ e gere novamente o SVG pelo script. Imagens externas reproduzidas como
