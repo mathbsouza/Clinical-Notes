@@ -1440,6 +1440,7 @@ body {
 }
 
 .note-accordion > :not(summary) { margin-left: 1rem; margin-right: 1rem; }
+.note-accordion[open] > .note-accordion-summary + :not(summary) { margin-top: 8px; }
 .note-accordion > :last-child { margin-bottom: 1rem; }
 .note-accordion[open] > :not(summary) { animation: accordion-reveal 190ms ease both; }
 
